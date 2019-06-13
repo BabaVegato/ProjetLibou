@@ -25,6 +25,7 @@ public class MenuScreen implements Screen{
 	private Boolean PlayisHovered;
 	private Boolean Clicked;
 	private Sound SndPlayH;
+	private Sound GoToLevel;
 	private Image ImgPlay;
 	private Image ImgPlayH;
 
@@ -38,18 +39,19 @@ public class MenuScreen implements Screen{
 		this.stage = new Stage(new FitViewport(game.V_width, game.V_height, Jeu.cam));
 		Gdx.input.setInputProcessor(stage);
 		
-		SndPlayH = game.assets.get("Assets/Quack.mp3");
+		SndPlayH = game.assets.get("Assets/SndPlayH.mp3");
+		GoToLevel = game.assets.get("Assets/goToLevel.mp3");
 		
-		Texture BouttonJouer = game.assets.get("Assets/BouttonJouer.png");
-		Texture BouttonJouerHover = game.assets.get("Assets/BouttonJouerHover.png");
+		Texture BouttonJouer = game.assets.get("Assets/idle1.png");
+		Texture BouttonJouerHover = game.assets.get("Assets/idle3.png");
 		
 		ImgPlay = new Image(BouttonJouer);
 		ImgPlay.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
-		ImgPlay.scaleBy(1);
+		ImgPlay.scaleBy(5);
 		
 		ImgPlayH = new Image(BouttonJouerHover);
 		ImgPlayH.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
-		ImgPlayH.scaleBy(1);
+		ImgPlayH.scaleBy(5);
 
 		stage.addActor(ImgPlay);
 		stage.addActor(ImgPlayH);
@@ -66,7 +68,6 @@ public class MenuScreen implements Screen{
 		
 	}
 
-
 	public void pause() {
 		
 	}
@@ -81,7 +82,7 @@ public class MenuScreen implements Screen{
 		stage.draw();
 		
 		//Play
-		/*if(isHovered(ImgBJ, ImgBJH, PlayisHovered)) {
+		if(isHovered(ImgPlay, ImgPlayH, PlayisHovered)) {
 			PlayisHovered = true;
 		}
 		else {
@@ -89,26 +90,12 @@ public class MenuScreen implements Screen{
 		}
 		if(PlayisHovered && Gdx.input.isTouched()) {
 			if(!Clicked) {
-				Quack.play();
+				GoToLevel.play();
 				Clicked = true;
-				dispose();
+				//dispose();
 				//game.setScreen(new PlayScreen(game, 0, 0, ParaVie));
 			}
-		}*/
-		//Para
-		/*if(isHovered(ImgBPara, ImgBParaH, ParaisHovered)) {
-			ParaisHovered = true;
 		}
-		else {
-			ParaisHovered = false;
-		}
-		if(ParaisHovered && Gdx.input.isTouched()) {
-			if(!Clicked) {
-				Clicked = true;
-				dispose();
-				//game.setScreen(new ParaScreen(game));
-			}
-		}*/
 	}
 	public void update(float delta) {
 		stage.act(delta);
@@ -126,20 +113,17 @@ public class MenuScreen implements Screen{
 	public void show() {
 		
 	}
-	/*public Boolean isHovered(Image Img1, Image Img2, Boolean estsurvole) {
+	public Boolean isHovered(Image Img1, Image Img2, Boolean estsurvole) {
 		Vector2 mouseScreenPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 		Vector2 mouseLocalPosition = Img1.screenToLocalCoordinates(mouseScreenPosition);
 		
 		if(Img1.hit(mouseLocalPosition.x, mouseLocalPosition.y, false) != null) {
 			Img1.addAction(alpha(0));
 			Img2.addAction(alpha(1));
-			if(!estsurvole && Img1.equals(ImgBJ)) {
-				Explosound.play();
-				System.out.println("Explosound");
-			}
-			if(!estsurvole && Img1.equals(ImgBPara)) {
-				ButtonParaSound.play();
-				System.out.println("BouttonParaSound");
+			
+			if(!estsurvole && Img1.equals(ImgPlay)) {
+				SndPlayH.play();
+				System.out.println("Bouton play survolé");
 			}
 			return true;
 		}
@@ -149,6 +133,6 @@ public class MenuScreen implements Screen{
 
 			return false;
 		}
-	}*/
+	}
 
 }
