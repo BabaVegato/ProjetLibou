@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Jeu extends Game{
 
-	public BitmapFont font1;
 	public final int V_height = 600;
 	public final int V_width = 600;
 	public final String title = "CanardJeu 9.0";
@@ -29,7 +28,6 @@ public class Jeu extends Game{
 		//this.setScreen(new LoadingScreen(this));
 		this.font = new BitmapFont();
 		this.batch = new SpriteBatch();
-		
 	}
 
 	public void render() {

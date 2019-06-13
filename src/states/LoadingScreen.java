@@ -67,45 +67,7 @@ public class LoadingScreen implements Screen{
 		
 	}
 	public void queueasset() {
-		/*Loading = "Chargement des canards ...";
-		jeu.assets.load("Assets/ParaScreenTitre.png", Texture.class);
-		jeu.assets.load("Assets\\BouttonPara.png", Texture.class);
-		jeu.assets.load("Assets\\BouttonParaHover.png", Texture.class);
-		jeu.assets.load("Assets\\sol.png", Texture.class);
-		jeu.assets.load("Assets\\mur.png", Texture.class);
-		jeu.assets.load("Assets\\CanWar_Titre.png", Texture.class);
-		jeu.assets.load("Assets\\approved.png", Texture.class);
-		jeu.assets.load("Assets\\canardD.png", Texture.class);
-		jeu.assets.load("Assets\\canardD2.png", Texture.class);
-		jeu.assets.load("Assets\\canardD3.png", Texture.class);
-		jeu.assets.load("Assets\\canardG.png", Texture.class);
-		jeu.assets.load("Assets\\canardG2.png", Texture.class);
-		jeu.assets.load("Assets\\canardG3.png", Texture.class);
-		jeu.assets.load("Assets\\epeeD.png", Texture.class);
-		jeu.assets.load("Assets\\epeeG.png", Texture.class);
-		jeu.assets.load("Assets\\Ak47D.png", Texture.class);
-		jeu.assets.load("Assets\\Ak47G.png", Texture.class);
-		jeu.assets.load("Assets\\BulletD.png", Texture.class);
-		jeu.assets.load("Assets\\BulletG.png", Texture.class);
-		jeu.assets.load("Assets\\BouttonJouer.png", Texture.class);
-		jeu.assets.load("Assets\\BouttonJouerHover.png", Texture.class);
-		Loading = "Composition des quatres temps de Vivaldi ...";
-		jeu.assets.load("Assets\\Menumusic.wav", Music.class);
-		jeu.assets.load("Assets\\Introsound.wav", Music.class);
-		jeu.assets.load("Assets\\MarioDubstep.mp3", Music.class);
-		jeu.assets.load("Assets\\Jumpsound.wav", Sound.class);
-		jeu.assets.load("Assets\\Explosound.wav", Sound.class);
-		jeu.assets.load("Assets\\ButtonParaSound.wav", Sound.class);
-		Loading = "Mise en place d'une blague pour faire patienter ...";
-		jeu.assets.load("Assets\\Quack.mp3", Sound.class);
-		jeu.assets.load("Assets\\Ak47Shotsound.wav", Sound.class);
-		jeu.assets.load("Assets\\Ak47Shotsound2.wav", Sound.class);
-		jeu.assets.load("Assets\\Ak47Shotsound3.wav", Sound.class);
-		jeu.assets.load("Assets\\Hurtsound.wav", Sound.class);
-		jeu.assets.load("Assets\\ApprovedSFX.mp3", Sound.class);
-		jeu.assets.load("Assets\\FalconYes.mp3", Music.class);
-		jeu.assets.load("Assets\\UI\\uiskin.atlas", TextureAtlas.class);
-		
-		jeu.assets.finishLoading();*/
+
+		jeu.assets.finishLoading();
 	}
 }
