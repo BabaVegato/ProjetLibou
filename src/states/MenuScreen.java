@@ -3,6 +3,8 @@ package states;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
 
+import java.util.concurrent.TimeUnit;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -20,7 +22,6 @@ import core.Jeu;
 public class MenuScreen implements Screen{
 	
 	private Jeu game;
-	public SpriteBatch batch;
 	private Stage stage;
 	private Boolean PlayisHovered;
 	private Boolean Clicked;
@@ -28,6 +29,7 @@ public class MenuScreen implements Screen{
 	private Sound GoToLevel;
 	private Image ImgPlay;
 	private Image ImgPlayH;
+	private Image ImgPlayC;
 
 
 	public MenuScreen(final Jeu game) {
@@ -44,19 +46,26 @@ public class MenuScreen implements Screen{
 		
 		Texture BouttonJouer = game.assets.get("Assets/BTNPlay.png");
 		Texture BouttonJouerHover = game.assets.get("Assets/BTNPlayH.png");
+		Texture BouttonJouerClick = game.assets.get("Assets/BTNPlayC.png");
 		
 		ImgPlay = new Image(BouttonJouer);
 		ImgPlay.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
-		ImgPlay.scaleBy(5);
+		ImgPlay.scaleBy(2);
+		
+		ImgPlayC = new Image(BouttonJouerClick);
+		ImgPlayC.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
+		ImgPlayC.scaleBy(2);
 		
 		ImgPlayH = new Image(BouttonJouerHover);
 		ImgPlayH.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
-		ImgPlayH.scaleBy(5);
+		ImgPlayH.scaleBy(2);
+		
+		
 
 		stage.addActor(ImgPlay);
+		stage.addActor(ImgPlayC);
 		stage.addActor(ImgPlayH);
 		
-		SndPlayH.play();
 	}
 	
 	public void dispose() {
@@ -92,8 +101,13 @@ public class MenuScreen implements Screen{
 			if(!Clicked) {
 				GoToLevel.play();
 				Clicked = true;
-				//dispose();
-				//game.setScreen(new PlayScreen(game, 0, 0, ParaVie));
+				
+				ImgPlay.addAction(alpha(0));
+				ImgPlayH.addAction(alpha(0));
+				ImgPlayC.addAction(alpha(1));
+				
+				dispose();
+				game.setScreen(new PlayScreen(game));
 			}
 		}
 	}
@@ -113,13 +127,16 @@ public class MenuScreen implements Screen{
 	public void show() {
 		ImgPlay.setPosition(stage.getWidth()/2, stage.getHeight()/2);
 		ImgPlayH.setPosition(stage.getWidth()/2, stage.getHeight()/2);
+		ImgPlayC.setPosition(stage.getWidth()/2, stage.getHeight()/2);
+		
 		ImgPlayH.addAction(alpha(0));
+		ImgPlayC.addAction(alpha(0));
 	}
 	public Boolean isHovered(Image Img1, Image Img2, Boolean estsurvole) {
 		Vector2 mouseScreenPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 		Vector2 mouseLocalPosition = Img1.screenToLocalCoordinates(mouseScreenPosition);
 		
-		if(Img1.hit(mouseLocalPosition.x, mouseLocalPosition.y, false) != null) {
+		if(Img1.hit(mouseLocalPosition.x, mouseLocalPosition.y, false) != null && !Clicked) {
 			Img1.addAction(alpha(0));
 			Img2.addAction(alpha(1));
 			

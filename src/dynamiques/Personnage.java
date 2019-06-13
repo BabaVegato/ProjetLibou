@@ -1,6 +1,7 @@
 package dynamiques;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -9,18 +10,48 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import core.Jeu;
 import handlers.Animations;
+import states.PlayScreen;
 
 public abstract class Personnage{
 	
-	private Body body;
-	private Animations animation;
-	private Texture[] text;
-	private Jeu jeu;
-	public FixtureDef fdef;
+	protected Jeu jeu;
+	protected Body body;
+	protected Animations animation;
+	private FixtureDef fdef;
 	private PolygonShape pshape;
-	private BodyDef bdef;
+	protected BodyDef bdef;
+	private int TailleX = 15;
+	private int TailleY = 15;
+	protected Texture text[];
+	protected boolean Droite;
 	
-	public Personnage(Jeu jeu, World Monde, Texture[] text){
+	public Personnage(PlayScreen screen, World monde, int PosX, int PosY){
+		
+		bdef = new BodyDef();
+		bdef.position.set(PosX, PosY);
+		bdef.type = BodyDef.BodyType.DynamicBody;
+		bdef.fixedRotation = true;
+		body = monde.createBody(bdef);
+		
+		//Fixture corps
+		fdef = new FixtureDef();
+		pshape = new PolygonShape();
+		pshape.setAsBox(TailleX, TailleY);
+		fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
+		fdef.shape = pshape;
+		fdef.density = 1f;
+		fdef.filter.categoryBits = screen.BITPLAYER;
+		body.createFixture(fdef).setUserData("Joueur");
+		
+		//Fixture sensor pieds
+		/*fdef = new FixtureDef();
+		pshape = new PolygonShape();
+		pshape.setAsBox(TailleX/3, TailleY/3);
+		fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
+		fdef.shape = pshape;
+		fdef.isSensor = true;
+		fdef.filter.categoryBits = screen.BITPLAYER;
+		body.createFixture(fdef).setUserData("Joueur" + "Pieds");*/
 		
 	}
 }
