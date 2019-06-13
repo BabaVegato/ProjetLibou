@@ -20,45 +20,24 @@ import core.Jeu;
 public class MenuScreen implements Screen{
 	
 	private Jeu game;
-	public Texture KANARIMAGE;
 	public SpriteBatch batch;
 	private Stage stage;
-	private Music Menumusic;
-	private Sound Explosound;
-	private Sound ButtonParaSound;
-	private Sound Quack;
-	private Image ImgCanarwar;
-	private Image ImgBJ;
-	private Image ImgBJH;
-	private Image ImgBPara;
-	private Image ImgBParaH;
 	private Boolean PlayisHovered;
-	private Boolean ParaisHovered;
 	private Boolean Clicked;
-	private int ParaVie;
+	private Sound Quack;
 
 
-	public MenuScreen(final Jeu game, int ParaVie) {
-		this.ParaVie = ParaVie;
+	public MenuScreen(final Jeu game) {
 		Clicked = false;
 		PlayisHovered = false;
-		ParaisHovered = false;
 		this.game = game;
 		
 		this.stage = new Stage(new FitViewport(game.V_width, game.V_height, Jeu.cam));
 		Gdx.input.setInputProcessor(stage);
 		
-		Menumusic = game.assets.get("Assets/Menumusic.wav");
-		
-		Explosound = game.assets.get("Assets/Explosound.wav");
-		ButtonParaSound = game.assets.get("Assets/ButtonParaSound.wav");
 		Quack = game.assets.get("Assets/Quack.mp3");
 		
-		Texture Canarwar = game.assets.get("Assets/CanWar_Titre.png");
-		ImgCanarwar = new Image(Canarwar);
-		ImgCanarwar.scaleBy(5);
-		
-		Texture BouttonJouer = game.assets.get("Assets/BouttonJouer.png");
+		/*Texture BouttonJouer = game.assets.get("Assets/BouttonJouer.png");
 		Texture BouttonJouerHover = game.assets.get("Assets/BouttonJouerHover.png");
 		ImgBJ = new Image(BouttonJouer);
 		ImgBJ.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
@@ -80,13 +59,13 @@ public class MenuScreen implements Screen{
 		stage.addActor(ImgBJ);
 		stage.addActor(ImgBJH);
 		stage.addActor(ImgBPara);
-		stage.addActor(ImgBParaH);
-		
+		stage.addActor(ImgBParaH);*/
+		Quack.play();
 	}
 	
 	public void dispose() {
 		stage.dispose();
-		Menumusic.dispose();
+		//Menumusic.dispose();
 	}
 
 	public void hide() {
@@ -108,7 +87,7 @@ public class MenuScreen implements Screen{
 		stage.draw();
 		
 		//Play
-		if(isHovered(ImgBJ, ImgBJH, PlayisHovered)) {
+		/*if(isHovered(ImgBJ, ImgBJH, PlayisHovered)) {
 			PlayisHovered = true;
 		}
 		else {
@@ -121,9 +100,9 @@ public class MenuScreen implements Screen{
 				dispose();
 				//game.setScreen(new PlayScreen(game, 0, 0, ParaVie));
 			}
-		}
+		}*/
 		//Para
-		if(isHovered(ImgBPara, ImgBParaH, ParaisHovered)) {
+		/*if(isHovered(ImgBPara, ImgBParaH, ParaisHovered)) {
 			ParaisHovered = true;
 		}
 		else {
@@ -135,7 +114,7 @@ public class MenuScreen implements Screen{
 				dispose();
 				//game.setScreen(new ParaScreen(game));
 			}
-		}
+		}*/
 	}
 	public void update(float delta) {
 		stage.act(delta);
@@ -151,28 +130,9 @@ public class MenuScreen implements Screen{
 	}
 
 	public void show() {
-		ImgBJH.setPosition(stage.getWidth()/2 - 230, stage.getHeight()/2 - 200);
-		ImgBJH.addAction(alpha(0));
-		
-		ImgBJ.setPosition(stage.getWidth()/2 - 230, stage.getHeight()/2 - 200);
-		ImgBJ.addAction(alpha(0.5f));
-		ImgBJ.addAction(fadeIn(1f));
-		
-		ImgBParaH.setPosition(stage.getWidth()/2 + 110, stage.getHeight()/2 - 210);
-		ImgBParaH.addAction(alpha(0));
-		
-		ImgBPara.setPosition(stage.getWidth()/2 + 110, stage.getHeight()/2 - 210);
-		ImgBPara.addAction(alpha(0.5f));
-		ImgBPara.addAction(fadeIn(1f));
-		
-		ImgCanarwar.setPosition(stage.getWidth()/2 - 200, stage.getHeight() - 600);
-		ImgCanarwar.addAction(alpha(0.5f));
-		ImgCanarwar.addAction(fadeIn(1f));
-		Menumusic.play();
-		Menumusic.setLooping(true);
 		
 	}
-	public Boolean isHovered(Image Img1, Image Img2, Boolean estsurvole) {
+	/*public Boolean isHovered(Image Img1, Image Img2, Boolean estsurvole) {
 		Vector2 mouseScreenPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 		Vector2 mouseLocalPosition = Img1.screenToLocalCoordinates(mouseScreenPosition);
 		
@@ -195,6 +155,6 @@ public class MenuScreen implements Screen{
 
 			return false;
 		}
-	}
+	}*/
 
 }

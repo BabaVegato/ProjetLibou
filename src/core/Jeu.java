@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import states.LoadingScreen;
+
 public class Jeu extends Game{
 
 	public final int V_height = 600;
 	public final int V_width = 600;
-	public final String title = "CanardJeu 9.0";
+	public final String title = "Libou";
 	public AssetManager assets;
 	public static Camera cam;
 
@@ -25,7 +27,7 @@ public class Jeu extends Game{
 		assets = new AssetManager();
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		//this.setScreen(new LoadingScreen(this));
+		this.setScreen(new LoadingScreen(this));
 		this.font = new BitmapFont();
 		this.batch = new SpriteBatch();
 	}

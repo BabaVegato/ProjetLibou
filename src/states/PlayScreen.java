@@ -107,19 +107,6 @@ public class PlayScreen implements Screen{
 		
 		game.batch.begin();
 		
-		for(int i = 0; i<objets.size(); i++) {
-			objets.get(i).render(game.batch);
-		}
-		for(int i = 0; i<projectiles.size(); i++) {
-			projectiles.get(i).render(game.batch);
-		}
-		for(int i = 0; i<decors.size(); i++) {
-			decors.get(i).render(game.batch);
-		}
-		
-		canardJ1.render(game.batch);
-		canardJ2.render(game.batch);
-		
 		//font.draw(game.batch, score, 100, 100);
 		
 		game.batch.end();
@@ -146,7 +133,7 @@ public class PlayScreen implements Screen{
 	}
 
 	public void show() {
-		Bgm.play();
+		//Bgm.play();
 	}
 	
 	public void handleInput(float dt){

@@ -38,7 +38,7 @@ public class LoadingScreen implements Screen{
 	private void update(float delta) {
 		progress = MathUtils.lerp(progress, jeu.assets.getProgress(), .1f);
         if (jeu.assets.update() && progress >= jeu.assets.getProgress() - .001f) {
-        	jeu.setScreen(new Intro(jeu));
+        	jeu.setScreen(new MenuScreen(jeu));
         	
         }
 	}
@@ -67,7 +67,7 @@ public class LoadingScreen implements Screen{
 		
 	}
 	public void queueasset() {
-
+		jeu.assets.load("Assets\\Quack.mp3", Sound.class);
 		jeu.assets.finishLoading();
 	}
 }
