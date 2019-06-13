@@ -111,7 +111,9 @@ public class MenuScreen implements Screen{
 	}
 
 	public void show() {
-		
+		ImgPlay.setPosition(stage.getWidth()/2, stage.getHeight()/2);
+		ImgPlayH.setPosition(stage.getWidth()/2, stage.getHeight()/2);
+		ImgPlayH.addAction(alpha(0));
 	}
 	public Boolean isHovered(Image Img1, Image Img2, Boolean estsurvole) {
 		Vector2 mouseScreenPosition = new Vector2(Gdx.input.getX(), Gdx.input.getY());
