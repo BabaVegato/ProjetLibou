@@ -42,8 +42,8 @@ public class MenuScreen implements Screen{
 		SndPlayH = game.assets.get("Assets/SndPlayH.mp3");
 		GoToLevel = game.assets.get("Assets/goToLevel.mp3");
 		
-		Texture BouttonJouer = game.assets.get("Assets/idle1.png");
-		Texture BouttonJouerHover = game.assets.get("Assets/idle3.png");
+		Texture BouttonJouer = game.assets.get("Assets/BTNPlay.png");
+		Texture BouttonJouerHover = game.assets.get("Assets/BTNPlayH.png");
 		
 		ImgPlay = new Image(BouttonJouer);
 		ImgPlay.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
