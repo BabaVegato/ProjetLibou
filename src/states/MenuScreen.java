@@ -24,43 +24,37 @@ public class MenuScreen implements Screen{
 	private Stage stage;
 	private Boolean PlayisHovered;
 	private Boolean Clicked;
-	private Sound Quack;
+	private Sound SndPlayH;
+	private Image ImgPlay;
+	private Image ImgPlayH;
 
 
 	public MenuScreen(final Jeu game) {
+		
 		Clicked = false;
 		PlayisHovered = false;
-		this.game = game;
 		
+		this.game = game;
 		this.stage = new Stage(new FitViewport(game.V_width, game.V_height, Jeu.cam));
 		Gdx.input.setInputProcessor(stage);
 		
-		Quack = game.assets.get("Assets/Quack.mp3");
+		SndPlayH = game.assets.get("Assets/Quack.mp3");
 		
-		/*Texture BouttonJouer = game.assets.get("Assets/BouttonJouer.png");
+		Texture BouttonJouer = game.assets.get("Assets/BouttonJouer.png");
 		Texture BouttonJouerHover = game.assets.get("Assets/BouttonJouerHover.png");
-		ImgBJ = new Image(BouttonJouer);
-		ImgBJ.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
-		ImgBJ.scaleBy(1);
-		ImgBJH = new Image(BouttonJouerHover);
-		ImgBJH.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
-		ImgBJH.scaleBy(1);
-
-		Texture BouttonPara = game.assets.get("Assets/BouttonPara.png");
-		Texture BouttonParaHover = game.assets.get("Assets/BouttonParaHover.png");
-		ImgBPara = new Image(BouttonPara);
-		ImgBPara.setOrigin(BouttonPara.getWidth()/2, BouttonPara.getHeight()/2);
-		ImgBPara.scaleBy(1);
-		ImgBParaH = new Image(BouttonParaHover);
-		ImgBParaH.setOrigin(BouttonPara.getWidth()/2, BouttonPara.getHeight()/2);
-		ImgBParaH.scaleBy(1);
 		
-		stage.addActor(ImgCanarwar);
-		stage.addActor(ImgBJ);
-		stage.addActor(ImgBJH);
-		stage.addActor(ImgBPara);
-		stage.addActor(ImgBParaH);*/
-		Quack.play();
+		ImgPlay = new Image(BouttonJouer);
+		ImgPlay.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
+		ImgPlay.scaleBy(1);
+		
+		ImgPlayH = new Image(BouttonJouerHover);
+		ImgPlayH.setOrigin(BouttonJouer.getWidth()/2, BouttonJouer.getHeight()/2);
+		ImgPlayH.scaleBy(1);
+
+		stage.addActor(ImgPlay);
+		stage.addActor(ImgPlayH);
+		
+		SndPlayH.play();
 	}
 	
 	public void dispose() {
