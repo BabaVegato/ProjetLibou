@@ -36,6 +36,7 @@ public class Decors {
 		pshape.setAsBox(TailleX, TailleY);
 		fdef.filter.maskBits = (short) (screen.BITJOUEUR | screen.BITOBJET);
 		fdef.shape = pshape;
+		fdef.friction = 10f;
 		fdef.density = 1f;
 		fdef.filter.categoryBits = screen.BITGROUND;
 		getBody().createFixture(fdef).setUserData("Decors");
@@ -49,6 +50,6 @@ public class Decors {
 		this.body = body;
 	}
 	public void render(SpriteBatch sb) {
-		sb.draw(animation.getFrame(), getBody().getPosition().x-14, getBody().getPosition().y-15, 30, 30);
+		sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
 	}
 }
