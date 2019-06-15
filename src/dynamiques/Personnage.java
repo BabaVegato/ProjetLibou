@@ -15,7 +15,7 @@ import states.PlayScreen;
 public abstract class Personnage{
 	
 	protected Jeu jeu;
-	protected Body body;
+	private Body body;
 	protected Animations animation;
 	private FixtureDef fdef;
 	private PolygonShape pshape;
@@ -23,7 +23,7 @@ public abstract class Personnage{
 	private int TailleX = 15;
 	private int TailleY = 15;
 	protected Texture text[];
-	protected boolean Droite;
+	private boolean Droite;
 	
 	public Personnage(PlayScreen screen, World monde, int PosX, int PosY){
 		
@@ -31,7 +31,7 @@ public abstract class Personnage{
 		bdef.position.set(PosX, PosY);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		bdef.fixedRotation = true;
-		body = monde.createBody(bdef);
+		setBody(monde.createBody(bdef));
 		
 		//Fixture corps
 		fdef = new FixtureDef();
@@ -40,8 +40,8 @@ public abstract class Personnage{
 		fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
 		fdef.shape = pshape;
 		fdef.density = 1f;
-		fdef.filter.categoryBits = screen.BITPLAYER;
-		body.createFixture(fdef).setUserData("Joueur");
+		fdef.filter.categoryBits = screen.BITJOUEUR;
+		getBody().createFixture(fdef).setUserData("Joueur");
 		
 		//Fixture sensor pieds
 		/*fdef = new FixtureDef();
@@ -53,5 +53,21 @@ public abstract class Personnage{
 		fdef.filter.categoryBits = screen.BITPLAYER;
 		body.createFixture(fdef).setUserData("Joueur" + "Pieds");*/
 		
+	}
+
+	public Body getBody() {
+		return body;
+	}
+
+	public void setBody(Body body) {
+		this.body = body;
+	}
+
+	public boolean isDroite() {
+		return Droite;
+	}
+
+	public void setDroite(boolean droite) {
+		Droite = droite;
 	}
 }

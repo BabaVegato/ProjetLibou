@@ -28,7 +28,7 @@ public class PlayScreen implements Screen{
 
 
 	public short BITGROUND = 4;
-	public short BITPLAYER = 2;
+	public short BITJOUEUR = 2;
 	public short BITOBJET = 8;
 	private final Jeu game;
 	private Stage stage;
@@ -38,6 +38,8 @@ public class PlayScreen implements Screen{
 	private Box2DDebugRenderer debugR;
 	private MonContactList contList;
 	private BitmapFont font = new BitmapFont();
+	
+	private Sound SndJump;
 	
 	private Joueur joueur;
 	
@@ -51,7 +53,7 @@ public class PlayScreen implements Screen{
 		this.stage = new Stage(new FitViewport(game.V_width, game.V_height, Jeu.cam));
 		
 		//Sons
-		
+		SndJump = game.assets.get("Assets/SndJump.mp3");
 		
 		//Setup
 		batch = new SpriteBatch();
@@ -59,7 +61,8 @@ public class PlayScreen implements Screen{
 		this.game = game;
 		
 		cam = new OrthographicCamera();
-		cam.setToOrtho(false, 600, 600);
+		cam.setToOrtho(false, game.V_width, game.V_height);
+		game.batch.setProjectionMatrix(cam.combined);
 		
 		contList = new MonContactList();
 		
@@ -135,6 +138,29 @@ public class PlayScreen implements Screen{
 	}
 	
 	public void handleInput(float dt){
+		float x = joueur.getBody().getLinearVelocity().x;
+		float y = joueur.getBody().getLinearVelocity().y;
 		
+		if ( (Gdx.input.isKeyJustPressed(Input.Keys.Z))) {
+            y+=300;
+            joueur.getBody().setLinearVelocity(new Vector2(x, y));
+        	SndJump.play();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.D) && joueur.getBody().getLinearVelocity().x <= 20f) {
+        	x+=10;
+            joueur.getBody().setLinearVelocity(new Vector2(x, y));
+            if(!joueur.isDroite()) {
+        		joueur.setDroite(true);
+        		joueur.setAnimation();
+        	}
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.Q) && joueur.getBody().getLinearVelocity().x >= -20f) {
+        	x-=10;
+            joueur.getBody().setLinearVelocity(new Vector2(x, y));
+            if(joueur.isDroite()) {
+        		joueur.setDroite(false);
+        		joueur.setAnimation();
+        	}
+        }
    }
 }

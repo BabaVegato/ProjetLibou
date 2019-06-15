@@ -10,12 +10,12 @@ import states.PlayScreen;
 
 public class Joueur extends Personnage{
 	
-	public Joueur(Jeu jeu, PlayScreen screen, World Monde, int PosX, int PosY){
-		super(screen, Monde, PosX, PosY);
+	public Joueur(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY){
+		super(screen, monde, PosX, PosY);
 		
 		this.jeu = jeu;
 		
-		Droite = true;
+		setDroite(true);
 		
 		text = new Texture[4];
 		
@@ -23,7 +23,7 @@ public class Joueur extends Personnage{
 	}
 	
 	public void setAnimation() {
-		if(Droite) {
+		if(isDroite()) {
 			text[0] = jeu.assets.get("Assets/idle1.png");
 			text[1] = jeu.assets.get("Assets/idle2.png");
 			text[2] = jeu.assets.get("Assets/idle3.png");
@@ -39,7 +39,7 @@ public class Joueur extends Personnage{
 		}
 	}
 	public void render(SpriteBatch sb) {
-		sb.draw(animation.getFrame(), body.getPosition().x-14, body.getPosition().y-15, 30, 30);
+		sb.draw(animation.getFrame(), getBody().getPosition().x-14, getBody().getPosition().y-15, 30, 30);
 		animation.update(1);
 	}
 }
