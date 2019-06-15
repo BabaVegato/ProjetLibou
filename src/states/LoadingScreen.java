@@ -69,13 +69,16 @@ public class LoadingScreen implements Screen{
 	public void queueasset() {
 		jeu.assets.load("Assets\\goToLevel.mp3", Sound.class);
 		jeu.assets.load("Assets\\SndPlayH.mp3", Sound.class);
+		jeu.assets.load("Assets\\SndJump.mp3", Sound.class);
 		
 		jeu.assets.load("Assets\\BTNPlayH.png", Texture.class);
+		jeu.assets.load("Assets\\BTNPlayC.png", Texture.class);
 		jeu.assets.load("Assets\\BTNPlay.png", Texture.class);
 		
 		jeu.assets.load("Assets\\idle1.png", Texture.class);
 		jeu.assets.load("Assets\\idle2.png", Texture.class);
 		jeu.assets.load("Assets\\idle3.png", Texture.class);
+		jeu.assets.load("Assets\\idle4.png", Texture.class);
 		jeu.assets.finishLoading();
 	}
 }
