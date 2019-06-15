@@ -20,8 +20,8 @@ public abstract class Personnage{
 	private FixtureDef fdef;
 	private PolygonShape pshape;
 	protected BodyDef bdef;
-	private int TailleX = 15;
-	private int TailleY = 15;
+	protected int TailleX = 10;
+	protected int TailleY = 20;
 	protected Texture text[];
 	private boolean Droite;
 	

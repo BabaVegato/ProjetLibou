@@ -19,6 +19,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import handlers.MonContactList;
 import statiques.Decors;
+import statiques.Sol;
 import core.Jeu;
 import dynamiques.Joueur;
 import dynamiques.Projectile;
@@ -32,7 +33,7 @@ public class PlayScreen implements Screen{
 	public short BITOBJET = 8;
 	private final Jeu game;
 	private Stage stage;
-	private SpriteBatch batch;
+	private SpriteBatch sb;
 	private OrthographicCamera cam;
 	private World Monde;
 	private Box2DDebugRenderer debugR;
@@ -46,17 +47,18 @@ public class PlayScreen implements Screen{
 	private ArrayList<Decors> decors = new ArrayList<Decors>();
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 
+	
 	public PlayScreen(final Jeu game) {
 		
 		Monde = new World(new Vector2(0, -20.81f), true);
 		
 		this.stage = new Stage(new FitViewport(game.V_width, game.V_height, Jeu.cam));
-		
+		this.sb = game.batch;
 		//Sons
 		SndJump = game.assets.get("Assets/SndJump.mp3");
 		
 		//Setup
-		batch = new SpriteBatch();
+		sb = new SpriteBatch();
 		debugR = new Box2DDebugRenderer();
 		this.game = game;
 		
@@ -69,8 +71,8 @@ public class PlayScreen implements Screen{
 		Monde.setContactListener(contList);
 		
 		//Decors
-		
 		decors = new ArrayList<Decors>();
+		decors.add(new Sol(game, this, Monde, game.V_width/2, game.V_height/4));
 		
 		//Personnages
 		joueur = new Joueur(game, this, Monde, game.V_width/2, game.V_height/2);
@@ -83,7 +85,7 @@ public class PlayScreen implements Screen{
 
 	public void dispose() {
 		Monde.dispose();
-		batch.dispose();
+		sb.dispose();
 		stage.dispose();
 		debugR.dispose();
 	}
@@ -102,15 +104,20 @@ public class PlayScreen implements Screen{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		cam.update();
-		game.batch.setProjectionMatrix(cam.combined);
+		sb.setProjectionMatrix(cam.combined);
 		
 		
-		game.batch.begin();
+		sb.begin();////////////////////////////
 		
-		font.draw(game.batch, "Vie : 10", 100, 100);
-		joueur.render(game.batch);
+		font.draw(sb, "Vie : 10", 100, 100);
 		
-		game.batch.end();
+		joueur.render(sb);
+		
+		for(int i=0; i<decors.size(); i++){
+			decors.get(i).render(sb);
+		}
+		
+		sb.end();//////////////////////////////
 		
 		
 		debugR.render(Monde, cam.combined);

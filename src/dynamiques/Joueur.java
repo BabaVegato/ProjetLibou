@@ -39,7 +39,7 @@ public class Joueur extends Personnage{
 		}
 	}
 	public void render(SpriteBatch sb) {
-		sb.draw(animation.getFrame(), getBody().getPosition().x-14, getBody().getPosition().y-15, 30, 30);
+		sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
 		animation.update(1);
 	}
 }

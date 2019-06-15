@@ -1,6 +1,7 @@
 package statiques;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -18,7 +19,7 @@ public class Decors {
 	private FixtureDef fdef;
 	private PolygonShape pshape;
 	protected BodyDef bdef;
-	private int TailleX = 15;
+	private int TailleX = 30;
 	private int TailleY = 15;
 	protected Texture text[];
 	
@@ -46,5 +47,8 @@ public class Decors {
 
 	public void setBody(Body body) {
 		this.body = body;
+	}
+	public void render(SpriteBatch sb) {
+		sb.draw(animation.getFrame(), getBody().getPosition().x-14, getBody().getPosition().y-15, 30, 30);
 	}
 }
