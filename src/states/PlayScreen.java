@@ -46,6 +46,11 @@ public class PlayScreen implements Screen{
 	
 	private ArrayList<Decors> decors = new ArrayList<Decors>();
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+	
+	private int KEY_JUMP = Input.Keys.Z;
+	private int KEY_JUMP_2 = Input.Keys.SPACE;
+	private int KEY_RIGHT = Input.Keys.D;
+	private int KEY_LEFT = Input.Keys.Q;
 
 	
 	public PlayScreen(final Jeu game) {
@@ -148,12 +153,12 @@ public class PlayScreen implements Screen{
 		float x = joueur.getBody().getLinearVelocity().x;
 		float y = joueur.getBody().getLinearVelocity().y;
 		
-		if ( (Gdx.input.isKeyJustPressed(Input.Keys.Z))) {
+		if ( (Gdx.input.isKeyJustPressed(KEY_JUMP) || Gdx.input.isKeyJustPressed(KEY_JUMP_2)) /*&& personnage pas en l'air*/) {
             y+=300;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
         	SndJump.play();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && joueur.getBody().getLinearVelocity().x <= 20f) {
+        if (Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getBody().getLinearVelocity().x <= 20f) {
         	x+=10;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
             if(!joueur.isDroite()) {
@@ -161,7 +166,7 @@ public class PlayScreen implements Screen{
         		joueur.setAnimation();
         	}
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.Q) && joueur.getBody().getLinearVelocity().x >= -20f) {
+        if (Gdx.input.isKeyPressed(KEY_LEFT) && joueur.getBody().getLinearVelocity().x >= -20f) {
         	x-=10;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
             if(joueur.isDroite()) {
