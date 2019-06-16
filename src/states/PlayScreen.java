@@ -149,9 +149,8 @@ public class PlayScreen implements Screen{
 	public void handleInput(float dt){
 		float x = joueur.getBody().getLinearVelocity().x;
 		float y = joueur.getBody().getLinearVelocity().y;
-		
-		if ( (Gdx.input.isKeyJustPressed(Input.Keys.Z)) && contList.isJoueurSol()) {
-		if ( (Gdx.input.isKeyJustPressed(KEY_JUMP) || Gdx.input.isKeyJustPressed(KEY_JUMP_2)) /*&& personnage pas en l'air*/) {
+			
+		if ( (Gdx.input.isKeyJustPressed(KEY_JUMP) || Gdx.input.isKeyJustPressed(KEY_JUMP_2)) && contList.isJoueurSol()) {
             y+=300;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
         	SndJump.play();

@@ -18,23 +18,28 @@ public class lvl1part1 extends Partie{
 	private Jeu jeu;
 	private World monde;
 	private PlayScreen screen;
+	private int X, Y;
 
-	public lvl1part1(int X, int Y, Jeu jeu, PlayScreen screen, World monde){
+	public lvl1part1(int i, int j, Jeu jeu, PlayScreen screen, World monde){
 		this.jeu = jeu;
 		this.monde = monde;
 		this.screen = screen;
+		this.X = i*jeu.V_width;
+		this.Y = -j*jeu.V_height;
 		decors = new ArrayList<Decors>();
 		
-		placementDecors();
-		placementEnnemis();
+		placementDecors(X, Y);
+		placementEnnemis(X, Y);
 	}
 
-	public void placementEnnemis() {
+	public void placementEnnemis(int X, int Y) {
 		
 	}
 
-	public void placementDecors() {
-		decors.add(new Sol(jeu, screen, monde, jeu.V_width/2, jeu.V_height/4));
+	public void placementDecors(int X, int Y) {
+		decors.add(new Sol(jeu, screen, monde, jeu.V_width/2 + X, jeu.V_height/4 + Y));
+		decors.add(new Sol(jeu, screen, monde, jeu.V_width/2 + X, 3*jeu.V_height/4 + Y));
+		decors.add(new Sol(jeu, screen, monde, 60+jeu.V_width/2 + X, 10+jeu.V_height/4 + Y));
 	}
 
 	public void render(SpriteBatch sb) {

@@ -8,9 +8,9 @@ public abstract class Partie {
 		
 	}
 	
-	public abstract void placementEnnemis();
+	public abstract void placementEnnemis(int X, int Y);
 	
-	public abstract void placementDecors();
+	public abstract void placementDecors(int X, int Y);
 	
 	public abstract void render(SpriteBatch sb);
 }
