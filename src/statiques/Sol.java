@@ -14,7 +14,6 @@ public class Sol extends Decors{
 		
 		this.jeu = jeu;
 		
-		
 		text = new Texture[1];
 		
 		setAnimation();

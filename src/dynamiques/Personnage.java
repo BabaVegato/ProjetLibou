@@ -2,6 +2,7 @@ package dynamiques;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -41,17 +42,18 @@ public abstract class Personnage{
 		fdef.shape = pshape;
 		fdef.density = 1f;
 		fdef.filter.categoryBits = screen.BITJOUEUR;
-		getBody().createFixture(fdef).setUserData("Joueur");
+		body.createFixture(fdef).setUserData("Joueur");
 		
 		//Fixture sensor pieds
-		/*fdef = new FixtureDef();
+		fdef = new FixtureDef();
 		pshape = new PolygonShape();
-		pshape.setAsBox(TailleX/3, TailleY/3);
+		pshape.setAsBox(9*TailleX/10, TailleY/10, new Vector2(0,-TailleY), 0);
 		fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
+		fdef.friction = 15f;
 		fdef.shape = pshape;
-		fdef.isSensor = true;
-		fdef.filter.categoryBits = screen.BITPLAYER;
-		body.createFixture(fdef).setUserData("Joueur" + "Pieds");*/
+		//fdef.isSensor = true;
+		fdef.filter.categoryBits = screen.BITJOUEUR;
+		body.createFixture(fdef).setUserData("JoueurPied");
 		
 	}
 
@@ -70,4 +72,6 @@ public abstract class Personnage{
 	public void setDroite(boolean droite) {
 		Droite = droite;
 	}
+	public abstract void render(SpriteBatch sb);
+	public abstract void setAnimation();
 }

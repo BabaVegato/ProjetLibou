@@ -36,10 +36,9 @@ public class Decors {
 		pshape.setAsBox(TailleX, TailleY);
 		fdef.filter.maskBits = (short) (screen.BITJOUEUR | screen.BITOBJET);
 		fdef.shape = pshape;
-		fdef.friction = 10f;
 		fdef.density = 1f;
 		fdef.filter.categoryBits = screen.BITGROUND;
-		getBody().createFixture(fdef).setUserData("Decors");
+		body.createFixture(fdef).setUserData("Decors");
 	}
 
 	public Body getBody() {
