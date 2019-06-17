@@ -40,7 +40,7 @@ public class Joueur extends Personnage{
 			for(int i=0; i<4; i++){
 				trIdle[i] = tr[0][i];
 			}
-			animation = new Animations(trIdle, 10);
+			animation = new Animations(trIdle, false, 10);
 		}
 		if(!isDroite() && state=='i'){
 			tr = TextureRegion.split(idle, 10, 14);
@@ -48,14 +48,14 @@ public class Joueur extends Personnage{
 				trIdle[i] = tr[0][i];
 				trIdle[i].flip(true, false);
 			}
-			animation = new Animations(trIdle, 10);
+			animation = new Animations(trIdle, false, 10);
 		}
 		if(isDroite() && state=='w'){
 			tr = TextureRegion.split(walk, 12, 14);
 			for(int i=0; i<6; i++){
 				trWalk[i] = tr[0][i];
 			}
-			animation = new Animations(trWalk, 10);
+			animation = new Animations(trWalk, false, 10);
 		}
 		if(!isDroite() && state=='w'){
 			tr = TextureRegion.split(walk, 12, 14);
@@ -63,7 +63,7 @@ public class Joueur extends Personnage{
 				trWalk[i] = tr[0][i];
 				trWalk[i].flip(true, false);
 			}
-			animation = new Animations(trWalk, 10);
+			animation = new Animations(trWalk, false, 10);
 		}
 	}
 	public void render(SpriteBatch sb) {

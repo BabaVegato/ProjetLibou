@@ -8,13 +8,12 @@ public class Animations
   private float time;
   private float delay;
   private int currentFrame;
+  private boolean unique;
+  private boolean fini = false;
   
-  public Animations(TextureRegion[] frames, float delay) {
-    setFrames(frames, delay);
-  }
-  
-  public Animations(TextureRegion[] frames) {
-    this(frames, 0.0F);
+  public Animations(TextureRegion[] frames, boolean unique, float delay) {
+	  this.unique = unique;
+	  setFrames(frames, delay);
   }
   
   public void setFrames(TextureRegion[] frames, float delay) {
@@ -24,16 +23,32 @@ public class Animations
     currentFrame = 0;
   }
   
-  public void update(float dt) { time += dt;
-    while (time >= delay)
-      step();
+  public void update(float dt) { 
+	  if(unique){
+		  if(!fini){
+			  time += dt;
+			  while (time >= delay)
+				  step();
+		  }	  
+	  }
+	  
+	  if(!unique){
+		  time += dt;
+		  while (time >= delay)
+	      step();
+	  }
   }
   
   public void step() {
     time -= delay;
     currentFrame += 1;
-    if (currentFrame == frames.length)
-      currentFrame = 0;
+    if (currentFrame == frames.length){
+    	currentFrame = 0;
+    	fini = true;
+    }
+    else{
+    	fini = false;
+    }
   }
   
   public TextureRegion getFrame() {

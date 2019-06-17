@@ -156,10 +156,11 @@ public class PlayScreen implements Screen{
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
         	SndJump.play();
         }
-		processAnim(x, y);
+		processMov(x, y);
+		processAtk();
    }
 	
-	public void processAnim(float x, float y){
+	public void processMov(float x, float y){
 		if (Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getBody().getLinearVelocity().x <= 20f) {
         	x+=10;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
@@ -184,11 +185,20 @@ public class PlayScreen implements Screen{
             	joueur.setAnimation();
             }
         }
-        if(!Gdx.input.isKeyPressed(KEY_LEFT) && !Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getState()!='i'){
+        
+        if(!Gdx.input.isKeyPressed(KEY_LEFT) && !Gdx.input.isKeyPressed(KEY_RIGHT) && !Gdx.input.isKeyPressed(KEY_SWORD) && joueur.getState()!='i'){
         	joueur.setState('i');
         	joueur.setAnimation();
         }
         System.out.println(joueur.getState());
+	}
+	public void processAtk(){
+		if (Gdx.input.isKeyPressed(KEY_SWORD)) {
+            if(contList.isJoueurSol() && joueur.getState()=='i'){
+            	joueur.setState('s');
+            	joueur.setAnimation();
+            }
+        }
 	}
 	
 	public void processCameraMovement(){
