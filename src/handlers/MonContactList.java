@@ -18,12 +18,10 @@ public class MonContactList implements ContactListener{
 	    if(fa.getUserData().toString().contains("Decors") && fb.getUserData().equals("JoueurPied")) {
 	    	nbContacts += 1;
 	        setJoueurSol(true);
-	        System.out.println("Au sol");
 	    }
 	    if(fb.getUserData().toString().contains("Decors") && fa.getUserData().equals("JoueurPied")) {
 	    	nbContacts += 1;
 	    	setJoueurSol(true);
-	    	System.out.println("Au sol");
 	    }
 	}
 
@@ -38,7 +36,6 @@ public class MonContactList implements ContactListener{
 	    	nbContacts -= 1;
 	    }
 	    if(nbContacts == 0){
-	    	System.out.println("Hors sol");
 	    	setJoueurSol(false);
 	    }
 	}

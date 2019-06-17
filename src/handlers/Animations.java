@@ -24,7 +24,7 @@ public class Animations
   }
   
   public void update(float dt) { 
-	  if(!fini || !unique){
+	  if(!isFini()){
 		  time += dt;
 		  while (time >= delay)
 	      step();
@@ -32,19 +32,36 @@ public class Animations
   }
   
   public void step() {
-    time -= delay;
-    currentFrame += 1;
-    if (currentFrame == frames.length){
-    	currentFrame = 0;
-    	fini = true;
-    }
-    else{
-    	fini = false;
-    }
-    	
+	  if(unique){
+		  time -= delay;
+		  currentFrame += 1;
+		  if (currentFrame == frames.length){
+			  currentFrame = 0;
+			  setFini(true);
+		  }
+		  else{
+			  setFini(false);
+		  }
+	  }
+	  else{
+		  time -= delay;
+		  currentFrame += 1;
+		  if (currentFrame == frames.length){
+			  currentFrame = 0;
+		  }
+	  }
+	  
   }
   
   public TextureRegion getFrame() {
     return frames[currentFrame];
   }
+
+public boolean isFini() {
+	return fini;
+}
+
+public void setFini(boolean fini) {
+	this.fini = fini;
+}
 }
