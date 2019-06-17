@@ -2,6 +2,7 @@ package statiques;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -20,7 +21,7 @@ public abstract class Decors {
 	protected PolygonShape pshape;
 	protected BodyDef bdef;
 	protected int TailleX, TailleY;
-	protected Texture text[];
+	protected TextureRegion[] text;
 	protected World monde;
 	protected PlayScreen screen;
 	protected int PosX, PosY;
