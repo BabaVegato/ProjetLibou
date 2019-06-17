@@ -80,7 +80,7 @@ public class LoadingScreen implements Screen{
 		jeu.assets.load("Assets\\idle3.png", Texture.class);
 		jeu.assets.load("Assets\\idle4.png", Texture.class);
 		
-		jeu.assets.load("Assets\\sol.png", Texture.class);
+		jeu.assets.load("Assets\\Carre.png", Texture.class);
 		
 		jeu.assets.finishLoading();
 	}

@@ -12,33 +12,25 @@ import core.Jeu;
 import handlers.Animations;
 import states.PlayScreen;
 
-public class Decors {
+public abstract class Decors {
 	protected Jeu jeu;
-	private Body body;
+	protected Body body;
 	protected Animations animation;
-	private FixtureDef fdef;
-	private PolygonShape pshape;
+	protected FixtureDef fdef;
+	protected PolygonShape pshape;
 	protected BodyDef bdef;
-	private int TailleX = 30;
-	private int TailleY = 15;
+	protected int TailleX, TailleY;
 	protected Texture text[];
+	protected World monde;
+	protected PlayScreen screen;
+	protected int PosX, PosY;
 	
 	public Decors(PlayScreen screen, World monde, int PosX, int PosY){
-		bdef = new BodyDef();
-		bdef.position.set(PosX, PosY);
-		bdef.type = BodyDef.BodyType.StaticBody;
-		bdef.fixedRotation = true;
-		setBody(monde.createBody(bdef));
+		this.monde = monde;
+		this.screen = screen;
+		this.PosX = PosX;
+		this.PosY = PosY;
 		
-		//Fixture corps
-		fdef = new FixtureDef();
-		pshape = new PolygonShape();
-		pshape.setAsBox(TailleX, TailleY);
-		fdef.filter.maskBits = (short) (screen.BITJOUEUR | screen.BITOBJET);
-		fdef.shape = pshape;
-		fdef.density = 1f;
-		fdef.filter.categoryBits = screen.BITGROUND;
-		body.createFixture(fdef).setUserData("Decors");
 	}
 
 	public Body getBody() {
@@ -51,4 +43,5 @@ public class Decors {
 	public void render(SpriteBatch sb) {
 		sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
 	}
+	public abstract void init();
 }

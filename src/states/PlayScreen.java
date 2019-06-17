@@ -43,6 +43,9 @@ public class PlayScreen implements Screen{
 	private BitmapFont font = new BitmapFont();
 	
 	private Niveau1 niveau1;
+	private int TailleBloc = 20;
+	private int BlocsParPartieX = 15;
+	private int BlocsParPartieY = 20;
 	
 	private Sound SndJump;
 	private Joueur joueur;
@@ -60,7 +63,7 @@ public class PlayScreen implements Screen{
 		SndJump = game.assets.get("Assets/SndJump.mp3");
 		
 		//Setup
-		Monde = new World(new Vector2(0, -20.81f), true);
+		Monde = new World(new Vector2(0, -10.81f), true);
 		this.stage = new Stage(new FitViewport(game.V_width, game.V_height, Jeu.cam));
 		this.sb = game.batch;
 		sb = new SpriteBatch();
@@ -105,20 +108,18 @@ public class PlayScreen implements Screen{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		cam.update();
 		sb.setProjectionMatrix(cam.combined);
 		
 		
 		sb.begin();////////////////////////////
 		
 		font.draw(sb, "Vie : 10", 100, 100);
-		
+		cam.update();
 		joueur.render(sb);
 		
 		niveau1.render(sb);
 		
 		sb.end();//////////////////////////////
-		
 		
 		debugR.render(Monde, cam.combined);
 		
@@ -177,5 +178,29 @@ public class PlayScreen implements Screen{
 		posCameraDesired.x=joueur.getBody().getPosition().x;
 		posCameraDesired.y=joueur.getBody().getPosition().y;
 		cam.position.lerp(posCameraDesired,0.1f);
+	}
+
+	public int getTailleBloc() {
+		return TailleBloc;
+	}
+
+	public void setTailleBloc(int tailleBloc) {
+		TailleBloc = tailleBloc;
+	}
+
+	public int getBlocsParPartieX() {
+		return BlocsParPartieX;
+	}
+
+	public void setBlocsParPartieX(int blocsParPartieX) {
+		BlocsParPartieX = blocsParPartieX;
+	}
+
+	public int getBlocsParPartieY() {
+		return BlocsParPartieY;
+	}
+
+	public void setBlocsParPartieY(int blocsParPartieY) {
+		BlocsParPartieY = blocsParPartieY;
 	}
 }

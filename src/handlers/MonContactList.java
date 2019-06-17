@@ -9,28 +9,37 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 public class MonContactList implements ContactListener{
 
 	private boolean JoueurSol = false;
+	private int nbContacts = 0;
 
 	public void beginContact(Contact c) {
 		Fixture fa = c.getFixtureA();
 	    Fixture fb = c.getFixtureB();
-
+	    
 	    if(fa.getUserData().toString().contains("Decors") && fb.getUserData().equals("JoueurPied")) {
+	    	nbContacts += 1;
 	        setJoueurSol(true);
+	        System.out.println("Au sol");
 	    }
 	    if(fb.getUserData().toString().contains("Decors") && fa.getUserData().equals("JoueurPied")) {
-	       setJoueurSol(true);
+	    	nbContacts += 1;
+	    	setJoueurSol(true);
+	    	System.out.println("Au sol");
 	    }
 	}
 
 	public void endContact(Contact c) {
 		Fixture fa = c.getFixtureA();
 	    Fixture fb = c.getFixtureB();
-	    
 		if(fa.getUserData().toString().contains("Decors") && fb.getUserData().equals("JoueurPied")) {
-	        setJoueurSol(false);
+			nbContacts -= 1;
+	        System.out.println("Hors sol");
 
 	    }
 	    if(fb.getUserData().toString().contains("Decors") && fa.getUserData().equals("JoueurPied")) {
+	    	nbContacts -= 1;
+	    	System.out.println("Hors sol");
+	    }
+	    if(nbContacts == 0){
 	    	setJoueurSol(false);
 	    }
 	}
