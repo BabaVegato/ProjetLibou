@@ -167,6 +167,9 @@ public class PlayScreen implements Screen{
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
             if(!joueur.isDroite()) {
         		joueur.setDroite(true);
+        		if(joueur.getState()=='s'){
+        			joueur.setState('w');
+        		}
         		joueur.setAnimation();
         	}
             if(contList.isJoueurSol() && joueur.getState()=='i'){
@@ -179,6 +182,9 @@ public class PlayScreen implements Screen{
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
             if(joueur.isDroite()) {
         		joueur.setDroite(false);
+        		if(joueur.getState()=='s'){
+        			joueur.setState('w');
+        		}
         		joueur.setAnimation();
         	}
             if(contList.isJoueurSol() && joueur.getState()=='i'){
@@ -186,7 +192,7 @@ public class PlayScreen implements Screen{
             	joueur.setAnimation();
             }
         }
-        if(!Gdx.input.isKeyPressed(KEY_LEFT) && !Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getState()!='i'){
+        if(!Gdx.input.isKeyPressed(KEY_LEFT) && !Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getState()=='w'){
         	joueur.setState('i');
         	joueur.setAnimation();
         }
@@ -194,7 +200,8 @@ public class PlayScreen implements Screen{
 	
 	public void processAtk(){
 		if(Gdx.input.isKeyJustPressed(KEY_SWORD)){
-			
+			joueur.setState('s');
+			joueur.setAnimation();
 		}
 	}
 	

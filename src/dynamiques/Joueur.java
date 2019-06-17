@@ -55,11 +55,11 @@ public class Joueur extends Personnage{
 				animation = new Animations(trWalk,false, 10);
 			}
 			if(state=='s'){
-				tr = TextureRegion.split(sword, 12, 14);
-				for(int i=0; i<6; i++){
-					trWalk[i] = tr[0][i];
+				tr = TextureRegion.split(sword, 19, 17);
+				for(int i=0; i<8; i++){
+					trSword[i] = tr[0][i];
 				}
-				animation = new Animations(trWalk,false, 10);
+				animation = new Animations(trSword, true, 10);
 			}
 		}
 		if(!isDroite()){
@@ -71,19 +71,23 @@ public class Joueur extends Personnage{
 				}
 				animation = new Animations(trIdle,false, 10);
 			}
-			if(state=='w'){
-				tr = TextureRegion.split(walk, 12, 14);
-				for(int i=0; i<6; i++){
-					trWalk[i] = tr[0][i];
-					trWalk[i].flip(true, false);
+			if(state=='s'){
+				tr = TextureRegion.split(sword, 19, 17);
+				for(int i=0; i<8; i++){
+					trSword[i] = tr[0][i];
+					trSword[i].flip(true, false);
 				}
-				animation = new Animations(trWalk,false, 10);
+				animation = new Animations(trSword, true, 10);
 			}
 		}
 	}
 	public void render(SpriteBatch sb) {
 		sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
 		animation.update(1);
+		if(animation.isFini()){
+			state = 'i';
+			setAnimation();
+		}
 	}
 
 
