@@ -30,7 +30,7 @@ public class Sol extends Decors{
 	
 	public void setAnimation() {
 			text[0].setTexture(jeu.assets.get("Assets/Carre.png"));
-			animation = new Animations(text, 10);
+			animation = new Animations(text, true, 10);
 	}
 
 	public void init() {

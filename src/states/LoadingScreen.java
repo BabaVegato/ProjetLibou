@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import core.Jeu;
 
@@ -78,6 +76,8 @@ public class LoadingScreen implements Screen{
 		
 		jeu.assets.load("Assets\\idleTab.png", Texture.class);
 		jeu.assets.load("Assets\\walkTab.png", Texture.class);
+		jeu.assets.load("Assets\\swordTab.png", Texture.class);
+		//jeu.assets.load("Assets\\gunTab.png", Texture.class);
 		
 		jeu.assets.load("Assets\\Carre.png", Texture.class);
 		
