@@ -71,6 +71,14 @@ public class Joueur extends Personnage{
 				}
 				animation = new Animations(trIdle,false, 10);
 			}
+			if(state=='w'){
+				tr = TextureRegion.split(walk, 12, 14);
+				for(int i=0; i<6; i++){
+					trWalk[i] = tr[0][i];
+					trWalk[i].flip(true, false);
+				}
+				animation = new Animations(trWalk,false, 10);
+			}
 			if(state=='s'){
 				tr = TextureRegion.split(sword, 19, 17);
 				for(int i=0; i<8; i++){
@@ -86,14 +94,14 @@ public class Joueur extends Personnage{
 			sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
 		}
 		if(state == 'w'){
-			sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2 + 2, TailleY*2 + 2);
+			sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2 + 2, TailleY*2);
 		}
 		if(state == 's'){
 			if(isDroite()){
-				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY - 2, TailleX*4 - 2, TailleY*2 + 2);
+				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY - 2, TailleX*4 - 2, TailleY*2 + 4);
 			}
 			if(!isDroite()){
-				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX - 16, getBody().getPosition().y-TailleY - 2, TailleX*4 - 2, TailleY*2 + 2);
+				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX - 16, getBody().getPosition().y-TailleY - 2, TailleX*4 - 2, TailleY*2 + 4);
 			}
 		}
 		animation.update(1);
