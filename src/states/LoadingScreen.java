@@ -76,6 +76,8 @@ public class LoadingScreen implements Screen{
 		
 		jeu.assets.load("Assets\\idleTab.png", Texture.class);
 		jeu.assets.load("Assets\\walkTab.png", Texture.class);
+		jeu.assets.load("Assets\\swordTab.png", Texture.class);
+		//jeu.assets.load("Assets\\gunTab.png", Texture.class);
 		
 		jeu.assets.load("Assets\\Carre.png", Texture.class);
 		
