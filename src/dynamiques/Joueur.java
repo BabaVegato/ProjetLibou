@@ -82,7 +82,12 @@ public class Joueur extends Personnage{
 		}
 	}
 	public void render(SpriteBatch sb) {
-		sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
+		if(state == 'i' || state == 'w'){
+			sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
+		}
+		else{
+			sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY - 2, TailleX*4 - 2, TailleY*2 + 2);
+		}
 		animation.update(1);
 		if(animation.isFini()){
 			state = 'i';
