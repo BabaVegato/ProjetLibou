@@ -1,23 +1,23 @@
 package handlers;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Animations
 {
-  private TextureRegion[] frames;
+  private Texture[] frames;
   private float time;
   private float delay;
   private int currentFrame;
   
-  public Animations(TextureRegion[] frames, float delay) {
+  public Animations(Texture[] frames, float delay) {
     setFrames(frames, delay);
   }
   
-  public Animations(TextureRegion[] frames) {
+  public Animations(Texture[] frames) {
     this(frames, 0.0F);
   }
   
-  public void setFrames(TextureRegion[] frames, float delay) {
+  public void setFrames(Texture[] frames, float delay) {
     this.frames = frames;
     this.delay = delay;
     time = 0.0F;
@@ -36,7 +36,7 @@ public class Animations
       currentFrame = 0;
   }
   
-  public TextureRegion getFrame() {
+  public Texture getFrame() {
     return frames[currentFrame];
   }
 }

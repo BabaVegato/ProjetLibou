@@ -32,13 +32,14 @@ public class MonContactList implements ContactListener{
 	    Fixture fb = c.getFixtureB();
 		if(fa.getUserData().toString().contains("Decors") && fb.getUserData().equals("JoueurPied")) {
 			nbContacts -= 1;
+	        System.out.println("Hors sol");
 
 	    }
 	    if(fb.getUserData().toString().contains("Decors") && fa.getUserData().equals("JoueurPied")) {
 	    	nbContacts -= 1;
+	    	System.out.println("Hors sol");
 	    }
 	    if(nbContacts == 0){
-	    	System.out.println("Hors sol");
 	    	setJoueurSol(false);
 	    }
 	}
