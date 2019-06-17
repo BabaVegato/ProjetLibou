@@ -75,6 +75,9 @@ public class lvl1part1 extends Partie{
 				}
 			}
 		}
+		//decors.add(new Sol(jeu, screen, monde, jeu.V_width/2 + X, jeu.V_height/4 + Y));
+		//decors.add(new Sol(jeu, screen, monde, jeu.V_width/2 + X, 3*jeu.V_height/4 + Y));
+		//decors.add(new Sol(jeu, screen, monde, 60+jeu.V_width/2 + X, 10+jeu.V_height/4 + Y));
 	}
 
 	public void render(SpriteBatch sb) {

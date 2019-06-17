@@ -1,7 +1,6 @@
 package statiques;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -21,15 +20,14 @@ public class Sol extends Decors{
 		
 		this.jeu = jeu;
 		
-		text = new TextureRegion[1];
-		text[0] = new TextureRegion();
+		text = new Texture[1];
 		
 		init();
 		setAnimation();
 	}
 	
 	public void setAnimation() {
-			text[0].setTexture(jeu.assets.get("Assets/Carre.png"));
+			text[0] = jeu.assets.get("Assets/Carre.png");
 			animation = new Animations(text, 10);
 	}
 

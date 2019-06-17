@@ -23,8 +23,8 @@ public class MenuScreen implements Screen{
 	
 	private Jeu game;
 	private Stage stage;
-	private Boolean PlayisHovered;
-	private Boolean Clicked;
+	private boolean PlayisHovered;
+	private boolean Clicked;
 	private Sound SndPlayH;
 	private Sound GoToLevel;
 	private Image ImgPlay;

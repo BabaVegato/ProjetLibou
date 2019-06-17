@@ -1,27 +1,27 @@
 package states;
 
 import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import carte.Niveau1;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import handlers.MonContactList;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import carte.Niveau1;
 import core.Jeu;
 import dynamiques.Joueur;
 import dynamiques.Projectile;
+import handlers.MonContactList;
 
 
 public class PlayScreen implements Screen{
@@ -55,7 +55,6 @@ public class PlayScreen implements Screen{
 	private int KEY_JUMP_2 = Input.Keys.SPACE;
 	private int KEY_RIGHT = Input.Keys.D;
 	private int KEY_LEFT = Input.Keys.Q;
-	private int KEY_SWORD = Input.Keys.F;
 
 	
 	public PlayScreen(final Jeu game) {
@@ -64,7 +63,7 @@ public class PlayScreen implements Screen{
 		SndJump = game.assets.get("Assets/SndJump.mp3");
 		
 		//Setup
-		Monde = new World(new Vector2(0, -25.81f), true);
+		Monde = new World(new Vector2(0, -10.81f), true);
 		this.stage = new Stage(new FitViewport(game.V_width, game.V_height, Jeu.cam));
 		this.sb = game.batch;
 		sb = new SpriteBatch();
@@ -139,6 +138,7 @@ public class PlayScreen implements Screen{
 	public void resize(int width, int height) {
 	}
 
+
 	public void resume() {
 		
 	}
@@ -162,16 +162,13 @@ public class PlayScreen implements Screen{
 	
 	public void processMov(float x, float y){
 		if (Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getBody().getLinearVelocity().x <= 20f) {
+        if (Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getBody().getLinearVelocity().x <= 20f) {
         	x+=10;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
             if(!joueur.isDroite()) {
         		joueur.setDroite(true);
         		joueur.setAnimation();
         	}
-            if(contList.isJoueurSol() && joueur.getState()=='i'){
-            	joueur.setState('w');
-            	joueur.setAnimation();
-            }
         }
         if (Gdx.input.isKeyPressed(KEY_LEFT) && joueur.getBody().getLinearVelocity().x >= -20f) {
         	x-=10;
@@ -200,6 +197,8 @@ public class PlayScreen implements Screen{
             }
         }
 	}
+        }
+   }
 	
 	public void processCameraMovement(){
 		posCameraDesired.x=joueur.getBody().getPosition().x;
@@ -210,18 +209,23 @@ public class PlayScreen implements Screen{
 	public int getTailleBloc() {
 		return TailleBloc;
 	}
+
 	public void setTailleBloc(int tailleBloc) {
 		TailleBloc = tailleBloc;
 	}
+
 	public int getBlocsParPartieX() {
 		return BlocsParPartieX;
 	}
+
 	public void setBlocsParPartieX(int blocsParPartieX) {
 		BlocsParPartieX = blocsParPartieX;
 	}
+
 	public int getBlocsParPartieY() {
 		return BlocsParPartieY;
 	}
+
 	public void setBlocsParPartieY(int blocsParPartieY) {
 		BlocsParPartieY = blocsParPartieY;
 	}
