@@ -173,7 +173,12 @@ public class PlayScreen implements Screen{
         		joueur.setDroite(true);
         		if(joueur.getState()=='s'){
         			joueur.setState('w');
-        			joueur.getBody().getFixtureList().removeIndex(joueur.getBody().getFixtureList().size-1);
+        			/////suppr epee
+        			for(int i=0; i<joueur.getBody().getFixtureList().size; i++){
+        				if(joueur.getBody().getFixtureList().get(i).getUserData().toString().contains("Epee")){
+        					joueur.getBody().getFixtureList().removeIndex(i);
+        				}
+        			}
         		}
         		if(joueur.getState()=='g'){
         			joueur.setState('w');
@@ -192,6 +197,12 @@ public class PlayScreen implements Screen{
         		joueur.setDroite(false);
         		if(joueur.getState()=='s'){
         			joueur.setState('w');
+        			/////suppr epee
+        			for(int i=0; i<joueur.getBody().getFixtureList().size; i++){
+        				if(joueur.getBody().getFixtureList().get(i).getUserData().toString().contains("Epee")){
+        					joueur.getBody().getFixtureList().removeIndex(i);
+        				}
+        			}
         		}
         		if(joueur.getState()=='g'){
         			joueur.setState('w');
@@ -211,12 +222,23 @@ public class PlayScreen implements Screen{
 	
 	public void processAtk(){
 		if(Gdx.input.isKeyJustPressed(KEY_SWORD)){
-			joueur.setState('s');
-			joueur.setAnimation();
+			if(joueur.getState() != 's'){
+				joueur.setState('s');
+				joueur.setAnimation();
+			}
 		}
 		if(Gdx.input.isKeyJustPressed(KEY_GUN)){
-			joueur.setState('g');
-			joueur.setAnimation();
+			if(joueur.getState() != 'g'){
+				joueur.setState('g');
+				joueur.setAnimation();
+			}
+			/////suppr epee
+			for(int i=0; i<joueur.getBody().getFixtureList().size; i++){
+				if(joueur.getBody().getFixtureList().get(i).getUserData().toString().contains("Epee")){
+					joueur.getBody().getFixtureList().removeIndex(i);
+				}
+			}
+			
 		}
 	}
 	

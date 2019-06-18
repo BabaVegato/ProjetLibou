@@ -139,7 +139,12 @@ public class Joueur extends Personnage{
 		if(animation.isFini()){
 			state = 'i';
 			setAnimation();
-			body.getFixtureList().removeIndex(body.getFixtureList().size-1); //suppr fixture épee
+			/////suppr epee
+			for(int i=0; i<body.getFixtureList().size; i++){
+				if(body.getFixtureList().get(i).getUserData().toString().contains("Epee")){
+					body.getFixtureList().removeIndex(i);
+				}
+			}
 		}
 	}
 
