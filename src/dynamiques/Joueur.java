@@ -3,6 +3,9 @@ package dynamiques;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import core.Jeu;
 import handlers.Animations;
@@ -21,11 +24,13 @@ public class Joueur extends Personnage{
 	private Texture walk;
 	private Texture sword;
 	private Texture gun;
+	private PlayScreen screen;
 	
 	public Joueur(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY){
 		super(screen, monde, PosX, PosY);
 		
 		this.jeu = jeu;
+		this.screen = screen;
 		setDroite(true);
 		
 		idle = jeu.assets.get("Assets/idleTab.png");
@@ -41,6 +46,7 @@ public class Joueur extends Personnage{
 	}
 	
 	public void setAnimation() {
+		atk();
 		if(isDroite()){
 			if(state=='i') {
 				tr = TextureRegion.split(idle, 10, 14);
@@ -133,6 +139,7 @@ public class Joueur extends Personnage{
 		if(animation.isFini()){
 			state = 'i';
 			setAnimation();
+			body.getFixtureList().removeIndex(body.getFixtureList().size-1); //suppr fixture épee
 		}
 	}
 
@@ -143,5 +150,24 @@ public class Joueur extends Personnage{
 
 	public void setState(char state) {
 		this.state = state;
+	}
+	
+	public void atk(){
+		if (state == 's'){
+			//Fixture sensor epee
+			fdef = new FixtureDef();
+			pshape = new PolygonShape();
+			if(isDroite()){
+				pshape.setAsBox(TailleX, 3*TailleY/4, new Vector2(2*TailleX,0), 0);
+			}
+			else{
+				pshape.setAsBox(TailleX, 3*TailleY/4, new Vector2(-2*TailleX,0), 0);
+			}
+			fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
+			fdef.shape = pshape;
+			fdef.isSensor = true;
+			fdef.filter.categoryBits = screen.BITJOUEUR;
+			body.createFixture(fdef).setUserData("JoueurEpee");
+		}
 	}
 }

@@ -173,6 +173,7 @@ public class PlayScreen implements Screen{
         		joueur.setDroite(true);
         		if(joueur.getState()=='s'){
         			joueur.setState('w');
+        			joueur.getBody().getFixtureList().removeIndex(joueur.getBody().getFixtureList().size-1);
         		}
         		if(joueur.getState()=='g'){
         			joueur.setState('w');

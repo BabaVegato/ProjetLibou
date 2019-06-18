@@ -43,7 +43,7 @@ public class Animations
 			  setFini(false);
 		  }
 	  }
-	  else{
+	  if(!unique){
 		  time -= delay;
 		  currentFrame += 1;
 		  if (currentFrame == frames.length){

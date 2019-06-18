@@ -15,10 +15,10 @@ import states.PlayScreen;
 public abstract class Personnage{
 	
 	protected Jeu jeu;
-	private Body body;
+	protected Body body;
 	protected Animations animation;
-	private FixtureDef fdef;
-	private PolygonShape pshape;
+	protected FixtureDef fdef;
+	protected PolygonShape pshape;
 	protected BodyDef bdef;
 	protected int TailleX = 10;
 	protected int TailleY = 20;
