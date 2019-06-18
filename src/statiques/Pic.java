@@ -12,11 +12,13 @@ import core.Jeu;
 import handlers.Animations;
 import states.PlayScreen;
 
-public class Sol extends Decors{
+public class Pic extends Decors{
+	
+	private TextureRegion[][] tr;
+	private TextureRegion[] trPic;
+	private Texture pic;
 
-	private Texture carre;
-
-	public Sol(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY) {
+	public Pic(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY) {
 		super(screen, monde, PosX, PosY);
 		
 		TailleX = 20;
@@ -24,13 +26,19 @@ public class Sol extends Decors{
 		
 		this.jeu = jeu;
 		
-		carre = jeu.assets.get("Assets/Carre.png");
+		pic = jeu.assets.get("Assets/picTab.png");
+		trPic = new TextureRegion[14];
 		
 		init();
 		setAnimation();
 	}
 	
 	public void setAnimation() {
+		tr = TextureRegion.split(pic, 21, 42);
+		for(int i=0; i<14; i++){
+			trPic[i] = tr[0][i];
+		}
+		animation = new Animations(trPic, false, 5);
 	}
 
 	public void init() {
@@ -50,9 +58,8 @@ public class Sol extends Decors{
 		fdef.filter.categoryBits = screen.BITGROUND;
 		body.createFixture(fdef).setUserData("Decors");
 	}
-
-	public void render(SpriteBatch sb) {
-		sb.draw(carre, getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
+	public void render(SpriteBatch sb){
+		sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*4);
 	}
 
 }

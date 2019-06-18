@@ -33,6 +33,7 @@ public class PlayScreen implements Screen{
 	private final Jeu game;
 	private Stage stage;
 	private SpriteBatch sb;
+	private boolean jump;
 	
 	private OrthographicCamera cam;
 	private Vector3 posCameraDesired;
@@ -56,6 +57,7 @@ public class PlayScreen implements Screen{
 	private int KEY_RIGHT = Input.Keys.D;
 	private int KEY_LEFT = Input.Keys.Q;
 	private int KEY_SWORD = Input.Keys.F;
+	private int KEY_GUN = Input.Keys.E;
 
 	
 	public PlayScreen(final Jeu game) {
@@ -64,7 +66,7 @@ public class PlayScreen implements Screen{
 		SndJump = game.assets.get("Assets/SndJump.mp3");
 		
 		//Setup
-		Monde = new World(new Vector2(0, -25.81f), true);
+		Monde = new World(new Vector2(0, -60.81f), true);
 		this.stage = new Stage(new FitViewport(game.V_width, game.V_height, Jeu.cam));
 		this.sb = game.batch;
 		sb = new SpriteBatch();
@@ -130,7 +132,7 @@ public class PlayScreen implements Screen{
 		stage.draw();
 		
 		
-		Monde.step(1/20f, 6, 2);
+		Monde.step(1/40f, 6, 2);
 		
 		handleInput(delta);
 		
@@ -150,24 +152,29 @@ public class PlayScreen implements Screen{
 	public void handleInput(float dt){
 		float x = joueur.getBody().getLinearVelocity().x;
 		float y = joueur.getBody().getLinearVelocity().y;
+		jump = false;
 			
 		if ( (Gdx.input.isKeyJustPressed(KEY_JUMP) || Gdx.input.isKeyJustPressed(KEY_JUMP_2)) && contList.isJoueurSol()) {
-            y+=500;
+            y=99000000;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
         	SndJump.play();
+        	jump = true;
         }
-		processMov(x, y);
+		processMov(x, y, 40f);
 		processAtk();
 		//System.out.println(joueur.getState());
    }
 	
-	public void processMov(float x, float y){
-		if (Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getBody().getLinearVelocity().x <= 20f) {
-        	x+=10;
+	public void processMov(float x, float y, float v){
+		if (Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getBody().getLinearVelocity().x <= v) {
+        	x+=v;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
             if(!joueur.isDroite()) {
         		joueur.setDroite(true);
         		if(joueur.getState()=='s'){
+        			joueur.setState('w');
+        		}
+        		if(joueur.getState()=='g'){
         			joueur.setState('w');
         		}
         		joueur.setAnimation();
@@ -177,12 +184,15 @@ public class PlayScreen implements Screen{
             	joueur.setAnimation();
             }
         }
-        if (Gdx.input.isKeyPressed(KEY_LEFT) && joueur.getBody().getLinearVelocity().x >= -20f) {
-        	x-=10;
+        if (Gdx.input.isKeyPressed(KEY_LEFT) && joueur.getBody().getLinearVelocity().x >= -v) {
+        	x-=v;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
             if(joueur.isDroite()) {
         		joueur.setDroite(false);
         		if(joueur.getState()=='s'){
+        			joueur.setState('w');
+        		}
+        		if(joueur.getState()=='g'){
         			joueur.setState('w');
         		}
         		joueur.setAnimation();
@@ -201,6 +211,10 @@ public class PlayScreen implements Screen{
 	public void processAtk(){
 		if(Gdx.input.isKeyJustPressed(KEY_SWORD)){
 			joueur.setState('s');
+			joueur.setAnimation();
+		}
+		if(Gdx.input.isKeyJustPressed(KEY_GUN)){
+			joueur.setState('g');
 			joueur.setAnimation();
 		}
 	}

@@ -16,9 +16,11 @@ public class Joueur extends Personnage{
 	private TextureRegion[] trIdle;
 	private TextureRegion[] trWalk;
 	private TextureRegion[] trSword;
+	private TextureRegion[] trGun;
 	private Texture idle;
 	private Texture walk;
 	private Texture sword;
+	private Texture gun;
 	
 	public Joueur(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY){
 		super(screen, monde, PosX, PosY);
@@ -29,11 +31,11 @@ public class Joueur extends Personnage{
 		idle = jeu.assets.get("Assets/idleTab.png");
 		walk = jeu.assets.get("Assets/walkTab.png");
 		sword = jeu.assets.get("Assets/swordTab.png");
+		gun = jeu.assets.get("Assets/gunTab.png");
 		trIdle = new TextureRegion[4];
 		trWalk = new TextureRegion[6];
 		trSword = new TextureRegion[8];
-		
-		
+		trGun = new TextureRegion[8];
 		
 		setAnimation();
 	}
@@ -59,7 +61,14 @@ public class Joueur extends Personnage{
 				for(int i=0; i<8; i++){
 					trSword[i] = tr[0][i];
 				}
-				animation = new Animations(trSword, true, 10);
+				animation = new Animations(trSword, true, 4);
+			}
+			if(state=='g'){
+				tr = TextureRegion.split(gun, 27, 17);
+				for(int i=0; i<8; i++){
+					trGun[i] = tr[0][i];
+				}
+				animation = new Animations(trGun, true, 4);
 			}
 		}
 		if(!isDroite()){
@@ -85,7 +94,15 @@ public class Joueur extends Personnage{
 					trSword[i] = tr[0][i];
 					trSword[i].flip(true, false);
 				}
-				animation = new Animations(trSword, true, 10);
+				animation = new Animations(trSword, true, 4);
+			}
+			if(state=='g'){
+				tr = TextureRegion.split(gun, 27, 17);
+				for(int i=0; i<8; i++){
+					trGun[i] = tr[0][i];
+					trGun[i].flip(true, false);
+				}
+				animation = new Animations(trGun, true, 4);
 			}
 		}
 	}
@@ -102,6 +119,14 @@ public class Joueur extends Personnage{
 			}
 			if(!isDroite()){
 				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX - 16, getBody().getPosition().y-TailleY - 2, TailleX*4 - 2, TailleY*2 + 4);
+			}
+		}
+		if(state == 'g'){
+			if(isDroite()){
+				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY - 2, TailleX*6 - 6, TailleY*2 + 4);
+			}
+			if(!isDroite()){
+				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX - 35, getBody().getPosition().y-TailleY - 2, TailleX*6 - 6, TailleY*2 + 4);
 			}
 		}
 		animation.update(1);

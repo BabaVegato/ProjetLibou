@@ -20,7 +20,6 @@ public abstract class Decors {
 	protected PolygonShape pshape;
 	protected BodyDef bdef;
 	protected int TailleX, TailleY;
-	protected TextureRegion[] text;
 	protected World monde;
 	protected PlayScreen screen;
 	protected int PosX, PosY;
@@ -40,8 +39,6 @@ public abstract class Decors {
 	public void setBody(Body body) {
 		this.body = body;
 	}
-	public void render(SpriteBatch sb) {
-		sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
-	}
+	public abstract void render(SpriteBatch sb);
 	public abstract void init();
 }

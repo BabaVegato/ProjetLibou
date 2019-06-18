@@ -37,7 +37,7 @@ public class Niveau1 {
 					parties.add(new lvl1part1(i, j, jeu, screen, monde));
 				}
 				if(r == 2){
-					//parties.add(new lvl1part2(i, j, jeu, screen, monde));
+					parties.add(new lvl1part2(i, j, jeu, screen, monde));
 				}
 			}
 		}
