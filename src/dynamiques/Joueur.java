@@ -25,12 +25,15 @@ public class Joueur extends Personnage{
 	private Texture sword;
 	private Texture gun;
 	private PlayScreen screen;
+	private int PPM;
 	
 	public Joueur(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY){
-		super(screen, monde, PosX, PosY);
+		super(screen, monde, PosX, PosY, "Joueur");
+		
 		
 		this.jeu = jeu;
 		this.screen = screen;
+		this.PPM = screen.getPPM();
 		setDroite(true);
 		
 		idle = jeu.assets.get("Assets/idleTab.png");
@@ -114,25 +117,25 @@ public class Joueur extends Personnage{
 	}
 	public void render(SpriteBatch sb) {
 		if(state == 'i'){
-			sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
+			sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX, getBody().getPosition().y*PPM-TailleY, TailleX*2, TailleY*2);
 		}
 		if(state == 'w'){
-			sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2 + 2, TailleY*2);
+			sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX, getBody().getPosition().y*PPM-TailleY, (TailleX*2 + 2), TailleY*2);
 		}
 		if(state == 's'){
 			if(isDroite()){
-				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY - 2, TailleX*4 - 2, TailleY*2 + 4);
+				sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX, getBody().getPosition().y*PPM-TailleY - 2, (TailleX*4 - 2), (TailleY*2 + 4));
 			}
 			if(!isDroite()){
-				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX - 16, getBody().getPosition().y-TailleY - 2, TailleX*4 - 2, TailleY*2 + 4);
+				sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX - 16, getBody().getPosition().y*PPM-TailleY - 2, TailleX*4 - 2, TailleY*2 + 4);
 			}
 		}
 		if(state == 'g'){
 			if(isDroite()){
-				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY - 2, TailleX*6 - 6, TailleY*2 + 4);
+				sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX, getBody().getPosition().y*PPM-TailleY - 2, TailleX*6 - 6, TailleY*2 + 4);
 			}
 			if(!isDroite()){
-				sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX - 35, getBody().getPosition().y-TailleY - 2, TailleX*6 - 6, TailleY*2 + 4);
+				sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX - 35, getBody().getPosition().y*PPM-TailleY - 2, TailleX*6 - 6, TailleY*2 + 4);
 			}
 		}
 		animation.update(1);
@@ -163,10 +166,10 @@ public class Joueur extends Personnage{
 			fdef = new FixtureDef();
 			pshape = new PolygonShape();
 			if(isDroite()){
-				pshape.setAsBox(TailleX, 3*TailleY/4, new Vector2(2*TailleX,0), 0);
+				pshape.setAsBox(TailleX/PPM, (3*TailleY/4)/PPM, new Vector2(2*TailleX/PPM,0), 0);
 			}
 			else{
-				pshape.setAsBox(TailleX, 3*TailleY/4, new Vector2(-2*TailleX,0), 0);
+				pshape.setAsBox(TailleX/PPM, (3*TailleY/4)/PPM, new Vector2(-2*TailleX/PPM,0), 0);
 			}
 			fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
 			fdef.shape = pshape;

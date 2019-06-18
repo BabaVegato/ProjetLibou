@@ -17,6 +17,7 @@ public class Pic extends Decors{
 	private TextureRegion[][] tr;
 	private TextureRegion[] trPic;
 	private Texture pic;
+	private int PPM;
 
 	public Pic(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY) {
 		super(screen, monde, PosX, PosY);
@@ -25,6 +26,7 @@ public class Pic extends Decors{
 		TailleY = 20;
 		
 		this.jeu = jeu;
+		PPM = screen.getPPM();
 		
 		pic = jeu.assets.get("Assets/picTab.png");
 		trPic = new TextureRegion[14];
@@ -43,7 +45,7 @@ public class Pic extends Decors{
 
 	public void init() {
 		bdef = new BodyDef();
-		bdef.position.set(PosX, PosY);
+		bdef.position.set(PosX/PPM, PosY/PPM);
 		bdef.type = BodyDef.BodyType.StaticBody;
 		bdef.fixedRotation = true;
 		setBody(monde.createBody(bdef));
@@ -51,7 +53,7 @@ public class Pic extends Decors{
 		//Fixture corps
 		fdef = new FixtureDef();
 		pshape = new PolygonShape();
-		pshape.setAsBox(TailleX, TailleY);
+		pshape.setAsBox(TailleX/PPM, TailleY/PPM);
 		fdef.filter.maskBits = (short) (screen.BITJOUEUR | screen.BITOBJET);
 		fdef.shape = pshape;
 		fdef.density = 1f;
@@ -59,7 +61,7 @@ public class Pic extends Decors{
 		body.createFixture(fdef).setUserData("Decors");
 	}
 	public void render(SpriteBatch sb){
-		sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*4);
+		sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX, getBody().getPosition().y*PPM-TailleY, TailleX*2, TailleY*4);
 	}
 
 }

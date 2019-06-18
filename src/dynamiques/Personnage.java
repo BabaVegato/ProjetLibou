@@ -23,11 +23,16 @@ public abstract class Personnage{
 	protected int TailleX = 10;
 	protected int TailleY = 20;
 	private boolean Droite;
+	private int PPM;
+	private PlayScreen screen;
 	
-	public Personnage(PlayScreen screen, World monde, int PosX, int PosY){
+	public Personnage(PlayScreen screen, World monde, int PosX, int PosY, String nom){
+		
+		this.screen = screen;
+		this.PPM = screen.getPPM();
 		
 		bdef = new BodyDef();
-		bdef.position.set(PosX, PosY);
+		bdef.position.set(PosX/PPM, PosY/PPM);
 		bdef.type = BodyDef.BodyType.DynamicBody;
 		bdef.fixedRotation = true;
 		setBody(monde.createBody(bdef));
@@ -35,23 +40,23 @@ public abstract class Personnage{
 		//Fixture corps
 		fdef = new FixtureDef();
 		pshape = new PolygonShape();
-		pshape.setAsBox(TailleX, TailleY);
+		pshape.setAsBox(TailleX/PPM, TailleY/PPM);
 		fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
 		fdef.shape = pshape;
 		fdef.density = 1f;
 		fdef.filter.categoryBits = screen.BITJOUEUR;
-		body.createFixture(fdef).setUserData("Joueur");
+		body.createFixture(fdef).setUserData(nom);
 		
 		//Fixture sensor pieds
 		fdef = new FixtureDef();
 		pshape = new PolygonShape();
-		pshape.setAsBox(19*TailleX/20, TailleY/8, new Vector2(0,-TailleY), 0);
+		pshape.setAsBox((19*TailleX/20)/PPM, (TailleY/8)/PPM, new Vector2(0,-TailleY/PPM), 0);
 		fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
 		fdef.friction = 15f;
 		fdef.shape = pshape;
 		//fdef.isSensor = true;
 		fdef.filter.categoryBits = screen.BITJOUEUR;
-		body.createFixture(fdef).setUserData("JoueurPied");
+		body.createFixture(fdef).setUserData(nom + "Pied");
 		
 	}
 

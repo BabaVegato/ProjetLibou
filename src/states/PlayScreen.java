@@ -26,7 +26,6 @@ import handlers.MonContactList;
 
 public class PlayScreen implements Screen{
 
-
 	public short BITGROUND = 4;
 	public short BITJOUEUR = 2;
 	public short BITOBJET = 8;
@@ -34,6 +33,9 @@ public class PlayScreen implements Screen{
 	private Stage stage;
 	private SpriteBatch sb;
 	private boolean jump;
+	private int PPM = 2;
+	private int HEIGHT;
+	private int WIDTH;
 	
 	private OrthographicCamera cam;
 	private Vector3 posCameraDesired;
@@ -62,11 +64,14 @@ public class PlayScreen implements Screen{
 	
 	public PlayScreen(final Jeu game) {
 		
+		HEIGHT = game.V_height/getPPM();
+		WIDTH = game.V_height/getPPM();
+		
 		//Sons
 		SndJump = game.assets.get("Assets/SndJump.mp3");
 		
 		//Setup
-		Monde = new World(new Vector2(0, -60.81f), true);
+		Monde = new World(new Vector2(0, -120.81f/PPM), true);
 		this.stage = new Stage(new FitViewport(game.V_width, game.V_height, Jeu.cam));
 		this.sb = game.batch;
 		sb = new SpriteBatch();
@@ -124,7 +129,7 @@ public class PlayScreen implements Screen{
 		
 		sb.end();//////////////////////////////
 		
-		debugR.render(Monde, cam.combined);
+		debugR.render(Monde, cam.combined.cpy().scl(getPPM()));
 		
 		processCameraMovement();
 		
@@ -155,7 +160,7 @@ public class PlayScreen implements Screen{
 		jump = false;
 			
 		if ( (Gdx.input.isKeyJustPressed(KEY_JUMP) || Gdx.input.isKeyJustPressed(KEY_JUMP_2)) && contList.isJoueurSol()) {
-            y=99000000;
+            y=99;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
         	SndJump.play();
         	jump = true;
@@ -238,16 +243,14 @@ public class PlayScreen implements Screen{
 					joueur.getBody().getFixtureList().removeIndex(i);
 				}
 			}
-			
 		}
 	}
 	
 	public void processCameraMovement(){
-		posCameraDesired.x=joueur.getBody().getPosition().x;
-		posCameraDesired.y=joueur.getBody().getPosition().y;
+		posCameraDesired.x=joueur.getBody().getPosition().x*PPM;
+		posCameraDesired.y=joueur.getBody().getPosition().y*PPM;
 		cam.position.lerp(posCameraDesired,0.1f);
 	}
-
 	public int getTailleBloc() {
 		return TailleBloc;
 	}
@@ -265,5 +268,11 @@ public class PlayScreen implements Screen{
 	}
 	public void setBlocsParPartieY(int blocsParPartieY) {
 		BlocsParPartieY = blocsParPartieY;
+	}
+	public int getPPM() {
+		return PPM;
+	}
+	public void setPPM(int pPM) {
+		PPM = pPM;
 	}
 }

@@ -2,22 +2,22 @@ package statiques;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-
 import core.Jeu;
-import handlers.Animations;
 import states.PlayScreen;
 
 public class Sol extends Decors{
 
 	private Texture carre;
+	private int PPM;
 
 	public Sol(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY) {
 		super(screen, monde, PosX, PosY);
+		
+		PPM = screen.getPPM();
 		
 		TailleX = 20;
 		TailleY = 20;
@@ -35,7 +35,7 @@ public class Sol extends Decors{
 
 	public void init() {
 		bdef = new BodyDef();
-		bdef.position.set(PosX, PosY);
+		bdef.position.set(PosX/PPM, PosY/PPM);
 		bdef.type = BodyDef.BodyType.StaticBody;
 		bdef.fixedRotation = true;
 		setBody(monde.createBody(bdef));
@@ -43,7 +43,7 @@ public class Sol extends Decors{
 		//Fixture corps
 		fdef = new FixtureDef();
 		pshape = new PolygonShape();
-		pshape.setAsBox(TailleX, TailleY);
+		pshape.setAsBox(TailleX/PPM, TailleY/PPM);
 		fdef.filter.maskBits = (short) (screen.BITJOUEUR | screen.BITOBJET);
 		fdef.shape = pshape;
 		fdef.density = 1f;
@@ -52,7 +52,7 @@ public class Sol extends Decors{
 	}
 
 	public void render(SpriteBatch sb) {
-		sb.draw(carre, getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
+		sb.draw(carre, getBody().getPosition().x*PPM-TailleX, getBody().getPosition().y*PPM-TailleY, TailleX*2, TailleY*2);
 	}
 
 }
