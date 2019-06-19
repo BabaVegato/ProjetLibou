@@ -64,6 +64,7 @@ public class PlayScreen implements Screen{
 	private int KEY_GUN = Input.Keys.E;
 	
 	private String IDNbPartie;
+	private String IDNbPartiePic;
 	private String IDNbEnnemi;
 	private String[] IDEnnemi;
 	private String[] IDPic;
@@ -189,8 +190,8 @@ public class PlayScreen implements Screen{
 		if(contList.isPicActive()){
 			IDPic = contList.getIDPic().split(":");
 			IDNbPic = IDPic[1];
-			IDNbPartie = IDPic[2];
-			niveau1.GestionPic(IDNbPic, IDNbPartie);
+			IDNbPartiePic = IDPic[2];
+			niveau1.GestionPic(IDNbPic, IDNbPartiePic);
 			
 			contList.setPicActive(false);
 		}
@@ -216,6 +217,8 @@ public class PlayScreen implements Screen{
 			IDEnnemi = contList.getIDEnnemi().split(":");
 			IDNbEnnemi = IDEnnemi[1];
 			IDNbPartie = IDEnnemi[2];
+			
+			System.out.println("IDNbEnnemi : " + IDNbEnnemi + "/ IDNbPartie : " + IDNbPartie);
 			
 			niveau1.GestionVie(IDNbEnnemi, IDNbPartie, 1);
 			

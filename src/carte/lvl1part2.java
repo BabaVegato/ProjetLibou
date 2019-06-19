@@ -14,65 +14,73 @@ import statiques.Sol;
 
 public class lvl1part2 extends Partie{
 
-	private ArrayList<Decors> decors;
-	private ArrayList<Ennemi> ennemis;
-	private Jeu jeu;
-	private World monde;
-	private PlayScreen screen;
-	private int X, Y;
-	private int posx, posy;
 	private char[][] design = {
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'}, 
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's', 's', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', 'p', 'p', 'p', '0', '0', '0', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
+			{'s', 's', 's', 's', 's', 's', 's', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'s', 's', '0', '0', '0', '0', '0', 'e', 'e', '0', '0', '0', '0', '0', 's'},
+			{'s', '0', '0', '0', 'p', 'p', 'p', 'p', 'p', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', 'p', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', 's', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'}};
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'}, 
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', 'p', '0', '0', '0', 'p', 's', 's', 'p', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', 'p', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', 'p', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', 'p', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's', 's', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's', '0', 's'},
+			{'0', 's', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's', '0', 's'},
+			{'0', '0', 'e', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's', 's', '0'},
+			{'s', 's', 's', 's', 's', 's', '0', '0', 's', 's', 's', 's', 's', 's', 's'}};
 
 	public lvl1part2(int i, int j, Jeu jeu, PlayScreen screen, World monde, int nbPartie){
+		nbEnnemi = 0;
+		nbPic = 0;
+		this.nbPartie = nbPartie;
+		ListeEnnemis = new ArrayList<Integer>();
 		this.jeu = jeu;
 		this.monde = monde;
 		this.screen = screen;
+
 		this.X = i*screen.getTailleBloc()*2*screen.getBlocsParPartieX();
 		this.Y = -j*screen.getTailleBloc()*2*screen.getBlocsParPartieY();
-		decors = new ArrayList<Decors>();
+		sols = new ArrayList<Sol>();
+		setPics(new ArrayList<Pic>());
+		ennemis = new ArrayList<Ennemi>();
 		
-		initDesign();
 		placementDecors(X, Y);
 		placementEnnemis(X, Y);
 		
 		
 	}
 
-	private void initDesign() {
-		
-	}
-
 	public void placementEnnemis(int X, int Y) {
-		
+		for(int i=0; i<screen.getBlocsParPartieX(); i++){
+			for(int j=0; j<screen.getBlocsParPartieY(); j++){
+				
+				posx = X + i*screen.getTailleBloc()*2;
+				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2;
+				
+				if(design[j][i] == 'e'){
+					ennemis.add(new Ennemi(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie));
+					nbEnnemi++;
+				}
+			}
+		}
 	}
 
 	public void placementDecors(int X, int Y) {
 		for(int i=0; i<screen.getBlocsParPartieX(); i++){
 			for(int j=0; j<screen.getBlocsParPartieY(); j++){
+				
 				posx = X + i*screen.getTailleBloc()*2;
 				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2;
+				
 				if(design[j][i] == 's'){
-					decors.add(new Sol(jeu, screen, monde, posx, posy));
+					sols.add(new Sol(jeu, screen, monde, posx, posy));
 				}
 				if(design[j][i] == 'p'){
 					getPics().add(new Pic(jeu, screen, monde, posx, posy, "Pic:" + nbPic + ":" + nbPartie));
@@ -83,8 +91,20 @@ public class lvl1part2 extends Partie{
 	}
 
 	public void render(SpriteBatch sb) {
-		for(int i=0; i<decors.size(); i++){
-			decors.get(i).render(sb);
+		if(!sols.isEmpty()){
+			for(int i=0; i<sols.size(); i++){
+				sols.get(i).render(sb);
+			}
+		}
+		if(!getPics().isEmpty()){
+			for(int i=0; i<getPics().size(); i++){
+				getPics().get(i).render(sb);
+			}
+		}
+		if(!ennemis.isEmpty()){
+			for(int i=0; i<ennemis.size(); i++){
+				ennemis.get(i).render(sb);
+			}
 		}
 	}
 }

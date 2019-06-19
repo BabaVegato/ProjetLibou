@@ -67,9 +67,7 @@ public class Niveau1 {
 		
 		vieEnnemi = ennemi.getVie();
 		if(vieEnnemi-X <= 0){
-			ennemi.getBody().destroyFixture(ennemi.getBody().getFixtureList().first());
-			ennemi.getBody().destroyFixture(ennemi.getBody().getFixtureList().first());
-			
+			ennemi.mort();
 		}
 		else{
 			ennemi.setVie(vieEnnemi-X);

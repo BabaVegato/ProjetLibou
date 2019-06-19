@@ -162,4 +162,10 @@ public class Ennemi extends Personnage{
 	public void setVie(int vie) {
 		Vie = vie;
 	}
+
+	public void mort() {
+		System.out.println("Mort ennemi");
+		getBody().destroyFixture(getBody().getFixtureList().first());
+		getBody().destroyFixture(getBody().getFixtureList().first());
+	}
 }
