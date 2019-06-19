@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import core.Jeu;
 import dynamiques.Ennemi;
+import dynamiques.Gunner;
+import dynamiques.Jumper;
 import states.PlayScreen;
 import statiques.Decors;
 import statiques.Pic;
@@ -64,8 +66,12 @@ public class lvl1part2 extends Partie{
 				posx = X + i*screen.getTailleBloc()*2;
 				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2;
 				
-				if(design[j][i] == 'e'){
-					getEnnemis().add(new Ennemi(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie));
+				if(design[j][i] == 'g'){
+					getEnnemis().add(new Gunner(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie));
+					nbEnnemi++;
+				}
+				if(design[j][i] == 'j'){
+					getEnnemis().add(new Jumper(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie));
 					nbEnnemi++;
 				}
 			}

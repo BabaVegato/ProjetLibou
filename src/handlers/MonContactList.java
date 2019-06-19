@@ -51,8 +51,11 @@ public class MonContactList implements ContactListener{
 	    	setIDPic(fb.getUserData().toString());
 	    	System.out.println("Pic activé !");
 	    }
-	    
-	    
+	}
+
+	private void setIDJumper(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void endContact(Contact c) {

@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import core.Jeu;
 import dynamiques.Ennemi;
+import dynamiques.Gunner;
+import dynamiques.Jumper;
 import states.PlayScreen;
 import statiques.Decors;
 import statiques.Pic;
@@ -16,7 +18,7 @@ public class lvl1part1 extends Partie{
 
 	private char[][] design = {
 			{'s', 's', 's', 's', 's', 's', 's', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', 's', '0', '0', '0', '0', '0', '0', 'e', '0', '0', '0', '0', '0', 's'},
+			{'s', 's', '0', '0', '0', '0', '0', '0', 'j', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', 'p', 'p', 'p', 'p', 'p', '0', '0', '0', '0', '0', 's'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
@@ -33,7 +35,7 @@ public class lvl1part1 extends Partie{
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'s', 's', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', 'e', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'e', '0', 's'},
+			{'s', '0', 'j', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'g', '0', 's'},
 			{'s', 's', 's', 's', 's', 's', '0', '0', 's', 's', 's', 's', 's', 's', 's'}};
 
 	public lvl1part1(int i, int j, Jeu jeu, PlayScreen screen, World monde, int nbPartie){
@@ -64,8 +66,12 @@ public class lvl1part1 extends Partie{
 				posx = X + i*screen.getTailleBloc()*2;
 				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2;
 				
-				if(design[j][i] == 'e'){
-					getEnnemis().add(new Ennemi(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie));
+				if(design[j][i] == 'g'){
+					getEnnemis().add(new Gunner(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Gunner"));
+					nbEnnemi++;
+				}
+				if(design[j][i] == 'j'){
+					getEnnemis().add(new Jumper(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Jumper"));
 					nbEnnemi++;
 				}
 			}
