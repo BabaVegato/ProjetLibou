@@ -15,6 +15,8 @@ public class Niveau1 {
 	private Jeu jeu;
 	private World monde;
 	private PlayScreen screen;
+	private int nbPartie = 0;
+	
 
 	public Niveau1(Jeu jeu, World monde, PlayScreen screen){
 		
@@ -34,11 +36,12 @@ public class Niveau1 {
 				r = randInt(1, NbDePartiesDifferentes);
 				
 				if(r == 1){
-					parties.add(new lvl1part1(i, j, jeu, screen, monde));
+					parties.add(new lvl1part1(i, j, jeu, screen, monde, nbPartie));
 				}
 				if(r == 2){
-					parties.add(new lvl1part2(i, j, jeu, screen, monde));
+					parties.add(new lvl1part2(i, j, jeu, screen, monde, nbPartie));
 				}
+				nbPartie++;
 			}
 		}
 	}
@@ -51,5 +54,9 @@ public class Niveau1 {
 	public int randInt(int Min, int Max){
 		//prend un int dans [Min;Max]
 		return Min + (int)(Math.random() * ((Max - Min) + 1));
+	}
+	public void GestionVie(String IDNbEnnemi, String IDNbPartie, int X){
+		//Retire X de vie au bon ennemi
+		parties.get(Integer.parseInt(IDNbPartie)).ennemis.get(Integer.parseInt(IDNbEnnemi)).setVie(parties.get(Integer.parseInt(IDNbPartie)).ennemis.get(Integer.parseInt(IDNbEnnemi)).getVie()-X);
 	}
 }

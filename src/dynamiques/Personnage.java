@@ -23,10 +23,11 @@ public abstract class Personnage{
 	protected int TailleX = 10;
 	protected int TailleY = 20;
 	private boolean Droite;
-	private int PPM;
+	protected int PPM;
 	private PlayScreen screen;
 	
-	public Personnage(PlayScreen screen, World monde, int PosX, int PosY, String nom){
+	public Personnage(PlayScreen screen, World monde, int PosX, int PosY, boolean Gentil, String nom){
+		
 		
 		this.screen = screen;
 		this.PPM = screen.getPPM();
@@ -41,10 +42,16 @@ public abstract class Personnage{
 		fdef = new FixtureDef();
 		pshape = new PolygonShape();
 		pshape.setAsBox(TailleX/PPM, TailleY/PPM);
-		fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
 		fdef.shape = pshape;
 		fdef.density = 1f;
-		fdef.filter.categoryBits = screen.BITJOUEUR;
+		if(Gentil){
+			fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET | screen.BITENNEMI);
+			fdef.filter.categoryBits = screen.BITJOUEUR;
+		}
+		if(!Gentil){
+			fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITJOUEUR);
+			fdef.filter.categoryBits = screen.BITENNEMI;
+		}
 		body.createFixture(fdef).setUserData(nom);
 		
 		//Fixture sensor pieds

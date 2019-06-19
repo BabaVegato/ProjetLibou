@@ -43,7 +43,7 @@ public class lvl1part2 extends Partie{
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'}};
 
-	public lvl1part2(int i, int j, Jeu jeu, PlayScreen screen, World monde){
+	public lvl1part2(int i, int j, Jeu jeu, PlayScreen screen, World monde, int nbPartie){
 		this.jeu = jeu;
 		this.monde = monde;
 		this.screen = screen;

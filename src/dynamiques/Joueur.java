@@ -28,7 +28,7 @@ public class Joueur extends Personnage{
 	private int PPM;
 	
 	public Joueur(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY){
-		super(screen, monde, PosX, PosY, "Joueur");
+		super(screen, monde, PosX, PosY, true, "Joueur");
 		
 		
 		this.jeu = jeu;
@@ -171,7 +171,7 @@ public class Joueur extends Personnage{
 			else{
 				pshape.setAsBox(TailleX/PPM, (3*TailleY/4)/PPM, new Vector2(-2*TailleX/PPM,0), 0);
 			}
-			fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
+			fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITENNEMI);
 			fdef.shape = pshape;
 			fdef.isSensor = true;
 			fdef.filter.categoryBits = screen.BITJOUEUR;

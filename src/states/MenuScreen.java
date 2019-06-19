@@ -136,7 +136,6 @@ public class MenuScreen implements Screen{
 			
 			if(!estsurvole && Img1.equals(ImgPlay)) {
 				SndPlayH.play();
-				System.out.println("Bouton play survolé");
 			}
 			return true;
 		}

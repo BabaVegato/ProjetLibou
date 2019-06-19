@@ -14,14 +14,6 @@ import statiques.Sol;
 
 public class lvl1part1 extends Partie{
 
-	private ArrayList<Decors> decors;
-	private ArrayList<Ennemi> ennemis;
-	private Jeu jeu;
-	private World monde;
-	private PlayScreen screen;
-	private int X, Y;
-	private int PPM;
-	private int posx, posy;
 	private char[][] design = {
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
 			{'s', '0', '0', '0', '0', '0', '0', 'e', 'e', '0', '0', '0', '0', '0', '0'},
@@ -33,22 +25,25 @@ public class lvl1part1 extends Partie{
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
-			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
-			{'0', '0', '0', '0', '0', 'p', 'p', '0', 'p', '0', '0', '0', '0', '0', '0'},
+			{'0', '0', '0', '0', '0', 'e', 'e', '0', '0', '0', '0', '0', '0', '0', '0'},
+			{'0', '0', '0', '0', '0', 'p', 'p', 's', 'p', '0', '0', '0', '0', '0', '0'},
 			{'0', '0', '0', '0', 's', 's', 's', 's', 's', '0', '0', '0', '0', '0', '0'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
 			{'0', 's', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
+			{'s', '0', '0', '0', '0', 'e', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
 			{'s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'}};
 
-	public lvl1part1(int i, int j, Jeu jeu, PlayScreen screen, World monde){
+	public lvl1part1(int i, int j, Jeu jeu, PlayScreen screen, World monde, int nbPartie){
+		nbEnnemi = 0;
+		this.nbPartie = nbPartie;
+		ListeEnnemis = new ArrayList<Integer>();
 		this.jeu = jeu;
 		this.monde = monde;
 		this.screen = screen;
-		PPM = screen.getPPM();
+
 		this.X = i*screen.getTailleBloc()*2*screen.getBlocsParPartieX();
 		this.Y = -j*screen.getTailleBloc()*2*screen.getBlocsParPartieY();
 		decors = new ArrayList<Decors>();
@@ -69,11 +64,12 @@ public class lvl1part1 extends Partie{
 		for(int i=0; i<screen.getBlocsParPartieX(); i++){
 			for(int j=0; j<screen.getBlocsParPartieY(); j++){
 				
-				posx = X + i*screen.getTailleBloc()*2/PPM;
-				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2/PPM;
+				posx = X + i*screen.getTailleBloc()*2;
+				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2;
 				
 				if(design[j][i] == 'e'){
-					ennemis.add(new Ennemi(jeu, screen, monde, posx, posy));
+					ennemis.add(new Ennemi(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie));
+					nbEnnemi++;
 				}
 			}
 		}

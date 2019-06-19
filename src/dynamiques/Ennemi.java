@@ -25,9 +25,10 @@ public class Ennemi extends Personnage{
 	private Texture sword;
 	private Texture gun;
 	private PlayScreen screen;
+	private int Vie = 4;
 	
-	public Ennemi(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY){
-		super(screen, monde, PosX, PosY, "ennemi");
+	public Ennemi(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom){
+		super(screen, monde, PosX, PosY, false, nom);
 		
 		this.jeu = jeu;
 		this.screen = screen;
@@ -146,25 +147,16 @@ public class Ennemi extends Personnage{
 		}*/
 	}
 
-
-	public char getState() {
-		return state;
-	}
-
-	public void setState(char state) {
-		this.state = state;
-	}
-	
 	public void atk(){
 		if (state == 's'){
 			//Fixture sensor epee
 			fdef = new FixtureDef();
 			pshape = new PolygonShape();
 			if(isDroite()){
-				pshape.setAsBox(TailleX, 3*TailleY/4, new Vector2(2*TailleX,0), 0);
+				pshape.setAsBox(TailleX/PPM, 3*TailleY/4/PPM, new Vector2(2*TailleX/PPM,0), 0);
 			}
 			else{
-				pshape.setAsBox(TailleX, 3*TailleY/4, new Vector2(-2*TailleX,0), 0);
+				pshape.setAsBox(TailleX/PPM, 3*TailleY/4/PPM, new Vector2(-2*TailleX/PPM,0), 0);
 			}
 			fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
 			fdef.shape = pshape;
@@ -172,5 +164,22 @@ public class Ennemi extends Personnage{
 			fdef.filter.categoryBits = screen.BITJOUEUR;
 			body.createFixture(fdef).setUserData("JoueurEpee");
 		}
+	}
+	
+	
+	public char getState() {
+		return state;
+	}
+
+	public void setState(char state) {
+		this.state = state;
+	}
+
+	public int getVie() {
+		return Vie;
+	}
+
+	public void setVie(int vie) {
+		Vie = vie;
 	}
 }

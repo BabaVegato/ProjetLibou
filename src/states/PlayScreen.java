@@ -29,6 +29,7 @@ public class PlayScreen implements Screen{
 	public short BITGROUND = 4;
 	public short BITJOUEUR = 2;
 	public short BITOBJET = 8;
+	public short BITENNEMI = 16;
 	private final Jeu game;
 	private Stage stage;
 	private SpriteBatch sb;
@@ -53,6 +54,7 @@ public class PlayScreen implements Screen{
 	private Sound SndJump;
 	private Joueur joueur;
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+	private String[] IDEnnemi;
 	
 	private int KEY_JUMP = Input.Keys.Z;
 	private int KEY_JUMP_2 = Input.Keys.SPACE;
@@ -60,6 +62,8 @@ public class PlayScreen implements Screen{
 	private int KEY_LEFT = Input.Keys.Q;
 	private int KEY_SWORD = Input.Keys.F;
 	private int KEY_GUN = Input.Keys.E;
+	private String IDNbPartie;
+	private String IDNbEnnemi;
 
 	
 	public PlayScreen(final Jeu game) {
@@ -160,16 +164,32 @@ public class PlayScreen implements Screen{
 		jump = false;
 			
 		if ( (Gdx.input.isKeyJustPressed(KEY_JUMP) || Gdx.input.isKeyJustPressed(KEY_JUMP_2)) && contList.isJoueurSol()) {
-            y=99;
+            y=50;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
         	SndJump.play();
         	jump = true;
         }
-		processMov(x, y, 40f);
+		processMov(x, y, 25f);
 		processAtk();
+		processDegats();
 		//System.out.println(joueur.getState());
    }
 	
+	public void processDegats() {
+		if(contList.isDegatsAGerer()){
+			//IDEnnemi = [TYPE ; Numero ; Partie]
+			IDEnnemi = contList.getIDEnnemi().split(":");
+			IDNbEnnemi = IDEnnemi[1];
+			IDNbPartie = IDEnnemi[2];
+			
+			niveau1.GestionVie(IDNbEnnemi, IDNbPartie, 1);
+			
+			contList.setDegatsAGerer(false);
+			
+			System.out.println("IDEnnemi : " + IDEnnemi);
+		}
+	}
+
 	public void processMov(float x, float y, float v){
 		if (Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getBody().getLinearVelocity().x <= v) {
         	x+=v;
