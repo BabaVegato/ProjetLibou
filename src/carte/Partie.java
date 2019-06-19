@@ -9,10 +9,13 @@ import core.Jeu;
 import dynamiques.Ennemi;
 import states.PlayScreen;
 import statiques.Decors;
+import statiques.Pic;
+import statiques.Sol;
 
 public abstract class Partie {
 	
-	protected ArrayList<Decors> decors;
+	protected ArrayList<Sol> sols;
+	protected ArrayList<Pic> pics;
 	protected ArrayList<Ennemi> ennemis;
 	protected Jeu jeu;
 	protected World monde;
@@ -20,6 +23,7 @@ public abstract class Partie {
 	protected int X, Y;
 	protected int posx, posy;
 	protected int nbEnnemi;
+	protected int nbPic;
 	protected int nbPartie;
 	protected ArrayList<Integer> ListeEnnemis;
 	

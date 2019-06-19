@@ -11,18 +11,20 @@ public class MonContactList implements ContactListener{
 	private boolean JoueurSol = false;
 	private int nbContacts = 0;
 	private String IDEnnemi;
+	private String IDPic;
 	private boolean DegatsAGerer = false;
+	private boolean PicActive = false;
 
 	public void beginContact(Contact c) {
 		Fixture fa = c.getFixtureA();
 	    Fixture fb = c.getFixtureB();
 	    
 	    /////////// SOL - JOUEUR /////////////
-	    if(fa.getUserData().toString().contains("Decors") && fb.getUserData().equals("JoueurPied")) {
+	    if((fa.getUserData().toString().contains("Decors") || fa.getUserData().toString().contains("Pic")) && fb.getUserData().equals("JoueurPied")) {
 	    	nbContacts += 1;
 	        setJoueurSol(true);
 	    }
-	    if(fb.getUserData().toString().contains("Decors") && fa.getUserData().equals("JoueurPied")) {
+	    if((fb.getUserData().toString().contains("Decors") || fb.getUserData().toString().contains("Pic")) && fa.getUserData().equals("JoueurPied")) {
 	    	nbContacts += 1;
 	    	setJoueurSol(true);
 	    }
@@ -38,6 +40,19 @@ public class MonContactList implements ContactListener{
 	    	setIDEnnemi(fb.getUserData().toString());
 	    	System.out.println("Ouch");
 	    }
+	    /////////// Truc - Pic ////////////////
+	    if(fa.getUserData().toString().contains("Pic") && fb.getUserData().toString().contains("Joueur")) {
+	    	setPicActive(true);
+	        setIDPic(fa.getUserData().toString());
+	        System.out.println("Pic activé !");
+	    }
+	    if(fb.getUserData().toString().contains("Pic") && fa.getUserData().toString().contains("Joueur")) {
+	    	setPicActive(true);
+	    	setIDPic(fb.getUserData().toString());
+	    	System.out.println("Pic activé !");
+	    }
+	    
+	    
 	}
 
 	public void endContact(Contact c) {
@@ -88,6 +103,22 @@ public class MonContactList implements ContactListener{
 
 	public void setDegatsAGerer(boolean degatsAGerer) {
 		DegatsAGerer = degatsAGerer;
+	}
+
+	public boolean isPicActive() {
+		return PicActive;
+	}
+
+	public void setPicActive(boolean picActive) {
+		PicActive = picActive;
+	}
+
+	public String getIDPic() {
+		return IDPic;
+	}
+
+	public void setIDPic(String iDPic) {
+		IDPic = iDPic;
 	}
 	
 	

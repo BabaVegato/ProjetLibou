@@ -56,7 +56,7 @@ public class Joueur extends Personnage{
 				for(int i=0; i<4; i++){
 					trIdle[i] = tr[0][i];
 				}
-				animation = new Animations(trIdle, false, 10);
+				animation = new Animations(trIdle, false, 15);
 			}
 			if(state=='w'){
 				tr = TextureRegion.split(walk, 12, 14);

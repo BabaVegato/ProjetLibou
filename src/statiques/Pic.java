@@ -18,13 +18,17 @@ public class Pic extends Decors{
 	private TextureRegion[] trPic;
 	private Texture pic;
 	private int PPM;
+	private boolean contactPic;
+	private String nom;
 
-	public Pic(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY) {
+	public Pic(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom) {
 		super(screen, monde, PosX, PosY);
 		
+		this.nom = nom;
 		TailleX = 20;
 		TailleY = 20;
-		
+		this.screen = screen;
+		this.monde = monde;
 		this.jeu = jeu;
 		PPM = screen.getPPM();
 		
@@ -40,7 +44,7 @@ public class Pic extends Decors{
 		for(int i=0; i<14; i++){
 			trPic[i] = tr[0][i];
 		}
-		animation = new Animations(trPic, false, 5);
+		animation = new Animations(trPic, true, 10);
 	}
 
 	public void init() {
@@ -58,10 +62,23 @@ public class Pic extends Decors{
 		fdef.shape = pshape;
 		fdef.density = 1f;
 		fdef.filter.categoryBits = screen.BITGROUND;
-		body.createFixture(fdef).setUserData("Decors");
+		body.createFixture(fdef).setUserData(nom);
 	}
 	public void render(SpriteBatch sb){
 		sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX, getBody().getPosition().y*PPM-TailleY, TailleX*2, TailleY*4);
+		if(contactPic){
+			animation.update(1f);
+		}
+		if(animation.isFini()){
+			contactPic = false;
+			animation.setFini(false);
+		}
 	}
 
+	public boolean isContactPic() {
+		return contactPic;
+	}
+	public void setContactPic(boolean contactPic) {
+		this.contactPic = contactPic;
+	}
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import core.Jeu;
 import dynamiques.Ennemi;
 import states.PlayScreen;
+import statiques.Pic;
 
 public class Niveau1 {
 
@@ -19,6 +20,7 @@ public class Niveau1 {
 	private int nbPartie = 0;
 	private int vieEnnemi;
 	private Ennemi ennemi;
+	private Pic pic;
 	
 
 	public Niveau1(Jeu jeu, World monde, PlayScreen screen){
@@ -73,5 +75,10 @@ public class Niveau1 {
 			ennemi.setVie(vieEnnemi-X);
 		}
 		
+	}
+
+	public void GestionPic(String iDNbPic, String iDNbPartie) {
+		pic = parties.get(Integer.parseInt(iDNbPartie)).pics.get(Integer.parseInt(iDNbPic));
+		pic.setContactPic(true);
 	}
 }

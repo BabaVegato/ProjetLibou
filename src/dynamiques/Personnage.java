@@ -57,7 +57,7 @@ public abstract class Personnage{
 		//Fixture sensor pieds
 		fdef = new FixtureDef();
 		pshape = new PolygonShape();
-		pshape.setAsBox((19*TailleX/20)/PPM, (TailleY/8)/PPM, new Vector2(0,-TailleY/PPM), 0);
+		pshape.setAsBox(TailleX/PPM, (TailleY/8)/PPM, new Vector2(0,-TailleY/PPM), 0);
 		fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
 		fdef.friction = 15f;
 		fdef.shape = pshape;

@@ -54,7 +54,6 @@ public class PlayScreen implements Screen{
 	private Sound SndJump;
 	private Joueur joueur;
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
-	private String[] IDEnnemi;
 	
 	private int KEY_JUMP = Input.Keys.Z;
 	private int KEY_JUMP_2 = Input.Keys.SPACE;
@@ -62,8 +61,12 @@ public class PlayScreen implements Screen{
 	private int KEY_LEFT = Input.Keys.Q;
 	private int KEY_SWORD = Input.Keys.F;
 	private int KEY_GUN = Input.Keys.E;
+	
 	private String IDNbPartie;
 	private String IDNbEnnemi;
+	private String[] IDEnnemi;
+	private String[] IDPic;
+	private String IDNbPic;
 
 	
 	public PlayScreen(final Jeu game) {
@@ -127,6 +130,7 @@ public class PlayScreen implements Screen{
 		
 		font.draw(sb, "Vie : 10", 100, 100);
 		cam.update();
+		
 		joueur.render(sb);
 		
 		niveau1.render(sb);
@@ -172,8 +176,20 @@ public class PlayScreen implements Screen{
 		processMov(x, y, 25f);
 		processAtk();
 		processDegats();
+		processPics();
 		//System.out.println(joueur.getState());
    }
+	
+	public void processPics(){
+		if(contList.isPicActive()){
+			IDPic = contList.getIDPic().split(":");
+			IDNbPic = IDPic[1];
+			IDNbPartie = IDPic[2];
+			niveau1.GestionPic(IDNbPic, IDNbPartie);
+			
+			contList.setPicActive(false);
+		}
+	}
 	
 	public void processDegats() {
 		if(contList.isDegatsAGerer()){
@@ -185,8 +201,6 @@ public class PlayScreen implements Screen{
 			niveau1.GestionVie(IDNbEnnemi, IDNbPartie, 1);
 			
 			contList.setDegatsAGerer(false);
-			
-			//System.out.println("IDEnnemi : " + IDEnnemi[0]);
 		}
 	}
 

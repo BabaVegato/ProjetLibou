@@ -29,7 +29,6 @@ public abstract class Decors {
 		this.screen = screen;
 		this.PosX = PosX;
 		this.PosY = PosY;
-		
 	}
 
 	public Body getBody() {
