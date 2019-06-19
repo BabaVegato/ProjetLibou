@@ -26,6 +26,8 @@ public class Ennemi extends Personnage{
 	private Texture gun;
 	private PlayScreen screen;
 	private int Vie = 3;
+	private float VitX = 20;
+	private float VitY = 0;
 	
 	public Ennemi(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom){
 		super(screen, monde, PosX, PosY, false, nom);
@@ -167,5 +169,16 @@ public class Ennemi extends Personnage{
 		System.out.println("Mort ennemi");
 		getBody().destroyFixture(getBody().getFixtureList().first());
 		getBody().destroyFixture(getBody().getFixtureList().first());
+	}
+
+	public void mov(boolean VersLaDroite) {
+		float x = getBody().getLinearVelocity().x;
+		float y = getBody().getLinearVelocity().y;
+		if(VersLaDroite){
+			body.setLinearVelocity(new Vector2(VitX, y));
+		}
+		if(!VersLaDroite){
+			body.setLinearVelocity(new Vector2(-VitX, y));
+		}
 	}
 }

@@ -16,7 +16,7 @@ public abstract class Partie {
 	
 	protected ArrayList<Sol> sols;
 	private ArrayList<Pic> pics;
-	protected ArrayList<Ennemi> ennemis;
+	private ArrayList<Ennemi> ennemis;
 	protected Jeu jeu;
 	protected World monde;
 	protected PlayScreen screen;
@@ -28,7 +28,7 @@ public abstract class Partie {
 	protected ArrayList<Integer> ListeEnnemis;
 	
 	public Partie(){
-		ennemis = new ArrayList<Ennemi>();
+		setEnnemis(new ArrayList<Ennemi>());
 	}
 	
 	public abstract void placementEnnemis(int X, int Y);
@@ -43,5 +43,13 @@ public abstract class Partie {
 
 	public void setPics(ArrayList<Pic> pics) {
 		this.pics = pics;
+	}
+
+	public ArrayList<Ennemi> getEnnemis() {
+		return ennemis;
+	}
+
+	public void setEnnemis(ArrayList<Ennemi> ennemis) {
+		this.ennemis = ennemis;
 	}
 }

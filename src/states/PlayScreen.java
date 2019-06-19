@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import carte.Niveau1;
 import core.Jeu;
+import dynamiques.Ennemi;
 import dynamiques.Joueur;
 import dynamiques.Projectile;
 import handlers.MonContactList;
@@ -71,6 +72,7 @@ public class PlayScreen implements Screen{
 	private String IDNbPic;
 	
 	private Pic pic;
+	private Ennemi ennemi;
 	private float distanceX;
 	private float distanceY;
 
@@ -183,6 +185,7 @@ public class PlayScreen implements Screen{
 		processAtk();
 		processDegats();
 		processPics();
+		EnnemiMov();
 		//System.out.println(joueur.getState());
    }
 	
@@ -211,6 +214,10 @@ public class PlayScreen implements Screen{
 		}
 	}
 	
+	private void ScoreScreen() {
+		//stage.addActor(actor);
+	}
+
 	public void processDegats() {
 		if(contList.isDegatsAGerer()){
 			//IDEnnemi = [TYPE ; Numero ; Partie]
@@ -226,6 +233,23 @@ public class PlayScreen implements Screen{
 		}
 	}
 
+	public void EnnemiMov(){
+		for(int i=0; i<niveau1.getParties().size(); i++){
+			for(int j=0; j<niveau1.getParties().get(i).getEnnemis().size(); j++){
+				
+				ennemi = niveau1.getParties().get(i).getEnnemis().get(j);
+				distanceX = ennemi.getBody().getPosition().x - joueur.getBody().getPosition().x;
+			
+				distanceY = Math.abs(ennemi.getBody().getPosition().y - joueur.getBody().getPosition().y);
+				
+				if(distanceY < 2.2f*TailleBloc){
+					if(distanceX < 0) ennemi.mov(true);
+					else ennemi.mov(false);
+				}
+			}
+		}
+	}
+	
 	public void processMov(float x, float y, float v){
 		if (Gdx.input.isKeyPressed(KEY_RIGHT) && joueur.getBody().getLinearVelocity().x <= v) {
         	x+=v;

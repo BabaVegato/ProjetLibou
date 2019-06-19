@@ -63,7 +63,7 @@ public class Niveau1 {
 	public void GestionVie(String IDNbEnnemi, String IDNbPartie, int X){
 		//Retire X de vie au bon ennemi
 		
-		ennemi = getParties().get(Integer.parseInt(IDNbPartie)).ennemis.get(Integer.parseInt(IDNbEnnemi));
+		ennemi = getParties().get(Integer.parseInt(IDNbPartie)).getEnnemis().get(Integer.parseInt(IDNbEnnemi));
 		
 		vieEnnemi = ennemi.getVie();
 		if(vieEnnemi-X <= 0){

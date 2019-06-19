@@ -18,12 +18,12 @@ public class lvl1part1 extends Partie{
 			{'s', 's', 's', 's', 's', 's', 's', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'s', 's', '0', '0', '0', '0', '0', '0', 'e', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', 'p', 'p', 'p', 'p', 'p', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'}, 
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'}, 
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', '0', '0', 's', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', '0', 'p', 'p', 's', 'p', '0', '0', '0', '0', '0', 's'},
@@ -49,7 +49,7 @@ public class lvl1part1 extends Partie{
 		this.Y = -j*screen.getTailleBloc()*2*screen.getBlocsParPartieY();
 		sols = new ArrayList<Sol>();
 		setPics(new ArrayList<Pic>());
-		ennemis = new ArrayList<Ennemi>();
+		setEnnemis(new ArrayList<Ennemi>());
 		
 		placementDecors(X, Y);
 		placementEnnemis(X, Y);
@@ -65,7 +65,7 @@ public class lvl1part1 extends Partie{
 				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2;
 				
 				if(design[j][i] == 'e'){
-					ennemis.add(new Ennemi(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie));
+					getEnnemis().add(new Ennemi(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie));
 					nbEnnemi++;
 				}
 			}
@@ -101,9 +101,9 @@ public class lvl1part1 extends Partie{
 				getPics().get(i).render(sb);
 			}
 		}
-		if(!ennemis.isEmpty()){
-			for(int i=0; i<ennemis.size(); i++){
-				ennemis.get(i).render(sb);
+		if(!getEnnemis().isEmpty()){
+			for(int i=0; i<getEnnemis().size(); i++){
+				getEnnemis().get(i).render(sb);
 			}
 		}
 	}

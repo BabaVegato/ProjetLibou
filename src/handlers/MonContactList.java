@@ -60,11 +60,11 @@ public class MonContactList implements ContactListener{
 	    Fixture fb = c.getFixtureB();
 	    
 	    /////////// SOL - JOUEUR /////////////
-		if(fa.getUserData().toString().contains("Decors") && fb.getUserData().equals("JoueurPied")) {
+		if((fa.getUserData().toString().contains("Decors")|| fa.getUserData().toString().contains("Pic")) && fb.getUserData().equals("JoueurPied")) {
 			nbContacts -= 1;
 
 	    }
-	    if(fb.getUserData().toString().contains("Decors") && fa.getUserData().equals("JoueurPied")) {
+	    if((fb.getUserData().toString().contains("Decors")|| fb.getUserData().toString().contains("Pic")) && fa.getUserData().equals("JoueurPied")) {
 	    	nbContacts -= 1;
 	    }
 	    if(nbContacts == 0){
