@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 
 import core.Jeu;
+import dynamiques.Ennemi;
 import states.PlayScreen;
 
 public class Niveau1 {
@@ -16,6 +17,8 @@ public class Niveau1 {
 	private World monde;
 	private PlayScreen screen;
 	private int nbPartie = 0;
+	private int vieEnnemi;
+	private Ennemi ennemi;
 	
 
 	public Niveau1(Jeu jeu, World monde, PlayScreen screen){
@@ -57,6 +60,18 @@ public class Niveau1 {
 	}
 	public void GestionVie(String IDNbEnnemi, String IDNbPartie, int X){
 		//Retire X de vie au bon ennemi
-		parties.get(Integer.parseInt(IDNbPartie)).ennemis.get(Integer.parseInt(IDNbEnnemi)).setVie(parties.get(Integer.parseInt(IDNbPartie)).ennemis.get(Integer.parseInt(IDNbEnnemi)).getVie()-X);
+		
+		ennemi = parties.get(Integer.parseInt(IDNbPartie)).ennemis.get(Integer.parseInt(IDNbEnnemi));
+		
+		vieEnnemi = ennemi.getVie();
+		if(vieEnnemi-X <= 0){
+			ennemi.getBody().destroyFixture(ennemi.getBody().getFixtureList().first());
+			ennemi.getBody().destroyFixture(ennemi.getBody().getFixtureList().first());
+			
+		}
+		else{
+			ennemi.setVie(vieEnnemi-X);
+		}
+		
 	}
 }

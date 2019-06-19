@@ -145,7 +145,7 @@ public class Joueur extends Personnage{
 			/////suppr epee
 			for(int i=0; i<body.getFixtureList().size; i++){
 				if(body.getFixtureList().get(i).getUserData().toString().contains("Epee")){
-					body.getFixtureList().removeIndex(i);
+					getBody().destroyFixture(getBody().getFixtureList().get(i));
 				}
 			}
 		}
@@ -177,5 +177,6 @@ public class Joueur extends Personnage{
 			fdef.filter.categoryBits = screen.BITJOUEUR;
 			body.createFixture(fdef).setUserData("JoueurEpee");
 		}
+		body.applyForceToCenter(new Vector2(0, -0.1f),true);
 	}
 }

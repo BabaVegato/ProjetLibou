@@ -164,7 +164,7 @@ public class PlayScreen implements Screen{
 		jump = false;
 			
 		if ( (Gdx.input.isKeyJustPressed(KEY_JUMP) || Gdx.input.isKeyJustPressed(KEY_JUMP_2)) && contList.isJoueurSol()) {
-            y=50;
+            y=70;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
         	SndJump.play();
         	jump = true;
@@ -186,7 +186,7 @@ public class PlayScreen implements Screen{
 			
 			contList.setDegatsAGerer(false);
 			
-			System.out.println("IDEnnemi : " + IDEnnemi);
+			//System.out.println("IDEnnemi : " + IDEnnemi[0]);
 		}
 	}
 
@@ -201,7 +201,7 @@ public class PlayScreen implements Screen{
         			/////suppr epee
         			for(int i=0; i<joueur.getBody().getFixtureList().size; i++){
         				if(joueur.getBody().getFixtureList().get(i).getUserData().toString().contains("Epee")){
-        					joueur.getBody().getFixtureList().removeIndex(i);
+        					joueur.getBody().destroyFixture(joueur.getBody().getFixtureList().get(i));
         				}
         			}
         		}
@@ -225,7 +225,7 @@ public class PlayScreen implements Screen{
         			/////suppr epee
         			for(int i=0; i<joueur.getBody().getFixtureList().size; i++){
         				if(joueur.getBody().getFixtureList().get(i).getUserData().toString().contains("Epee")){
-        					joueur.getBody().getFixtureList().removeIndex(i);
+        					joueur.getBody().destroyFixture(joueur.getBody().getFixtureList().get(i));
         				}
         			}
         		}
@@ -260,7 +260,7 @@ public class PlayScreen implements Screen{
 			/////suppr epee
 			for(int i=0; i<joueur.getBody().getFixtureList().size; i++){
 				if(joueur.getBody().getFixtureList().get(i).getUserData().toString().contains("Epee")){
-					joueur.getBody().getFixtureList().removeIndex(i);
+					joueur.getBody().destroyFixture(joueur.getBody().getFixtureList().get(i));
 				}
 			}
 		}

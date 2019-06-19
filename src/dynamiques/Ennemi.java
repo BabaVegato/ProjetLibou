@@ -25,7 +25,7 @@ public class Ennemi extends Personnage{
 	private Texture sword;
 	private Texture gun;
 	private PlayScreen screen;
-	private int Vie = 4;
+	private int Vie = 3;
 	
 	public Ennemi(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom){
 		super(screen, monde, PosX, PosY, false, nom);
@@ -112,6 +112,7 @@ public class Ennemi extends Personnage{
 		}
 	}
 	public void render(SpriteBatch sb) {
+		
 		/*if(state == 'i'){
 			sb.draw(animation.getFrame(), getBody().getPosition().x-TailleX, getBody().getPosition().y-TailleY, TailleX*2, TailleY*2);
 		}
@@ -148,37 +149,16 @@ public class Ennemi extends Personnage{
 	}
 
 	public void atk(){
-		if (state == 's'){
-			//Fixture sensor epee
-			fdef = new FixtureDef();
-			pshape = new PolygonShape();
-			if(isDroite()){
-				pshape.setAsBox(TailleX/PPM, 3*TailleY/4/PPM, new Vector2(2*TailleX/PPM,0), 0);
-			}
-			else{
-				pshape.setAsBox(TailleX/PPM, 3*TailleY/4/PPM, new Vector2(-2*TailleX/PPM,0), 0);
-			}
-			fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
-			fdef.shape = pshape;
-			fdef.isSensor = true;
-			fdef.filter.categoryBits = screen.BITJOUEUR;
-			body.createFixture(fdef).setUserData("JoueurEpee");
-		}
 	}
-	
-	
 	public char getState() {
 		return state;
 	}
-
 	public void setState(char state) {
 		this.state = state;
 	}
-
 	public int getVie() {
 		return Vie;
 	}
-
 	public void setVie(int vie) {
 		Vie = vie;
 	}
