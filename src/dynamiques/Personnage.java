@@ -67,21 +67,19 @@ public abstract class Personnage{
 		
 	}
 
+	public abstract void render(SpriteBatch sb);
+	public abstract void setAnimation();
+	
 	public Body getBody() {
 		return body;
 	}
-
 	public void setBody(Body body) {
 		this.body = body;
 	}
-
 	public boolean isDroite() {
 		return Droite;
 	}
-
 	public void setDroite(boolean droite) {
 		Droite = droite;
 	}
-	public abstract void render(SpriteBatch sb);
-	public abstract void setAnimation();
 }

@@ -15,7 +15,7 @@ public class Jumper extends Ennemi{
 		super(jeu, screen, monde, PosX, PosY, nom);
 		
 		Vie = 3;
-		VitX = 200000;
+		VitX = 100000;
 		VitY = 200000;
 	}
 
@@ -36,7 +36,7 @@ public class Jumper extends Ennemi{
 	public void mov(boolean VersLaDroite){
 		//float x = getBody().getLinearVelocity().x;
 		//float y = getBody().getLinearVelocity().y;
-		if(time>400){
+		if(time>300){
 			if(VersLaDroite){
 				body.applyLinearImpulse(new Vector2(VitX, VitY), body.getLocalCenter(), true);
 			}
