@@ -15,7 +15,7 @@ import statiques.Sol;
 public abstract class Partie {
 	
 	protected ArrayList<Sol> sols;
-	protected ArrayList<Pic> pics;
+	private ArrayList<Pic> pics;
 	protected ArrayList<Ennemi> ennemis;
 	protected Jeu jeu;
 	protected World monde;
@@ -36,4 +36,12 @@ public abstract class Partie {
 	public abstract void placementDecors(int X, int Y);
 	
 	public abstract void render(SpriteBatch sb);
+
+	public ArrayList<Pic> getPics() {
+		return pics;
+	}
+
+	public void setPics(ArrayList<Pic> pics) {
+		this.pics = pics;
+	}
 }

@@ -75,7 +75,7 @@ public class lvl1part2 extends Partie{
 					decors.add(new Sol(jeu, screen, monde, posx, posy));
 				}
 				if(design[j][i] == 'p'){
-					pics.add(new Pic(jeu, screen, monde, posx, posy, "Pic:" + nbPic + ":" + nbPartie));
+					getPics().add(new Pic(jeu, screen, monde, posx, posy, "Pic:" + nbPic + ":" + nbPartie));
 					nbPic++;
 				}
 			}

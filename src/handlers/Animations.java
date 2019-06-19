@@ -20,7 +20,7 @@ public class Animations
     this.frames = frames;
     this.delay = delay;
     time = 0.0F;
-    currentFrame = 0;
+    setCurrentFrame(0);
   }
   
   public void update(float dt) { 
@@ -34,9 +34,9 @@ public class Animations
   public void step() {
 	  if(unique){
 		  time -= delay;
-		  currentFrame += 1;
-		  if (currentFrame == frames.length){
-			  currentFrame = 0;
+		  setCurrentFrame(getCurrentFrame() + 1);
+		  if (getCurrentFrame() == frames.length){
+			  setCurrentFrame(0);
 			  setFini(true);
 		  }
 		  else{
@@ -45,16 +45,16 @@ public class Animations
 	  }
 	  if(!unique){
 		  time -= delay;
-		  currentFrame += 1;
-		  if (currentFrame == frames.length){
-			  currentFrame = 0;
+		  setCurrentFrame(getCurrentFrame() + 1);
+		  if (getCurrentFrame() == frames.length){
+			  setCurrentFrame(0);
 		  }
 	  }
 	  
   }
   
   public TextureRegion getFrame() {
-    return frames[currentFrame];
+    return frames[getCurrentFrame()];
   }
 
 public boolean isFini() {
@@ -63,5 +63,13 @@ public boolean isFini() {
 
 public void setFini(boolean fini) {
 	this.fini = fini;
+}
+
+public int getCurrentFrame() {
+	return currentFrame;
+}
+
+public void setCurrentFrame(int currentFrame) {
+	this.currentFrame = currentFrame;
 }
 }

@@ -22,6 +22,7 @@ import core.Jeu;
 import dynamiques.Joueur;
 import dynamiques.Projectile;
 import handlers.MonContactList;
+import statiques.Pic;
 
 
 public class PlayScreen implements Screen{
@@ -67,6 +68,10 @@ public class PlayScreen implements Screen{
 	private String[] IDEnnemi;
 	private String[] IDPic;
 	private String IDNbPic;
+	
+	private Pic pic;
+	private float distanceX;
+	private float distanceY;
 
 	
 	public PlayScreen(final Jeu game) {
@@ -188,6 +193,20 @@ public class PlayScreen implements Screen{
 			niveau1.GestionPic(IDNbPic, IDNbPartie);
 			
 			contList.setPicActive(false);
+		}
+		for(int i=0; i<niveau1.getParties().size(); i++){
+			for(int j=0; j<niveau1.getParties().get(i).getPics().size(); j++){
+				pic = niveau1.getParties().get(i).getPics().get(j);
+				if(pic.isDangereux()){
+					distanceX = Math.abs(pic.getBody().getPosition().x - joueur.getBody().getPosition().x);
+					if(distanceX < 2*TailleBloc/3){
+						distanceY = Math.abs(pic.getBody().getPosition().y - joueur.getBody().getPosition().y);
+						if(distanceY < 3*TailleBloc/2){
+							System.out.println("Mort");
+						}
+					}
+				}
+			}
 		}
 	}
 	

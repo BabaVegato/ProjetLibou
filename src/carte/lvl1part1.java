@@ -48,7 +48,7 @@ public class lvl1part1 extends Partie{
 		this.X = i*screen.getTailleBloc()*2*screen.getBlocsParPartieX();
 		this.Y = -j*screen.getTailleBloc()*2*screen.getBlocsParPartieY();
 		sols = new ArrayList<Sol>();
-		pics = new ArrayList<Pic>();
+		setPics(new ArrayList<Pic>());
 		ennemis = new ArrayList<Ennemi>();
 		
 		placementDecors(X, Y);
@@ -83,7 +83,7 @@ public class lvl1part1 extends Partie{
 					sols.add(new Sol(jeu, screen, monde, posx, posy));
 				}
 				if(design[j][i] == 'p'){
-					pics.add(new Pic(jeu, screen, monde, posx, posy, "Pic:" + nbPic + ":" + nbPartie));
+					getPics().add(new Pic(jeu, screen, monde, posx, posy, "Pic:" + nbPic + ":" + nbPartie));
 					nbPic++;
 				}
 			}
@@ -96,9 +96,9 @@ public class lvl1part1 extends Partie{
 				sols.get(i).render(sb);
 			}
 		}
-		if(!pics.isEmpty()){
-			for(int i=0; i<pics.size(); i++){
-				pics.get(i).render(sb);
+		if(!getPics().isEmpty()){
+			for(int i=0; i<getPics().size(); i++){
+				getPics().get(i).render(sb);
 			}
 		}
 		if(!ennemis.isEmpty()){

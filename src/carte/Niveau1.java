@@ -28,7 +28,7 @@ public class Niveau1 {
 		this.jeu = jeu;
 		this.monde = monde;
 		this.screen = screen;
-		parties = new ArrayList<Partie>();
+		setParties(new ArrayList<Partie>());
 		
 		init(1);
 		
@@ -41,18 +41,18 @@ public class Niveau1 {
 				r = randInt(1, NbDePartiesDifferentes);
 				
 				if(r == 1){
-					parties.add(new lvl1part1(i, j, jeu, screen, monde, nbPartie));
+					getParties().add(new lvl1part1(i, j, jeu, screen, monde, nbPartie));
 				}
 				if(r == 2){
-					parties.add(new lvl1part2(i, j, jeu, screen, monde, nbPartie));
+					getParties().add(new lvl1part2(i, j, jeu, screen, monde, nbPartie));
 				}
 				nbPartie++;
 			}
 		}
 	}
 	public void render(SpriteBatch sb){
-		for(int i=0; i<parties.size(); i++){
-			parties.get(i).render(sb);
+		for(int i=0; i<getParties().size(); i++){
+			getParties().get(i).render(sb);
 		}
 	}
 	
@@ -63,7 +63,7 @@ public class Niveau1 {
 	public void GestionVie(String IDNbEnnemi, String IDNbPartie, int X){
 		//Retire X de vie au bon ennemi
 		
-		ennemi = parties.get(Integer.parseInt(IDNbPartie)).ennemis.get(Integer.parseInt(IDNbEnnemi));
+		ennemi = getParties().get(Integer.parseInt(IDNbPartie)).ennemis.get(Integer.parseInt(IDNbEnnemi));
 		
 		vieEnnemi = ennemi.getVie();
 		if(vieEnnemi-X <= 0){
@@ -78,7 +78,15 @@ public class Niveau1 {
 	}
 
 	public void GestionPic(String iDNbPic, String iDNbPartie) {
-		pic = parties.get(Integer.parseInt(iDNbPartie)).pics.get(Integer.parseInt(iDNbPic));
+		pic = getParties().get(Integer.parseInt(iDNbPartie)).getPics().get(Integer.parseInt(iDNbPic));
 		pic.setContactPic(true);
+	}
+
+	public ArrayList<Partie> getParties() {
+		return parties;
+	}
+
+	public void setParties(ArrayList<Partie> parties) {
+		this.parties = parties;
 	}
 }
