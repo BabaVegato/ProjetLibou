@@ -3,6 +3,7 @@ package states;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
@@ -10,9 +11,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -34,11 +39,8 @@ public class PlayScreen implements Screen{
 	public short BITOBJET = 8;
 	public short BITENNEMI = 16;
 	private int PPM = 2;
-	private int HEIGHT;
-	private int WIDTH;
-	private int TailleBloc = 20;
-	private int BlocsParPartieX = 15;
-	private int BlocsParPartieY = 20;
+	private int HEIGHT, WIDTH;
+	private int BlocsParPartieX = 15, BlocsParPartieY = 20, TailleBloc = 20;
 	
 	private final Jeu game;
 	private Stage stage;
@@ -51,6 +53,7 @@ public class PlayScreen implements Screen{
 	private Box2DDebugRenderer debugR;
 	private MonContactList contList;
 	private BitmapFont font = new BitmapFont();
+	private ShapeRenderer sr;
 	
 	private Niveau1 niveau1;
 	private Joueur joueur;
@@ -66,35 +69,33 @@ public class PlayScreen implements Screen{
 	private float distanceX;
 	private float distanceY;
 	private int Rand;
+	private float BouleR = 4, BouleG = 253, BouleB = 73, alpha = 0;
+	private Vector2 BoulePos;
+	private float temps = 0.00001f;
 	
 	private Pic pic;
 	private String[] IDPic;
-	private String IDNbPic;
-	private String IDNbPartiePic;
+	private String IDNbPic, IDNbPartiePic;
 	private Ennemi ennemi;
-	private String IDNbPartie;
-	private String IDNbEnnemi;
+	private String IDNbPartie, IDNbEnnemi;
 	private String[] IDEnnemi;
 	private String[] IDTir;
-	private String IDNbTir;
-	private String IDNbPartieTir;
+	private String IDNbTir, IDNbPartieTir;
 	private TirGun tir;
 	private int nbTir = 0;
 	
 	private Sound SndJumpJumper;
 	private Sound SndJump;
-	private Sound SndGun1;
-	private Sound SndGun2;
-	private Sound SndGun3;
-	private Sound SndSword1;
-	private Sound SndSword2;
-	private Sound SndSword3;
+	private Sound SndGun1, SndGun2, SndGun3;
+	private Sound SndSword1, SndSword2, SndSword3;
 
 	
 	public PlayScreen(final Jeu game) {
 		
 		HEIGHT = game.V_height/getPPM();
 		WIDTH = game.V_height/getPPM();
+		
+		BoulePos = new Vector2(game.V_width/2,game.V_height/2 + 50);
 		
 		//Sons
 		SndJump = game.assets.get("Assets/SndJump.mp3");
@@ -118,6 +119,7 @@ public class PlayScreen implements Screen{
 		game.batch.setProjectionMatrix(cam.combined);
 		contList = new MonContactList();
 		Monde.setContactListener(contList);
+		sr = new ShapeRenderer();
 		
 		posCameraDesired = new Vector3(game.V_width, game.V_height, 0);
 		
@@ -151,9 +153,8 @@ public class PlayScreen implements Screen{
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-		sb.setProjectionMatrix(cam.combined);
 		
+		sb.setProjectionMatrix(cam.combined);
 		
 		sb.begin();////////////////////////////
 		
@@ -177,10 +178,19 @@ public class PlayScreen implements Screen{
 		stage.act(delta);
 		stage.draw();
 		
+		//BOULE DE VIE
+		sr.begin(ShapeType.Filled);
+		sr.setColor(1/BouleR, 1/BouleG, 1/BouleB, 256);
+		sr.circle(BoulePos.x, BoulePos.y, 10);
+		sr.end();
+		//////////////
+		
 		
 		Monde.step(1/40f, 6, 2);
 		
 		handleInput(delta);
+		
+		UpdateBouleDeVie(1f);
 		
 	}
 
@@ -404,6 +414,20 @@ public class PlayScreen implements Screen{
 	public int randInt(int Min, int Max){
 		//prend un int dans [Min;Max]
 		return Min + (int)(Math.random() * ((Max - Min) + 1));
+	}
+	
+	public void UpdateBouleDeVie(float tempsLerp){
+		if(alpha < 1){
+			temps += Gdx.graphics.getDeltaTime();
+			alpha = tempsLerp/temps;
+			
+			BoulePos.lerp(new Vector2(joueur.getBody().getPosition().x*PPM, joueur.getBody().getPosition().y*PPM + 50), alpha);
+		}
+		Rand = randInt(0, 3);
+		if(Rand == 0)BoulePos.x += 0.2;
+		if(Rand == 1)BoulePos.x -= 0.2;
+		if(Rand == 2)BoulePos.y += 0.2;
+		if(Rand == 3)BoulePos.y -= 0.2;
 	}
 	
 	public int getTailleBloc() {
