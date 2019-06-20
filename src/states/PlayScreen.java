@@ -86,6 +86,9 @@ public class PlayScreen implements Screen{
 	private Sound SndGun1;
 	private Sound SndGun2;
 	private Sound SndGun3;
+	private Sound SndSword1;
+	private Sound SndSword2;
+	private Sound SndSword3;
 
 	
 	public PlayScreen(final Jeu game) {
@@ -99,6 +102,9 @@ public class PlayScreen implements Screen{
 		SndGun1 = game.assets.get("Assets/SndGun1.wav");
 		SndGun2 = game.assets.get("Assets/SndGun2.wav");
 		SndGun3 = game.assets.get("Assets/SndGun3.wav");
+		SndSword1 = game.assets.get("Assets/SndSword1.wav");
+		SndSword2 = game.assets.get("Assets/SndSword2.wav");
+		SndSword3 = game.assets.get("Assets/SndSword3.wav");
 		
 		//Setup
 		Monde = new World(new Vector2(0, -120.81f/PPM), true);
@@ -356,6 +362,10 @@ public class PlayScreen implements Screen{
 	
 	public void processAtk(){
 		if(Gdx.input.isKeyJustPressed(KEY_SWORD)){
+			Rand = randInt(1, 3);
+			if (Rand==1) SndSword1.play();
+			if (Rand==2) SndSword2.play();
+			if (Rand==3) SndSword3.play();
 			if(joueur.getState() != 's'){
 				joueur.setState('s');
 				joueur.setAnimation();
