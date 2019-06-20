@@ -14,16 +14,15 @@ import states.PlayScreen;
 
 public abstract class Ennemi extends Personnage{
 	
-	private char state = 'i';
-	private TextureRegion[][] tr;
-	private TextureRegion[] trIdle;
+	protected char state = 'i';
+	/*private TextureRegion[] trIdle;
 	private TextureRegion[] trWalk;
 	private TextureRegion[] trSword;
 	private TextureRegion[] trGun;
 	private Texture idle;
 	private Texture walk;
 	private Texture sword;
-	private Texture gun;
+	private Texture gun;*/
 	protected PlayScreen screen;
 	protected int Vie;
 	protected float VitX;

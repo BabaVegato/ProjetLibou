@@ -1,6 +1,7 @@
 package dynamiques;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -24,7 +25,8 @@ public abstract class Personnage{
 	protected int TailleY = 20;
 	private boolean Droite;
 	protected int PPM;
-	private PlayScreen screen;
+	protected PlayScreen screen;
+	protected TextureRegion[][] tr;
 	
 	public Personnage(PlayScreen screen, World monde, int PosX, int PosY, boolean Gentil, String nom){
 		

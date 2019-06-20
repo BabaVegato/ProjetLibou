@@ -15,7 +15,7 @@ import states.PlayScreen;
 public class Joueur extends Personnage{
 	
 	private char state = 'i';
-	private TextureRegion[][] tr;
+	
 	private TextureRegion[] trIdle;
 	private TextureRegion[] trWalk;
 	private TextureRegion[] trSword;
@@ -24,7 +24,6 @@ public class Joueur extends Personnage{
 	private Texture walk;
 	private Texture sword;
 	private Texture gun;
-	private PlayScreen screen;
 	private int PPM;
 	private int Vie = 5;
 	private boolean peutTirer = true;
