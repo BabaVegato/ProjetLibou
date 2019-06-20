@@ -24,7 +24,7 @@ public abstract class Ennemi extends Personnage{
 	private Texture walk;
 	private Texture sword;
 	private Texture gun;
-	private PlayScreen screen;
+	protected PlayScreen screen;
 	protected int Vie;
 	protected float VitX;
 	protected float VitY;

@@ -36,7 +36,9 @@ public class Jumper extends Ennemi{
 	public void mov(boolean VersLaDroite){
 		//float x = getBody().getLinearVelocity().x;
 		//float y = getBody().getLinearVelocity().y;
-		if(time>300){
+		if(time>300 && (Math.abs( screen.getJoueur().body.getPosition().x - body.getPosition().x ) < 70)){
+			screen.getSndJumpJumper().setVolume((long) 0.01f, 0);
+			screen.getSndJumpJumper().play();
 			if(VersLaDroite){
 				body.applyLinearImpulse(new Vector2(VitX, VitY), body.getLocalCenter(), true);
 			}

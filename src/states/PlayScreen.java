@@ -81,6 +81,8 @@ public class PlayScreen implements Screen{
 	private String IDNbPartieTir;
 	private TirGun tir;
 	private int nbTir = 0;
+	
+	private Sound SndJumpJumper;
 
 	
 	public PlayScreen(final Jeu game) {
@@ -90,6 +92,7 @@ public class PlayScreen implements Screen{
 		
 		//Sons
 		SndJump = game.assets.get("Assets/SndJump.mp3");
+		setSndJumpJumper(game.assets.get("Assets/SndJumpJumper.wav"));
 		
 		//Setup
 		Monde = new World(new Vector2(0, -120.81f/PPM), true);
@@ -399,5 +402,16 @@ public class PlayScreen implements Screen{
 	}
 	public void setPPM(int pPM) {
 		PPM = pPM;
+	}
+
+	public Sound getSndJumpJumper() {
+		return SndJumpJumper;
+	}
+
+	public void setSndJumpJumper(Sound sndJumpJumper) {
+		SndJumpJumper = sndJumpJumper;
+	}
+	public Joueur getJoueur(){
+		return joueur;
 	}
 }

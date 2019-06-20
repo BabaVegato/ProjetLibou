@@ -40,7 +40,7 @@ public class MonContactList implements ContactListener{
 	    	DegatsAGerer = true;
 	    	setIDEnnemi(fb.getUserData().toString());
 	    }
-	    /////////// Truc - Pic ////////////////
+	    /////////// Joueur - Pic ////////////////
 	    if(fa.getUserData().toString().contains("Pic") && fb.getUserData().toString().contains("Joueur")) {
 	    	setPicActive(true);
 	        setIDPic(fa.getUserData().toString());
@@ -76,6 +76,7 @@ public class MonContactList implements ContactListener{
 	    if(nbContacts == 0){
 	    	setJoueurSol(false);
 	    }
+	    /////////////////////////////////////
 	    
 	}
 

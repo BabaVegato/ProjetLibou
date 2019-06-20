@@ -81,6 +81,8 @@ public class LoadingScreen implements Screen{
 		jeu.assets.load("Assets\\Carre.png", Texture.class);
 		jeu.assets.load("Assets\\picTab.png", Texture.class);
 		
+		jeu.assets.load("Assets\\SndJumpJumper.wav", Sound.class);
+		
 		jeu.assets.finishLoading();
 	}
 }
