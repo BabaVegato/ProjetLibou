@@ -33,28 +33,26 @@ public class PlayScreen implements Screen{
 	public short BITJOUEUR = 2;
 	public short BITOBJET = 8;
 	public short BITENNEMI = 16;
+	private int PPM = 2;
+	private int HEIGHT;
+	private int WIDTH;
+	private int TailleBloc = 20;
+	private int BlocsParPartieX = 15;
+	private int BlocsParPartieY = 20;
+	
 	private final Jeu game;
 	private Stage stage;
 	private SpriteBatch sb;
 	private boolean jump;
-	private int PPM = 2;
-	private int HEIGHT;
-	private int WIDTH;
 	
 	private OrthographicCamera cam;
 	private Vector3 posCameraDesired;
-	
 	private World Monde;
 	private Box2DDebugRenderer debugR;
 	private MonContactList contList;
 	private BitmapFont font = new BitmapFont();
 	
 	private Niveau1 niveau1;
-	private int TailleBloc = 20;
-	private int BlocsParPartieX = 15;
-	private int BlocsParPartieY = 20;
-	
-	private Sound SndJump;
 	private Joueur joueur;
 	private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
 	
@@ -65,17 +63,18 @@ public class PlayScreen implements Screen{
 	private int KEY_SWORD = Input.Keys.F;
 	private int KEY_GUN = Input.Keys.E;
 	
-	private String IDNbPartie;
-	private String IDNbPartiePic;
-	private String IDNbEnnemi;
-	private String[] IDEnnemi;
-	private String[] IDPic;
-	private String IDNbPic;
-	
-	private Pic pic;
-	private Ennemi ennemi;
 	private float distanceX;
 	private float distanceY;
+	private int Rand;
+	
+	private Pic pic;
+	private String[] IDPic;
+	private String IDNbPic;
+	private String IDNbPartiePic;
+	private Ennemi ennemi;
+	private String IDNbPartie;
+	private String IDNbEnnemi;
+	private String[] IDEnnemi;
 	private String[] IDTir;
 	private String IDNbTir;
 	private String IDNbPartieTir;
@@ -83,6 +82,10 @@ public class PlayScreen implements Screen{
 	private int nbTir = 0;
 	
 	private Sound SndJumpJumper;
+	private Sound SndJump;
+	private Sound SndGun1;
+	private Sound SndGun2;
+	private Sound SndGun3;
 
 	
 	public PlayScreen(final Jeu game) {
@@ -93,6 +96,9 @@ public class PlayScreen implements Screen{
 		//Sons
 		SndJump = game.assets.get("Assets/SndJump.mp3");
 		setSndJumpJumper(game.assets.get("Assets/SndJumpJumper.wav"));
+		SndGun1 = game.assets.get("Assets/SndGun1.wav");
+		SndGun2 = game.assets.get("Assets/SndGun2.wav");
+		SndGun3 = game.assets.get("Assets/SndGun3.wav");
 		
 		//Setup
 		Monde = new World(new Vector2(0, -120.81f/PPM), true);
@@ -317,6 +323,7 @@ public class PlayScreen implements Screen{
             	joueur.setAnimation();
             }
         }
+		////////////////////////////////////////
         if (Gdx.input.isKeyPressed(KEY_LEFT) && joueur.getBody().getLinearVelocity().x >= -v) {
         	x-=v;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
@@ -366,6 +373,10 @@ public class PlayScreen implements Screen{
 				}
 			}
 			if(joueur.getTire()){
+				Rand = randInt(1, 3);
+				if (Rand==1) SndGun1.play();
+				if (Rand==2) SndGun2.play();
+				if (Rand==3) SndGun3.play();
 				projectiles.add(new TirGun(this, Monde, joueur.getBody().getPosition().x*PPM, joueur.getBody().getPosition().y*PPM, joueur.isDroite(), "TirGun:" + nbTir + ":Projectile"));
 				joueur.setTire(false);
 				joueur.setPeutTirer(false);
@@ -379,6 +390,12 @@ public class PlayScreen implements Screen{
 		posCameraDesired.y=joueur.getBody().getPosition().y*PPM;
 		cam.position.lerp(posCameraDesired,0.1f);
 	}
+	
+	public int randInt(int Min, int Max){
+		//prend un int dans [Min;Max]
+		return Min + (int)(Math.random() * ((Max - Min) + 1));
+	}
+	
 	public int getTailleBloc() {
 		return TailleBloc;
 	}
@@ -403,11 +420,9 @@ public class PlayScreen implements Screen{
 	public void setPPM(int pPM) {
 		PPM = pPM;
 	}
-
 	public Sound getSndJumpJumper() {
 		return SndJumpJumper;
 	}
-
 	public void setSndJumpJumper(Sound sndJumpJumper) {
 		SndJumpJumper = sndJumpJumper;
 	}
