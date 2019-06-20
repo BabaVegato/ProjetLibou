@@ -87,5 +87,4 @@ import statiques.Sol;
 		}
 	}
 
-	
-}
+
