@@ -59,6 +59,21 @@ public class MonContactList implements ContactListener{
 	    	setTirGunMur(true);
 	    	setIDTir(fa.getUserData().toString());
 	    }
+	    
+	    /////////// TirGun - Ennemis ////////////////
+	    if(fa.getUserData().toString().contains("Ennemi") && fb.getUserData().toString().contains("TirGun")) {
+	    	setTirGunMur(true);
+	        setIDTir(fb.getUserData().toString());
+	        DegatsAGerer = true;
+	    	setIDEnnemi(fa.getUserData().toString());
+	        
+	    }
+	    if(fb.getUserData().toString().contains("Ennemi") && fa.getUserData().toString().contains("TirGun")) {
+	    	setTirGunMur(true);
+	    	setIDTir(fa.getUserData().toString());
+	    	DegatsAGerer = true;
+	    	setIDEnnemi(fb.getUserData().toString());
+	    }
 	}
 
 	public void endContact(Contact c) {
