@@ -26,6 +26,10 @@ public class Joueur extends Personnage{
 	private Texture gun;
 	private PlayScreen screen;
 	private int PPM;
+	private int Vie = 5;
+	private boolean peutTirer = true;
+	private boolean Tire = false;
+	private int time = 100;
 	
 	public Joueur(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY){
 		super(screen, monde, PosX, PosY, true, "Joueur");
@@ -137,7 +141,19 @@ public class Joueur extends Personnage{
 			if(!isDroite()){
 				sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX - 35, getBody().getPosition().y*PPM-TailleY - 2, TailleX*6 - 6, TailleY*2 + 4);
 			}
+			if(animation.getCurrentFrame()>=6){
+				Tire = true;
+			}
 		}
+		if(!peutTirer){
+			time += 1;
+		}
+		if(time > 40){
+			time = 0;
+			peutTirer = true;
+		}
+		
+		
 		animation.update(1);
 		if(animation.isFini()){
 			state = 'i';
@@ -159,6 +175,12 @@ public class Joueur extends Personnage{
 	public void setState(char state) {
 		this.state = state;
 	}
+	public boolean getTire(){
+		return Tire;
+	}
+	public void setTire(boolean x){
+		Tire = x;
+	}
 	
 	public void atk(){
 		if (state == 's'){
@@ -178,5 +200,21 @@ public class Joueur extends Personnage{
 			body.createFixture(fdef).setUserData("JoueurEpee");
 		}
 		body.applyForceToCenter(new Vector2(0, -0.1f),true);
+	}
+
+	public int getVie() {
+		return Vie;
+	}
+
+	public void setVie(int vie) {
+		Vie = vie;
+	}
+
+	public boolean isPeutTirer() {
+		return peutTirer;
+	}
+
+	public void setPeutTirer(boolean peutTirer) {
+		this.peutTirer = peutTirer;
 	}
 }

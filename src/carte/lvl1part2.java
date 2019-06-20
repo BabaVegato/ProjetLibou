@@ -27,9 +27,9 @@ public class lvl1part2 extends Partie{
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'0', 'p', '0', '0', '0', 'p', 's', 's', 'p', '0', '0', '0', '0', '0', 's'},
-			{'0', '0', 'p', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'},
+			{'0', 'p', '0', '0', '0', 'p', 's', 's', 'p', '0', '0', '0', '0', '0', '0'},
+			{'0', '0', 'p', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'j'},
 			{'0', '0', '0', 'p', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'0', '0', '0', '0', 'p', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's', 's', 's'},
@@ -67,11 +67,11 @@ public class lvl1part2 extends Partie{
 				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2;
 				
 				if(design[j][i] == 'g'){
-					getEnnemis().add(new Gunner(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie));
+					getEnnemis().add(new Gunner(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Gunner"));
 					nbEnnemi++;
 				}
 				if(design[j][i] == 'j'){
-					getEnnemis().add(new Jumper(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie));
+					getEnnemis().add(new Jumper(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Jumper"));
 					nbEnnemi++;
 				}
 			}

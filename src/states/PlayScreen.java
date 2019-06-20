@@ -22,6 +22,7 @@ import core.Jeu;
 import dynamiques.Ennemi;
 import dynamiques.Joueur;
 import dynamiques.Projectile;
+import dynamiques.TirGun;
 import handlers.MonContactList;
 import statiques.Pic;
 
@@ -75,6 +76,11 @@ public class PlayScreen implements Screen{
 	private Ennemi ennemi;
 	private float distanceX;
 	private float distanceY;
+	private String[] IDTir;
+	private String IDNbTir;
+	private String IDNbPartieTir;
+	private TirGun tir;
+	private int nbTir = 0;
 
 	
 	public PlayScreen(final Jeu game) {
@@ -108,7 +114,7 @@ public class PlayScreen implements Screen{
 		
 		//Objets
 		//objets = new ArrayList<Objet>();
-		//projectiles = new ArrayList<Projectile>();
+		projectiles = new ArrayList<Projectile>();
 		
 	}
 
@@ -136,10 +142,14 @@ public class PlayScreen implements Screen{
 		
 		sb.begin();////////////////////////////
 		
-		font.draw(sb, "Vie : 10", 100, 100);
+		font.draw(sb, "Vie : " + joueur.getVie(), 100, 100);
 		cam.update();
 		
 		joueur.render(sb);
+		
+		for(int i=0; i<projectiles.size(); i++){
+			projectiles.get(i).render(sb);
+		}
 		
 		niveau1.render(sb);
 		
@@ -184,12 +194,13 @@ public class PlayScreen implements Screen{
 		processMov(x, y, 25f);
 		processAtk();
 		processDegats();
-		processPics();
+		processPicsEtProj();
 		EnnemiMov();
 		//System.out.println(joueur.getState());
    }
-	
-	public void processPics(){
+
+	public void processPicsEtProj(){
+		//////////// PICS ///////////////
 		if(contList.isPicActive()){
 			IDPic = contList.getIDPic().split(":");
 			IDNbPic = IDPic[1];
@@ -212,6 +223,15 @@ public class PlayScreen implements Screen{
 				}
 			}
 		}
+		//////////////// PROJ ////////////////
+		if(contList.isTirGunMur()){
+			IDTir = contList.getIDTir().split(":");
+			IDNbTir = IDTir[1];
+			projectiles.get(Integer.parseInt(IDNbTir)).suppr();
+			
+			contList.setTirGunMur(false);
+		}
+		
 	}
 	
 	private void ScoreScreen() {
@@ -219,6 +239,8 @@ public class PlayScreen implements Screen{
 	}
 
 	public void processDegats() {
+		
+		//////////// EPEE ///////////
 		if(contList.isDegatsAGerer()){
 			//IDEnnemi = [TYPE ; Numero ; Partie]
 			IDEnnemi = contList.getIDEnnemi().split(":");
@@ -227,12 +249,29 @@ public class PlayScreen implements Screen{
 			
 			System.out.println("IDNbEnnemi : " + IDNbEnnemi + "/ IDNbPartie : " + IDNbPartie);
 			
-			niveau1.GestionVie(IDNbEnnemi, IDNbPartie, 1);
+			niveau1.GestionVie(IDNbEnnemi, IDNbPartie, 2);
 			
 			contList.setDegatsAGerer(false);
 		}
+		//////////// GUN ////////////
+		for(int i=0; i<niveau1.getParties().size(); i++){
+			for(int j=0; j<niveau1.getParties().get(i).getEnnemis().size(); j++){
+				
+				ennemi = niveau1.getParties().get(i).getEnnemis().get(j);
+				distanceX = ennemi.getBody().getPosition().x - joueur.getBody().getPosition().x;
+				
+				distanceY = Math.abs(ennemi.getBody().getPosition().y - joueur.getBody().getPosition().y);
+				
+				if(distanceY < 2.2f*TailleBloc){
+					if(distanceX < 0) ennemi.mov(true);
+					else ennemi.mov(false);
+				}
+			}
+		}
 	}
 
+	
+	
 	public void EnnemiMov(){
 		for(int i=0; i<niveau1.getParties().size(); i++){
 			for(int j=0; j<niveau1.getParties().get(i).getEnnemis().size(); j++){
@@ -312,7 +351,7 @@ public class PlayScreen implements Screen{
 				joueur.setAnimation();
 			}
 		}
-		if(Gdx.input.isKeyJustPressed(KEY_GUN)){
+		if(Gdx.input.isKeyJustPressed(KEY_GUN) && joueur.isPeutTirer()){
 			if(joueur.getState() != 'g'){
 				joueur.setState('g');
 				joueur.setAnimation();
@@ -322,6 +361,12 @@ public class PlayScreen implements Screen{
 				if(joueur.getBody().getFixtureList().get(i).getUserData().toString().contains("Epee")){
 					joueur.getBody().destroyFixture(joueur.getBody().getFixtureList().get(i));
 				}
+			}
+			if(joueur.getTire()){
+				projectiles.add(new TirGun(this, Monde, joueur.getBody().getPosition().x*PPM, joueur.getBody().getPosition().y*PPM, joueur.isDroite(), "TirGun:" + nbTir + ":Projectile"));
+				joueur.setTire(false);
+				joueur.setPeutTirer(false);
+				nbTir++;
 			}
 		}
 	}

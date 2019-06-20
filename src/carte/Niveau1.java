@@ -30,7 +30,7 @@ public class Niveau1 {
 		this.screen = screen;
 		setParties(new ArrayList<Partie>());
 		
-		init(1);
+		init(2);
 		
 	}
 	
@@ -87,4 +87,5 @@ public class Niveau1 {
 	public void setParties(ArrayList<Partie> parties) {
 		this.parties = parties;
 	}
+
 }

@@ -14,6 +14,8 @@ public class MonContactList implements ContactListener{
 	private String IDPic;
 	private boolean DegatsAGerer = false;
 	private boolean PicActive = false;
+	private boolean TirGunMur = false;
+	private String IDTir;
 
 	public void beginContact(Contact c) {
 		Fixture fa = c.getFixtureA();
@@ -33,29 +35,30 @@ public class MonContactList implements ContactListener{
 	    if(fa.getUserData().toString().contains("Ennemi") && fb.getUserData().toString().contains("Epee")) {
 	    	DegatsAGerer = true;
 	        setIDEnnemi(fa.getUserData().toString());
-	        System.out.println("Ouch");
 	    }
 	    if(fb.getUserData().toString().contains("Ennemi") && fa.getUserData().toString().contains("Epee")) {
 	    	DegatsAGerer = true;
 	    	setIDEnnemi(fb.getUserData().toString());
-	    	System.out.println("Ouch");
 	    }
 	    /////////// Truc - Pic ////////////////
 	    if(fa.getUserData().toString().contains("Pic") && fb.getUserData().toString().contains("Joueur")) {
 	    	setPicActive(true);
 	        setIDPic(fa.getUserData().toString());
-	        System.out.println("Pic activé !");
 	    }
 	    if(fb.getUserData().toString().contains("Pic") && fa.getUserData().toString().contains("Joueur")) {
 	    	setPicActive(true);
 	    	setIDPic(fb.getUserData().toString());
-	    	System.out.println("Pic activé !");
 	    }
-	}
-
-	private void setIDJumper(String string) {
-		// TODO Auto-generated method stub
-		
+	    
+	    /////////// TirGun - Decors ////////////////
+	    if((fa.getUserData().toString().contains("Decors") || fa.getUserData().toString().contains("Pic")) && fb.getUserData().toString().contains("TirGun")) {
+	    	setTirGunMur(true);
+	        setIDTir(fb.getUserData().toString());
+	    }
+	    if((fb.getUserData().toString().contains("Decors") || fb.getUserData().toString().contains("Pic")) && fa.getUserData().toString().contains("TirGun")) {
+	    	setTirGunMur(true);
+	    	setIDTir(fa.getUserData().toString());
+	    }
 	}
 
 	public void endContact(Contact c) {
@@ -122,6 +125,22 @@ public class MonContactList implements ContactListener{
 
 	public void setIDPic(String iDPic) {
 		IDPic = iDPic;
+	}
+
+	public boolean isTirGunMur() {
+		return TirGunMur;
+	}
+
+	public void setTirGunMur(boolean tirGunMur) {
+		TirGunMur = tirGunMur;
+	}
+
+	public String getIDTir() {
+		return IDTir;
+	}
+
+	public void setIDTir(String iDTir) {
+		IDTir = iDTir;
 	}
 	
 	
