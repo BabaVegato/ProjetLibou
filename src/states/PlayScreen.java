@@ -69,11 +69,12 @@ public class PlayScreen implements Screen{
 	private float distanceX;
 	private float distanceY;
 	private int Rand;
-	private float BouleR = 4, BouleG = 253, BouleB = 200, alpha = 0;
+	private float BouleR = 0, BouleG = 255, BouleB = 0, alphaBoule = 0;
 	private Vector2 BoulePos;
 	private float tempsBoule = 0.00001f;
 	private float VieNormee;
 	private float tempsDegats = 1;
+	private float vibr = 0.2f;
 	
 	private Pic pic;
 	private String[] IDPic;
@@ -91,7 +92,8 @@ public class PlayScreen implements Screen{
 	private Sound SndGun1, SndGun2, SndGun3;
 	private Sound SndSword1, SndSword2, SndSword3;
 	private float VieAvtContact;
-	private boolean vieAEtudier;
+	private boolean vieAEtudier = true;
+	private float alphaVie;
 	
 
 	
@@ -195,7 +197,7 @@ public class PlayScreen implements Screen{
 		
 		handleInput(delta);
 		
-		UpdateBouleDeVie(1f);
+		UpdateBouleDeVie(1f, vibr);
 		
 	}
 
@@ -301,34 +303,32 @@ public class PlayScreen implements Screen{
 		}
 		////////JOUEUR EN CONTACT AVEC ENNEMI /////////
 		tempsDegats += Gdx.graphics.getDeltaTime();
-		if(contList.isJoueurEnnemi()){
+		if(contList.isJoueurEnnemi() && tempsDegats > 1){
 			//IDEnnemi = [TYPE ; Numero ; Partie]
 			IDEnnemi = contList.getIDEnnemi().split(":");
 			IDNbEnnemi = IDEnnemi[1];
 			IDNbPartie = IDEnnemi[2];
 			
+			//On récupère la vie avant le dégat
 			if(vieAEtudier){
 				VieAvtContact = joueur.getVie();
 			}
 			vieAEtudier = false;
 			
-			if(tempsDegats < 1){
-				//Invicible pendant un temps
-				System.out.println(tempsDegats);
+			//Retire graduellement de la vie
+			if(VieAvtContact - 3 < joueur.getVie()){
+				joueur.setVie(joueur.getVie()-0.05f);
+				vibr = 2f;
 			}
-			else {
-				//Retire graduellement de la vie
-				if(VieAvtContact > joueur.getVie() - 3){
-					joueur.setVie(joueur.getVie()-0.1f);
-				}
-				else{
-					tempsDegats = 0;
-					vieAEtudier = true;
-				}
+			else{
+				tempsDegats = 0;
+				vieAEtudier = true;
+				contList.setJoueurEnnemi(false);
+				vibr = 0.2f;
 			}
 		}
+		System.out.println(joueur.getVie());
 	}
-
 	
 	
 	public void EnnemiMov(){
@@ -450,20 +450,20 @@ public class PlayScreen implements Screen{
 		return Min + (int)(Math.random() * ((Max - Min) + 1));
 	}
 	
-	public void UpdateBouleDeVie(float tempsLerp){
+	public void UpdateBouleDeVie(float tempsLerp, float vibrations){
 		
 		//////////////////POSITION///////////////////
-		if(alpha < 1){
+		if(alphaBoule < 1){
 			tempsBoule += Gdx.graphics.getDeltaTime();
-			alpha = tempsLerp/tempsBoule;
+			alphaBoule = tempsLerp/tempsBoule;
 			
-			BoulePos.lerp(new Vector2(joueur.getBody().getPosition().x*PPM, joueur.getBody().getPosition().y*PPM + 50), alpha);
+			BoulePos.lerp(new Vector2(joueur.getBody().getPosition().x*PPM, joueur.getBody().getPosition().y*PPM + 50), alphaBoule);
 		}
 		Rand = randInt(0, 3);
-		if(Rand == 0)BoulePos.x += 0.2;
-		if(Rand == 1)BoulePos.x -= 0.2;
-		if(Rand == 2)BoulePos.y += 0.2;
-		if(Rand == 3)BoulePos.y -= 0.2;
+		if(Rand == 0)BoulePos.x += vibr;
+		if(Rand == 1)BoulePos.x -= vibr;
+		if(Rand == 2)BoulePos.y += vibr;
+		if(Rand == 3)BoulePos.y -= vibr;
 		
 		/////////////////COULEUR///////////////////
 		VieNormee = joueur.getVie()/10;
