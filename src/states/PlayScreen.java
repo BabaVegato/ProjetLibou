@@ -89,6 +89,7 @@ public class PlayScreen implements Screen{
 	
 	private Sound SndJumpJumper;
 	private Sound SndJump;
+	private Sound SndHurt;
 	private Sound SndGun1, SndGun2, SndGun3;
 	private Sound SndSword1, SndSword2, SndSword3;
 	private float VieAvtContact;
@@ -107,6 +108,7 @@ public class PlayScreen implements Screen{
 		//Sons
 		SndJump = game.assets.get("Assets/SndJump.mp3");
 		setSndJumpJumper(game.assets.get("Assets/SndJumpJumper.wav"));
+		SndHurt = game.assets.get("Assets/SndHurt.wav");
 		SndGun1 = game.assets.get("Assets/SndGun1.wav");
 		SndGun2 = game.assets.get("Assets/SndGun2.wav");
 		SndGun3 = game.assets.get("Assets/SndGun3.wav");
@@ -312,6 +314,7 @@ public class PlayScreen implements Screen{
 			//On récupère la vie avant le dégat
 			if(vieAEtudier){
 				VieAvtContact = joueur.getVie();
+				SndHurt.play();
 			}
 			vieAEtudier = false;
 			
@@ -321,13 +324,14 @@ public class PlayScreen implements Screen{
 				vibr = 2f;
 			}
 			else{
+				joueur.setVie(Math.round(joueur.getVie()));
 				tempsDegats = 0;
 				vieAEtudier = true;
 				contList.setJoueurEnnemi(false);
 				vibr = 0.2f;
 			}
+			System.out.println(joueur.getVie());
 		}
-		System.out.println(joueur.getVie());
 	}
 	
 	
