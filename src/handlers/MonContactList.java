@@ -15,6 +15,7 @@ public class MonContactList implements ContactListener{
 	private boolean DegatsAGerer = false;
 	private boolean PicActive = false;
 	private boolean TirGunMur = false;
+	private boolean JoueurEnnemi = false;
 	private String IDTir;
 
 	public void beginContact(Contact c) {
@@ -48,6 +49,15 @@ public class MonContactList implements ContactListener{
 	    if(fb.getUserData().toString().contains("Pic") && fa.getUserData().toString().contains("Joueur")) {
 	    	setPicActive(true);
 	    	setIDPic(fb.getUserData().toString());
+	    }
+	    /////////// JOUEUR - ENNEMI ////////////////
+	    if(fa.getUserData().toString().contains("Ennemi") && fb.getUserData().toString().contains("Joueur")) {
+	    	setJoueurEnnemi(true);
+	        setIDEnnemi(fa.getUserData().toString());
+	    }
+	    if(fb.getUserData().toString().contains("Ennemi") && fa.getUserData().toString().contains("Joueur")) {
+	    	setJoueurEnnemi(true);
+	    	setIDEnnemi(fb.getUserData().toString());
 	    }
 	    
 	    /////////// TirGun - Decors ////////////////
@@ -157,6 +167,14 @@ public class MonContactList implements ContactListener{
 
 	public void setIDTir(String iDTir) {
 		IDTir = iDTir;
+	}
+
+	public boolean isJoueurEnnemi() {
+		return JoueurEnnemi;
+	}
+
+	public void setJoueurEnnemi(boolean joueurEnnemi) {
+		JoueurEnnemi = joueurEnnemi;
 	}
 	
 	

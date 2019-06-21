@@ -25,7 +25,7 @@ public class Joueur extends Personnage{
 	private Texture sword;
 	private Texture gun;
 	private int PPM;
-	private int Vie = 5;
+	private float Vie = 10;
 	private boolean peutTirer = true;
 	private boolean Tire = false;
 	private int time = 100;
@@ -201,11 +201,11 @@ public class Joueur extends Personnage{
 		body.applyForceToCenter(new Vector2(0, -0.1f),true);
 	}
 
-	public int getVie() {
+	public float getVie() {
 		return Vie;
 	}
 
-	public void setVie(int vie) {
+	public void setVie(float vie) {
 		Vie = vie;
 	}
 
