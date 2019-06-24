@@ -39,8 +39,10 @@ public class Niveau1 {
 	}
 	
 	public void init(int NbDePartiesDifferentes){
-		for(int i=0; i<4; i++){
-			for(int j=0; j<4; j++){
+		getParties().add(new lvl1Lobby(0, 0, jeu, screen, monde, nbPartie));
+		nbPartie++;
+		for(int i=1; i<12; i++){
+			for(int j=0; j<3; j++){
 				
 				r = randInt(1, NbDePartiesDifferentes);
 				

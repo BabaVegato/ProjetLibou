@@ -10,6 +10,7 @@ import dynamiques.Ennemi;
 import dynamiques.Gunner;
 import dynamiques.Jumper;
 import states.PlayScreen;
+import statiques.BonusVie;
 import statiques.Decors;
 import statiques.Pic;
 import statiques.Sol;
@@ -41,6 +42,8 @@ public class lvl1part2 extends Partie{
 	public lvl1part2(int i, int j, Jeu jeu, PlayScreen screen, World monde, int nbPartie){
 		nbEnnemi = 0;
 		nbPic = 0;
+		nbSol = 0;
+		nbItem = 0;
 		this.nbPartie = nbPartie;
 		ListeEnnemis = new ArrayList<Integer>();
 		this.jeu = jeu;
@@ -55,6 +58,7 @@ public class lvl1part2 extends Partie{
 		
 		placementDecors(X, Y);
 		placementEnnemis(X, Y);
+		placementItems(X, Y);
 		
 		
 	}
@@ -77,6 +81,20 @@ public class lvl1part2 extends Partie{
 			}
 		}
 	}
+	public void placementItems(int X, int Y){
+		for(int i=0; i<screen.getBlocsParPartieX(); i++){
+			for(int j=0; j<screen.getBlocsParPartieY(); j++){
+				
+				posy = X + i*screen.getTailleBloc()*2;
+				posx = jeu.V_height + Y - j*screen.getTailleBloc()*2;
+				
+				if(design[j][i] == 'B'){
+					getItem().add(new BonusVie(jeu, screen, monde, "Item:" + nbItem + ":" + nbPartie + ":BonusVie", posy, posx));
+					nbItem++;
+				}
+			}
+		}
+	}
 
 	public void placementDecors(int X, int Y) {
 		for(int i=0; i<screen.getBlocsParPartieX(); i++){
@@ -86,10 +104,11 @@ public class lvl1part2 extends Partie{
 				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2;
 				
 				if(design[j][i] == 's'){
-					sols.add(new Sol(jeu, screen, monde, posx, posy));
+					sols.add(new Sol(jeu, screen, monde, posx, posy, "Sol:" + nbSol + ":" + nbPartie + ":Decors"));
+					nbSol++;
 				}
 				if(design[j][i] == 'p'){
-					getPics().add(new Pic(jeu, screen, monde, posx, posy, "Pic:" + nbPic + ":" + nbPartie));
+					getPics().add(new Pic(jeu, screen, monde, posx, posy, "Pic:" + nbPic + ":" + nbPartie + ":Decors"));
 					nbPic++;
 				}
 			}
@@ -99,17 +118,22 @@ public class lvl1part2 extends Partie{
 	public void render(SpriteBatch sb) {
 		if(!sols.isEmpty()){
 			for(int i=0; i<sols.size(); i++){
-				sols.get(i).render(sb);
+				if(!sols.get(i).getADisparu()) sols.get(i).render(sb);
 			}
 		}
 		if(!getPics().isEmpty()){
 			for(int i=0; i<getPics().size(); i++){
-				getPics().get(i).render(sb);
+				if(!getPics().get(i).getADisparu()) getPics().get(i).render(sb);
 			}
 		}
 		if(!getEnnemis().isEmpty()){
 			for(int i=0; i<getEnnemis().size(); i++){
-				getEnnemis().get(i).render(sb);
+				if(!getEnnemis().get(i).isaDisparu()) getEnnemis().get(i).render(sb);
+			}
+		}
+		if(!getItem().isEmpty()){
+			for(int i=0; i<getItem().size(); i++){
+				getItem().get(i).render(sb);
 			}
 		}
 	}

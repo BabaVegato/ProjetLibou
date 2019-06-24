@@ -40,7 +40,8 @@ public class TirGun extends Projectile{
 		pshape.setAsBox(TailleX/PPM, TailleY/PPM);
 		fdef.shape = pshape;
 		fdef.density = 1f;
-		fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET | screen.BITENNEMI);
+		if(nom.contains("TirGunB")) fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET);
+		else fdef.filter.maskBits = (short) (screen.BITGROUND | screen.BITOBJET | screen.BITENNEMI);
 		fdef.filter.categoryBits = screen.BITJOUEUR;
 		body.createFixture(fdef).setUserData(nom);
 	}

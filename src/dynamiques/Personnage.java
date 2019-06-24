@@ -23,16 +23,18 @@ public abstract class Personnage{
 	protected BodyDef bdef;
 	protected int TailleX = 10;
 	protected int TailleY = 20;
-	private boolean Droite;
+	protected boolean Droite;
 	protected int PPM;
 	protected PlayScreen screen;
 	protected TextureRegion[][] tr;
+	protected World monde;
 	
 	public Personnage(PlayScreen screen, World monde, int PosX, int PosY, boolean Gentil, String nom){
 		
 		
 		this.screen = screen;
 		this.PPM = screen.getPPM();
+		this.monde = monde;
 		
 		bdef = new BodyDef();
 		bdef.position.set(PosX/PPM, PosY/PPM);

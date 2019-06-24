@@ -16,6 +16,7 @@ import states.PlayScreen;
 
 public class Joueur extends Personnage{
 	
+	private static final float DELAYGUN = 2;
 	private char state = 'i';
 	private char modeTir = 'n'; // n comme normal, b comme bazooka
 	private ArrayList<Character> TirsDispos;
@@ -31,8 +32,9 @@ public class Joueur extends Personnage{
 	private int PPM;
 	private float Vie = 10;
 	private boolean peutTirer = true;
-	private boolean Tire = false;
-	private int time = 100;
+	private float time = 10000;
+	private int Rand;
+	private boolean aTire = false;
 	
 	public Joueur(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY){
 		super(screen, monde, PosX, PosY, true, "Joueur");
@@ -169,45 +171,48 @@ public class Joueur extends Personnage{
 			if(!isDroite()){
 				sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX - 35, getBody().getPosition().y*PPM-TailleY - 2, TailleX*6 - 6, TailleY*2 + 4);
 			}
-			if(animation.getCurrentFrame()>=6){
-				Tire = true;
+			if(animation.getCurrentFrame() > 4 ){
+				if(!aTire) Tire();
 			}
 		}
-		if(!peutTirer){
-			time += 1;
-		}
-		if(time > 40){
-			time = 0;
+		time += 0.1f;
+		if(time > DELAYGUN){
 			peutTirer = true;
+			aTire = false;
 		}
-		
 		
 		animation.update(1);
+		
 		if(animation.isFini()){
 			state = 'i';
 			setAnimation();
-			/////suppr epee
-			for(int i=0; i<body.getFixtureList().size; i++){
-				if(body.getFixtureList().get(i).getUserData().toString().contains("Epee")){
-					getBody().destroyFixture(getBody().getFixtureList().get(i));
-				}
-			}
+			screen.supprEpee();
 		}
 	}
 
+
+	private void Tire() {
+		Rand = screen.randInt(1, 3);
+		if (Rand==1) screen.getSndGun1().play();
+		if (Rand==2) screen.getSndGun2().play();
+		if (Rand==3) screen.getSndGun3().play();
+		if(modeTir == 'n'){
+			screen.getProjectiles().add(new TirGun(screen, monde, body.getPosition().x*PPM, body.getPosition().y*PPM, Droite, "TirGunN:" + screen.getNbTir() + ":Projectile"));
+		}
+		if(modeTir == 'b'){
+			screen.getProjectiles().add(new TirGun(screen, monde, body.getPosition().x*PPM, body.getPosition().y*PPM, Droite, "TirGunB:" + screen.getNbTir() + ":Projectile"));
+		}
+		screen.setNbTir(screen.getNbTir()+1);
+		aTire = true;
+		peutTirer = false;
+		time = 0;
+	}
 
 	public char getState() {
 		return state;
 	}
-
 	public void setState(char state) {
 		this.state = state;
-	}
-	public boolean getTire(){
-		return Tire;
-	}
-	public void setTire(boolean x){
-		Tire = x;
 	}
 	
 	public void atk(){
@@ -225,7 +230,7 @@ public class Joueur extends Personnage{
 			fdef.shape = pshape;
 			fdef.isSensor = true;
 			fdef.filter.categoryBits = screen.BITJOUEUR;
-			body.createFixture(fdef).setUserData("JoueurEpee");
+			body.createFixture(fdef).setUserData("Epee");
 		}
 		body.applyForceToCenter(new Vector2(0, -0.1f),true);
 	}

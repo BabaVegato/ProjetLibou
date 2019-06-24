@@ -24,7 +24,6 @@ import core.Jeu;
 import dynamiques.Ennemi;
 import dynamiques.Joueur;
 import dynamiques.Projectile;
-import dynamiques.TirGun;
 import handlers.MonContactList;
 import statiques.Pic;
 
@@ -81,9 +80,9 @@ public class PlayScreen implements Screen{
 	private String[] IDEnnemi;
 	private String[] IDTir;
 	private String IDNbTir;
-	private TirGun tir;
 	private int nbTir = 0;
 	
+	private Sound SndChangeTir;
 	private Sound SndJumpJumper;
 	private Sound SndJump;
 	private Sound SndHurt;
@@ -91,7 +90,6 @@ public class PlayScreen implements Screen{
 	private Sound SndSword1, SndSword2, SndSword3;
 	private float VieAvtContact;
 	private boolean vieAEtudier = true;
-	private float alphaVie;
 	private String[] IDITEM;
 	private String IDNbItem;
 	private String IDNbPartieItem;
@@ -110,8 +108,9 @@ public class PlayScreen implements Screen{
 		BoulePos = new Vector2(game.V_width/2,game.V_height/2 + 50);
 		
 		//Sons
+		SndChangeTir = game.assets.get("Assets/SndChangeTir.wav");
 		SndJump = game.assets.get("Assets/SndJump.mp3");
-		setSndJumpJumper(game.assets.get("Assets/SndJumpJumper.wav"));
+		SndJumpJumper = game.assets.get("Assets/SndJumpJumper.wav");
 		SndHurt = game.assets.get("Assets/SndHurt.wav");
 		SndGun1 = game.assets.get("Assets/SndGun1.wav");
 		SndGun2 = game.assets.get("Assets/SndGun2.wav");
@@ -176,8 +175,8 @@ public class PlayScreen implements Screen{
 		
 		joueur.render(sb);
 		
-		for(int i=0; i<projectiles.size(); i++){
-			projectiles.get(i).render(sb);
+		for(int i=0; i<getProjectiles().size(); i++){
+			getProjectiles().get(i).render(sb);
 		}
 		
 		niveau1.render(sb);
@@ -239,7 +238,7 @@ public class PlayScreen implements Screen{
 
 	private void processChangeTir() {
 		if(Gdx.input.isKeyJustPressed(KEY_CHANGETIR)){
-			//SndSword1.play();
+			SndChangeTir.play();
 			modeTir = joueur.getModeTir();
 			TirsDispos = joueur.getTirsDispos();
 			IndexModeTir = TirsDispos.indexOf(modeTir);
@@ -281,7 +280,7 @@ public class PlayScreen implements Screen{
 		if(contList.isTirGunMur()){
 			IDTir = contList.getIDTir().split(":");
 			IDNbTir = IDTir[1];
-			projectiles.get(Integer.parseInt(IDNbTir)).suppr();
+			getProjectiles().get(Integer.parseInt(IDNbTir)).suppr();
 			if(IDTir[0].contains("TirGunB")){
 				IDDecors = contList.getIDDecors().split(":");
 				IDDecorsGenre = IDDecors[0];
@@ -461,31 +460,9 @@ public class PlayScreen implements Screen{
 			}
 		}
 		if(Gdx.input.isKeyJustPressed(KEY_GUN) && joueur.isPeutTirer()){
-			if(joueur.getState() != 'g'){
-				joueur.setState('g');
-				joueur.setAnimation();
-			}
-			/////suppr epee
-			for(int i=0; i<joueur.getBody().getFixtureList().size; i++){
-				if(joueur.getBody().getFixtureList().get(i).getUserData().toString().contains("Epee")){
-					joueur.getBody().destroyFixture(joueur.getBody().getFixtureList().get(i));
-				}
-			}
-			if(joueur.getTire()){
-				Rand = randInt(1, 3);
-				if (Rand==1) SndGun1.play();
-				if (Rand==2) SndGun2.play();
-				if (Rand==3) SndGun3.play();
-				if(joueur.getModeTir() == 'n'){
-					projectiles.add(new TirGun(this, Monde, joueur.getBody().getPosition().x*PPM, joueur.getBody().getPosition().y*PPM, joueur.isDroite(), "TirGunN:" + nbTir + ":Projectile"));
-				}
-				if(joueur.getModeTir() == 'b'){
-					projectiles.add(new TirGun(this, Monde, joueur.getBody().getPosition().x*PPM, joueur.getBody().getPosition().y*PPM, joueur.isDroite(), "TirGunB:" + nbTir + ":Projectile"));
-				}
-				joueur.setTire(false);
-				joueur.setPeutTirer(false);
-				nbTir++;
-			}
+			joueur.setState('g');
+			joueur.setAnimation();
+			supprEpee();
 		}
 	}
 	
@@ -522,6 +499,13 @@ public class PlayScreen implements Screen{
 		
 	}
 	
+	public void supprEpee(){
+		for(int i=0; i<joueur.getBody().getFixtureList().size; i++){
+			if(joueur.getBody().getFixtureList().get(i).getUserData().toString().contains("Epee")){
+				joueur.getBody().destroyFixture(joueur.getBody().getFixtureList().get(i));
+			}
+		}
+	}
 	public int getTailleBloc() {
 		return TailleBloc;
 	}
@@ -549,10 +533,31 @@ public class PlayScreen implements Screen{
 	public Sound getSndJumpJumper() {
 		return SndJumpJumper;
 	}
-	public void setSndJumpJumper(Sound sndJumpJumper) {
-		SndJumpJumper = sndJumpJumper;
-	}
 	public Joueur getJoueur(){
 		return joueur;
+	}
+
+	public Sound getSndGun1() {
+		return SndGun1;
+	}
+
+	public Sound getSndGun2() {
+		return SndGun2;
+	}
+
+	public Sound getSndGun3() {
+		return SndGun3;
+	}
+
+	public ArrayList<Projectile> getProjectiles() {
+		return projectiles;
+	}
+
+	public int getNbTir() {
+		return nbTir;
+	}
+
+	public void setNbTir(int nbTir) {
+		this.nbTir = nbTir;
 	}
 }
