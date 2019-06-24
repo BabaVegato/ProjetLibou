@@ -34,7 +34,7 @@ public class Niveau1 {
 		this.screen = screen;
 		setParties(new ArrayList<Partie>());
 		
-		init(1);
+		init(3);
 		
 	}
 	
@@ -51,6 +51,9 @@ public class Niveau1 {
 				}
 				if(r == 2){
 					getParties().add(new lvl1part2(i, j, jeu, screen, monde, nbPartie));
+				}
+				if(r == 3){
+					getParties().add(new lvl1part3(i, j, jeu, screen, monde, nbPartie));
 				}
 				nbPartie++;
 			}
