@@ -91,6 +91,8 @@ public class LoadingScreen implements Screen{
 		jeu.assets.load("Assets\\SndSword3.wav", Sound.class);
 		
 		jeu.assets.load("Assets\\jumperTab.png", Texture.class);
+		jeu.assets.load("Assets\\tirSentinelle.png", Texture.class);
+		jeu.assets.load("Assets\\tourelleTab.png", Texture.class);
 		
 		jeu.assets.finishLoading();
 	}
