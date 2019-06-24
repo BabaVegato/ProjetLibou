@@ -10,6 +10,7 @@ import dynamiques.Ennemi;
 import dynamiques.Gunner;
 import dynamiques.Jumper;
 import states.PlayScreen;
+import statiques.BonusVie;
 import statiques.Decors;
 import statiques.Pic;
 import statiques.Sol;
@@ -27,7 +28,7 @@ public class lvl1part1 extends Partie{
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', '0', '0', 's', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'s', '0', '0', '0', '0', '0', 's', 'B', 'B', 'B', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', '0', 'p', 'p', 's', 'p', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', 's', 's', 's', 's', 's', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
@@ -41,6 +42,7 @@ public class lvl1part1 extends Partie{
 	public lvl1part1(int i, int j, Jeu jeu, PlayScreen screen, World monde, int nbPartie){
 		nbEnnemi = 0;
 		nbPic = 0;
+		nbItem = 0;
 		this.nbPartie = nbPartie;
 		ListeEnnemis = new ArrayList<Integer>();
 		this.jeu = jeu;
@@ -55,6 +57,7 @@ public class lvl1part1 extends Partie{
 		
 		placementDecors(X, Y);
 		placementEnnemis(X, Y);
+		placementItems(X, Y);
 		
 		
 	}
@@ -73,6 +76,20 @@ public class lvl1part1 extends Partie{
 				if(design[j][i] == 'j'){
 					getEnnemis().add(new Jumper(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Jumper"));
 					nbEnnemi++;
+				}
+			}
+		}
+	}
+	public void placementItems(int X, int Y){
+		for(int i=0; i<screen.getBlocsParPartieX(); i++){
+			for(int j=0; j<screen.getBlocsParPartieY(); j++){
+				
+				posy = X + i*screen.getTailleBloc()*2;
+				posx = jeu.V_height + Y - j*screen.getTailleBloc()*2;
+				
+				if(design[j][i] == 'B'){
+					getItem().add(new BonusVie(jeu, screen, monde, "Item:" + nbItem + ":" + nbPartie + ":BonusVie", posy, posx));
+					nbItem++;
 				}
 			}
 		}
@@ -110,6 +127,11 @@ public class lvl1part1 extends Partie{
 		if(!getEnnemis().isEmpty()){
 			for(int i=0; i<getEnnemis().size(); i++){
 				getEnnemis().get(i).render(sb);
+			}
+		}
+		if(!getItem().isEmpty()){
+			for(int i=0; i<getItem().size(); i++){
+				getItem().get(i).render(sb);
 			}
 		}
 	}

@@ -9,6 +9,7 @@ import core.Jeu;
 import dynamiques.Ennemi;
 import states.PlayScreen;
 import statiques.Decors;
+import statiques.Item;
 import statiques.Pic;
 import statiques.Sol;
 
@@ -17,6 +18,8 @@ public abstract class Partie {
 	protected ArrayList<Sol> sols;
 	private ArrayList<Pic> pics;
 	private ArrayList<Ennemi> ennemis;
+	protected ArrayList<Integer> ListeEnnemis;
+	protected ArrayList<Item> items = new ArrayList<Item>();
 	protected Jeu jeu;
 	protected World monde;
 	protected PlayScreen screen;
@@ -25,7 +28,7 @@ public abstract class Partie {
 	protected int nbEnnemi;
 	protected int nbPic;
 	protected int nbPartie;
-	protected ArrayList<Integer> ListeEnnemis;
+	protected int nbItem;
 	
 	public Partie(){
 		setEnnemis(new ArrayList<Ennemi>());
@@ -40,16 +43,19 @@ public abstract class Partie {
 	public ArrayList<Pic> getPics() {
 		return pics;
 	}
-
 	public void setPics(ArrayList<Pic> pics) {
 		this.pics = pics;
 	}
-
 	public ArrayList<Ennemi> getEnnemis() {
 		return ennemis;
 	}
-
 	public void setEnnemis(ArrayList<Ennemi> ennemis) {
 		this.ennemis = ennemis;
+	}
+	public ArrayList<Item> getItem() {
+		return items;
+	}
+	public void setItem(ArrayList<Item> items) {
+		this.items = items;
 	}
 }

@@ -11,7 +11,7 @@ import core.Jeu;
 import handlers.Animations;
 import states.PlayScreen;
 
-public abstract class Decors {
+public abstract class Item {
 	protected Jeu jeu;
 	protected Body body;
 	protected Animations animation;
@@ -23,7 +23,7 @@ public abstract class Decors {
 	protected PlayScreen screen;
 	protected int PosX, PosY;
 	
-	public Decors(PlayScreen screen, World monde, int PosX, int PosY){
+	public Item(PlayScreen screen, World monde, int PosX, int PosY){
 		this.monde = monde;
 		this.screen = screen;
 		this.PosX = PosX;

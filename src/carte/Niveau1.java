@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import core.Jeu;
 import dynamiques.Ennemi;
 import states.PlayScreen;
+import statiques.Item;
 import statiques.Pic;
 
 public class Niveau1 {
@@ -21,6 +22,7 @@ public class Niveau1 {
 	private int vieEnnemi;
 	private Ennemi ennemi;
 	private Pic pic;
+	private Item item;
 	
 
 	public Niveau1(Jeu jeu, World monde, PlayScreen screen){
@@ -30,7 +32,7 @@ public class Niveau1 {
 		this.screen = screen;
 		setParties(new ArrayList<Partie>());
 		
-		init(2);
+		init(1);
 		
 	}
 	
@@ -78,6 +80,11 @@ public class Niveau1 {
 	public void GestionPic(String iDNbPic, String iDNbPartie) {
 		pic = getParties().get(Integer.parseInt(iDNbPartie)).getPics().get(Integer.parseInt(iDNbPic));
 		pic.setContactPic(true);
+	}
+	
+	public void GestionItem(String iDNb, String iDNbPartie) {
+		item = getParties().get(Integer.parseInt(iDNbPartie)).getItem().get(Integer.parseInt(iDNb));
+		item.getBody().destroyFixture(item.getBody().getFixtureList().get(0));
 	}
 
 	public ArrayList<Partie> getParties() {

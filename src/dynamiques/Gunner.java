@@ -34,7 +34,7 @@ public class Gunner extends Ennemi{
 			getBody().destroyFixture(getBody().getFixtureList().first());	
 	}
 	public void mov(boolean VersLaDroite){
-		float x = getBody().getLinearVelocity().x;
+		//float x = getBody().getLinearVelocity().x;
 		float y = getBody().getLinearVelocity().y;
 		if(VersLaDroite){
 			body.setLinearVelocity(new Vector2(VitX, y));

@@ -3,7 +3,6 @@ package states;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
@@ -13,11 +12,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -39,7 +36,6 @@ public class PlayScreen implements Screen{
 	public short BITOBJET = 8;
 	public short BITENNEMI = 16;
 	private int PPM = 2;
-	private int HEIGHT, WIDTH;
 	private int BlocsParPartieX = 15, BlocsParPartieY = 20, TailleBloc = 20;
 	
 	private final Jeu game;
@@ -65,6 +61,7 @@ public class PlayScreen implements Screen{
 	private int KEY_LEFT = Input.Keys.Q;
 	private int KEY_SWORD = Input.Keys.F;
 	private int KEY_GUN = Input.Keys.E;
+	private int KEY_CHANGETIR = Input.Keys.A;
 	
 	private float distanceX;
 	private float distanceY;
@@ -83,7 +80,7 @@ public class PlayScreen implements Screen{
 	private String IDNbPartie, IDNbEnnemi;
 	private String[] IDEnnemi;
 	private String[] IDTir;
-	private String IDNbTir, IDNbPartieTir;
+	private String IDNbTir;
 	private TirGun tir;
 	private int nbTir = 0;
 	
@@ -95,13 +92,13 @@ public class PlayScreen implements Screen{
 	private float VieAvtContact;
 	private boolean vieAEtudier = true;
 	private float alphaVie;
+	private String[] IDITEM;
+	private String IDNbItem;
+	private String IDNbPartieItem;
 	
 
 	
 	public PlayScreen(final Jeu game) {
-		
-		HEIGHT = game.V_height/getPPM();
-		WIDTH = game.V_height/getPPM();
 		
 		BoulePos = new Vector2(game.V_width/2,game.V_height/2 + 50);
 		
@@ -218,7 +215,6 @@ public class PlayScreen implements Screen{
 		float x = joueur.getBody().getLinearVelocity().x;
 		float y = joueur.getBody().getLinearVelocity().y;
 		jump = false;
-			
 		if ( (Gdx.input.isKeyJustPressed(KEY_JUMP) || Gdx.input.isKeyJustPressed(KEY_JUMP_2)) && contList.isJoueurSol()) {
             y=70;
             joueur.getBody().setLinearVelocity(new Vector2(x, y));
@@ -281,8 +277,6 @@ public class PlayScreen implements Screen{
 			IDNbEnnemi = IDEnnemi[1];
 			IDNbPartie = IDEnnemi[2];
 			
-			System.out.println("IDNbEnnemi : " + IDNbEnnemi + "/ IDNbPartie : " + IDNbPartie);
-			
 			niveau1.GestionVie(IDNbEnnemi, IDNbPartie, 2);
 			
 			tempsDegats += Gdx.graphics.getDeltaTime();
@@ -331,6 +325,21 @@ public class PlayScreen implements Screen{
 				vibr = 0.2f;
 			}
 			System.out.println(joueur.getVie());
+		}
+		
+		////////JOUEUR PRENDS BONUSVIE /////////
+		if(contList.isJoueurItem()){
+			//IDEnnemi = [TYPE ; Numero ; Partie]
+			IDITEM = contList.getIDItem().split(":");
+			IDNbItem = IDITEM[1];
+			IDNbPartieItem = IDITEM[2];
+			
+			niveau1.GestionItem(IDNbItem, IDNbPartieItem);
+			
+			//Remet 3 points de vie
+			joueur.setVie(joueur.getVie()+3);
+			System.out.println(joueur.getVie());
+			contList.setJoueurItem(false);
 		}
 	}
 	

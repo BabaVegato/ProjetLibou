@@ -16,7 +16,9 @@ public class MonContactList implements ContactListener{
 	private boolean PicActive = false;
 	private boolean TirGunMur = false;
 	private boolean JoueurEnnemi = false;
+	private boolean JoueurItem = false;
 	private String IDTir;
+	private String IDItem;
 
 	public void beginContact(Contact c) {
 		Fixture fa = c.getFixtureA();
@@ -30,6 +32,15 @@ public class MonContactList implements ContactListener{
 	    if((fb.getUserData().toString().contains("Decors") || fb.getUserData().toString().contains("Pic")) && fa.getUserData().equals("JoueurPied")) {
 	    	nbContacts += 1;
 	    	setJoueurSol(true);
+	    }
+	    /////////// BONUS VIE - JOUEUR /////////////
+	    if(fa.getUserData().toString().contains("BonusVie") && fb.getUserData().toString().contains("Joueur")) {
+	    	setIDItem(fa.getUserData().toString());
+	        setJoueurItem(true);
+	    }
+	    if(fb.getUserData().toString().contains("BonusVie") && fb.getUserData().toString().contains("Joueur")) {
+	    	setIDItem(fb.getUserData().toString());
+	    	setJoueurItem(true);
 	    }
 	    
 	    /////////// EPEE - ENNEMI /////////////
@@ -175,6 +186,22 @@ public class MonContactList implements ContactListener{
 
 	public void setJoueurEnnemi(boolean joueurEnnemi) {
 		JoueurEnnemi = joueurEnnemi;
+	}
+
+	public boolean isJoueurItem() {
+		return JoueurItem;
+	}
+
+	public void setJoueurItem(boolean joueurItem) {
+		JoueurItem = joueurItem;
+	}
+
+	public String getIDItem() {
+		return IDItem;
+	}
+
+	public void setIDItem(String iDItem) {
+		IDItem = iDItem;
 	}
 	
 	

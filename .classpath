@@ -17,19 +17,5 @@
 	<classpathentry kind="lib" path="C:/Users/Baptiste/Desktop/CODE/Java/LIBS/gdx-setup.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Baptiste/Desktop/CODE/Java/LIBS/gdx-tools.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Baptiste/Desktop/CODE/Java/LIBS/gdx-tools-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/box2dlights-1.5-SNAPSHOT.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/box2dlights-1.5-SNAPSHOT-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-backend-lwjgl.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-backend-lwjgl-natives.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-box2d.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-box2d-natives.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-freetype.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-freetype-natives.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-freetype-sources.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-natives.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-setup.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-tools.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ted/Documents/GitHub/ProjetLibou/LIBS/gdx-tools-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
