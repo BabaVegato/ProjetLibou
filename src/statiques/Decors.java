@@ -22,6 +22,7 @@ public abstract class Decors {
 	protected World monde;
 	protected PlayScreen screen;
 	protected int PosX, PosY;
+	protected boolean aDisparu = false;
 	
 	public Decors(PlayScreen screen, World monde, int PosX, int PosY){
 		this.monde = monde;
@@ -39,4 +40,11 @@ public abstract class Decors {
 	}
 	public abstract void render(SpriteBatch sb);
 	public abstract void init();
+	
+	public boolean getADisparu(){
+		return aDisparu;
+	}
+	public void setADisparu(boolean x){
+		aDisparu = x;
+	}
 }

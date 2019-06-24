@@ -1,5 +1,7 @@
 package dynamiques;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,6 +17,8 @@ import states.PlayScreen;
 public class Joueur extends Personnage{
 	
 	private char state = 'i';
+	private char modeTir = 'n'; // n comme normal, b comme bazooka
+	private ArrayList<Character> TirsDispos;
 	
 	private TextureRegion[] trIdle;
 	private TextureRegion[] trWalk;
@@ -38,6 +42,9 @@ public class Joueur extends Personnage{
 		this.screen = screen;
 		this.PPM = screen.getPPM();
 		setDroite(true);
+		TirsDispos = new ArrayList<Character>();
+		TirsDispos.add('n');
+		TirsDispos.add('b');
 		
 		idle = jeu.assets.get("Assets/idleTab.png");
 		walk = jeu.assets.get("Assets/walkTab.png");
@@ -75,12 +82,22 @@ public class Joueur extends Personnage{
 				}
 				animation = new Animations(trSword, true, 4);
 			}
+			/////////////////// GUN ////////////////////////
 			if(state=='g'){
-				tr = TextureRegion.split(gun, 27, 17);
-				for(int i=0; i<8; i++){
-					trGun[i] = tr[0][i];
+				if(modeTir == 'n'){
+					tr = TextureRegion.split(gun, 27, 17);
+					for(int i=0; i<8; i++){
+						trGun[i] = tr[0][i];
+					}
+					animation = new Animations(trGun, true, 4);
 				}
-				animation = new Animations(trGun, true, 4);
+				if(modeTir == 'b'){
+					tr = TextureRegion.split(gun, 27, 17);
+					for(int i=0; i<8; i++){
+						trGun[i] = tr[0][i];
+					}
+					animation = new Animations(trGun, true, 4);
+				}
 			}
 		}
 		if(!isDroite()){
@@ -100,6 +117,7 @@ public class Joueur extends Personnage{
 				}
 				animation = new Animations(trWalk,false, 10);
 			}
+			/////////////////// SWORD /////////////////////
 			if(state=='s'){
 				tr = TextureRegion.split(sword, 19, 17);
 				for(int i=0; i<8; i++){
@@ -108,13 +126,24 @@ public class Joueur extends Personnage{
 				}
 				animation = new Animations(trSword, true, 4);
 			}
+			/////////////////////// GUN //////////////////////////
 			if(state=='g'){
-				tr = TextureRegion.split(gun, 27, 17);
-				for(int i=0; i<8; i++){
-					trGun[i] = tr[0][i];
-					trGun[i].flip(true, false);
+				if(modeTir == 'n'){
+					tr = TextureRegion.split(gun, 27, 17);
+					for(int i=0; i<8; i++){
+						trGun[i] = tr[0][i];
+						trGun[i].flip(true, false);
+					}
+					animation = new Animations(trGun, true, 4);
 				}
-				animation = new Animations(trGun, true, 4);
+				if(modeTir == 'b'){
+					tr = TextureRegion.split(gun, 27, 17);
+					for(int i=0; i<8; i++){
+						trGun[i] = tr[0][i];
+						trGun[i].flip(true, false);
+					}
+					animation = new Animations(trGun, true, 4);
+				}
 			}
 		}
 	}
@@ -215,5 +244,19 @@ public class Joueur extends Personnage{
 
 	public void setPeutTirer(boolean peutTirer) {
 		this.peutTirer = peutTirer;
+	}
+
+	public ArrayList<Character> getTirsDispos() {
+		return TirsDispos;
+	}
+
+	public void setTirsDispos(ArrayList<Character> tirsDispos) {
+		TirsDispos = tirsDispos;
+	}
+	public char getModeTir(){
+		return modeTir;
+	}
+	public void setModeTir(char x){
+		modeTir = x;
 	}
 }

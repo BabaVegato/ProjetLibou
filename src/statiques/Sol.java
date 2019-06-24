@@ -13,10 +13,11 @@ public class Sol extends Decors{
 
 	private Texture carre;
 	private int PPM;
+	private String nom;
 
-	public Sol(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY) {
+	public Sol(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom) {
 		super(screen, monde, PosX, PosY);
-		
+		this.nom = nom;
 		PPM = screen.getPPM();
 		
 		TailleX = 20;
@@ -48,7 +49,7 @@ public class Sol extends Decors{
 		fdef.shape = pshape;
 		fdef.density = 1f;
 		fdef.filter.categoryBits = screen.BITGROUND;
-		body.createFixture(fdef).setUserData("Decors");
+		body.createFixture(fdef).setUserData(nom);
 	}
 
 	public void render(SpriteBatch sb) {

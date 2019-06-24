@@ -21,6 +21,7 @@ public abstract class Ennemi extends Personnage{
 	protected int Vie;
 	protected float VitX;
 	protected float VitY;
+	protected boolean aDisparu = false;
 	
 	public Ennemi(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom){
 		super(screen, monde, PosX, PosY, false, nom);
@@ -60,6 +61,14 @@ public abstract class Ennemi extends Personnage{
 	}
 	public void setVie(int vie) {
 		Vie = vie;
+	}
+
+	public boolean isaDisparu() {
+		return aDisparu;
+	}
+
+	public void setaDisparu(boolean aDisparu) {
+		this.aDisparu = aDisparu;
 	}
 
 }

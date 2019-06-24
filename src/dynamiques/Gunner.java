@@ -52,7 +52,8 @@ public class Gunner extends Ennemi{
 
 	public void mort() {
 			getBody().destroyFixture(getBody().getFixtureList().first());
-			getBody().destroyFixture(getBody().getFixtureList().first());	
+			getBody().destroyFixture(getBody().getFixtureList().first());
+			aDisparu = true;
 	}
 	public void mov(boolean VersLaDroite){
 		//float x = getBody().getLinearVelocity().x;

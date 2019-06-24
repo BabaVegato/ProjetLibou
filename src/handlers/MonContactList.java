@@ -17,19 +17,21 @@ public class MonContactList implements ContactListener{
 	private boolean TirGunMur = false;
 	private boolean JoueurEnnemi = false;
 	private boolean JoueurItem = false;
+	private boolean GunEnnemi = false;
 	private String IDTir;
 	private String IDItem;
+	private String IDDecors;
 
 	public void beginContact(Contact c) {
 		Fixture fa = c.getFixtureA();
 	    Fixture fb = c.getFixtureB();
 	    
 	    /////////// SOL - JOUEUR /////////////
-	    if((fa.getUserData().toString().contains("Decors") || fa.getUserData().toString().contains("Pic")) && fb.getUserData().equals("JoueurPied")) {
+	    if(fa.getUserData().toString().contains("Decors") && fb.getUserData().equals("JoueurPied")) {
 	    	nbContacts += 1;
 	        setJoueurSol(true);
 	    }
-	    if((fb.getUserData().toString().contains("Decors") || fb.getUserData().toString().contains("Pic")) && fa.getUserData().equals("JoueurPied")) {
+	    if(fb.getUserData().toString().contains("Decors") && fa.getUserData().equals("JoueurPied")) {
 	    	nbContacts += 1;
 	    	setJoueurSol(true);
 	    }
@@ -72,25 +74,28 @@ public class MonContactList implements ContactListener{
 	    }
 	    
 	    /////////// TirGun - Decors ////////////////
-	    if((fa.getUserData().toString().contains("Decors") || fa.getUserData().toString().contains("Pic")) && fb.getUserData().toString().contains("TirGun")) {
+	    if(fa.getUserData().toString().contains("Decors") && fb.getUserData().toString().contains("TirGun")) {
 	    	setTirGunMur(true);
 	        setIDTir(fb.getUserData().toString());
+	        setIDDecors(fa.getUserData().toString());
+	        
 	    }
-	    if((fb.getUserData().toString().contains("Decors") || fb.getUserData().toString().contains("Pic")) && fa.getUserData().toString().contains("TirGun")) {
+	    if(fb.getUserData().toString().contains("Decors") && fa.getUserData().toString().contains("TirGun")) {
 	    	setTirGunMur(true);
 	    	setIDTir(fa.getUserData().toString());
+	    	setIDDecors(fb.getUserData().toString());
 	    }
 	    
 	    /////////// TirGun - Ennemis ////////////////
 	    if(fa.getUserData().toString().contains("Ennemi") && fb.getUserData().toString().contains("TirGun")) {
-	    	setTirGunMur(true);
+	    	setGunEnnemi(true);
 	        setIDTir(fb.getUserData().toString());
 	        DegatsAGerer = true;
 	    	setIDEnnemi(fa.getUserData().toString());
 	        
 	    }
 	    if(fb.getUserData().toString().contains("Ennemi") && fa.getUserData().toString().contains("TirGun")) {
-	    	setTirGunMur(true);
+	    	setGunEnnemi(true);
 	    	setIDTir(fa.getUserData().toString());
 	    	DegatsAGerer = true;
 	    	setIDEnnemi(fb.getUserData().toString());
@@ -202,6 +207,22 @@ public class MonContactList implements ContactListener{
 
 	public void setIDItem(String iDItem) {
 		IDItem = iDItem;
+	}
+
+	public String getIDDecors() {
+		return IDDecors;
+	}
+
+	public void setIDDecors(String iDDecors) {
+		IDDecors = iDDecors;
+	}
+
+	public boolean isGunEnnemi() {
+		return GunEnnemi;
+	}
+
+	public void setGunEnnemi(boolean gunEnnemi) {
+		GunEnnemi = gunEnnemi;
 	}
 	
 	

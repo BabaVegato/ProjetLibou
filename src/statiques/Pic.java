@@ -21,6 +21,7 @@ public class Pic extends Decors{
 	private boolean contactPic;
 	private String nom;
 	private boolean dangereux;
+	
 
 	public Pic(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom) {
 		super(screen, monde, PosX, PosY);

@@ -52,7 +52,8 @@ public class Jumper extends Ennemi{
 	}
 	public void mort() {
 		getBody().destroyFixture(getBody().getFixtureList().first());
-		getBody().destroyFixture(getBody().getFixtureList().first());	
+		getBody().destroyFixture(getBody().getFixtureList().first());
+		aDisparu = true;
 	}
 
 	public void mov(boolean VersLaDroite){

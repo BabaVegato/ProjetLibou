@@ -29,6 +29,7 @@ public abstract class Partie {
 	protected int nbPic;
 	protected int nbPartie;
 	protected int nbItem;
+	protected int nbSol;
 	
 	public Partie(){
 		setEnnemis(new ArrayList<Ennemi>());
@@ -57,5 +58,11 @@ public abstract class Partie {
 	}
 	public void setItem(ArrayList<Item> items) {
 		this.items = items;
+	}
+	public ArrayList<Sol> getSols() {
+		return sols;
+	}
+	public void setSols(ArrayList<Sol> sols) {
+		this.sols = sols;
 	}
 }

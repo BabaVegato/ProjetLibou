@@ -42,6 +42,7 @@ public class lvl1part1 extends Partie{
 	public lvl1part1(int i, int j, Jeu jeu, PlayScreen screen, World monde, int nbPartie){
 		nbEnnemi = 0;
 		nbPic = 0;
+		nbSol = 0;
 		nbItem = 0;
 		this.nbPartie = nbPartie;
 		ListeEnnemis = new ArrayList<Integer>();
@@ -103,10 +104,11 @@ public class lvl1part1 extends Partie{
 				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2;
 				
 				if(design[j][i] == 's'){
-					sols.add(new Sol(jeu, screen, monde, posx, posy));
+					sols.add(new Sol(jeu, screen, monde, posx, posy, "Sol:" + nbSol + ":" + nbPartie + ":Decors"));
+					nbSol++;
 				}
 				if(design[j][i] == 'p'){
-					getPics().add(new Pic(jeu, screen, monde, posx, posy, "Pic:" + nbPic + ":" + nbPartie));
+					getPics().add(new Pic(jeu, screen, monde, posx, posy, "Pic:" + nbPic + ":" + nbPartie + ":Decors"));
 					nbPic++;
 				}
 			}
@@ -116,17 +118,17 @@ public class lvl1part1 extends Partie{
 	public void render(SpriteBatch sb) {
 		if(!sols.isEmpty()){
 			for(int i=0; i<sols.size(); i++){
-				sols.get(i).render(sb);
+				if(!sols.get(i).getADisparu()) sols.get(i).render(sb);
 			}
 		}
 		if(!getPics().isEmpty()){
 			for(int i=0; i<getPics().size(); i++){
-				getPics().get(i).render(sb);
+				if(!getPics().get(i).getADisparu()) getPics().get(i).render(sb);
 			}
 		}
 		if(!getEnnemis().isEmpty()){
 			for(int i=0; i<getEnnemis().size(); i++){
-				getEnnemis().get(i).render(sb);
+				if(!getEnnemis().get(i).isaDisparu()) getEnnemis().get(i).render(sb);
 			}
 		}
 		if(!getItem().isEmpty()){

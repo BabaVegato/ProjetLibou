@@ -10,6 +10,7 @@ import dynamiques.Ennemi;
 import states.PlayScreen;
 import statiques.Item;
 import statiques.Pic;
+import statiques.Sol;
 
 public class Niveau1 {
 
@@ -23,6 +24,7 @@ public class Niveau1 {
 	private Ennemi ennemi;
 	private Pic pic;
 	private Item item;
+	private Sol sol;
 	
 
 	public Niveau1(Jeu jeu, World monde, PlayScreen screen){
@@ -93,6 +95,21 @@ public class Niveau1 {
 
 	public void setParties(ArrayList<Partie> parties) {
 		this.parties = parties;
+	}
+
+	public void DestructionDecors(String iDDecorsGenre, String iDNbPartieDecors, String iDNbDecors) {
+		if(iDDecorsGenre.contains("Sol")){
+			System.out.println("Destrudec");
+			sol = getParties().get(Integer.parseInt(iDNbPartieDecors)).getSols().get(Integer.parseInt(iDNbDecors));
+			sol.getBody().destroyFixture(sol.getBody().getFixtureList().get(0));
+			sol.setADisparu(true);
+		}
+		if(iDDecorsGenre.contains("Pic")){
+			pic = getParties().get(Integer.parseInt(iDNbPartieDecors)).getPics().get(Integer.parseInt(iDNbDecors));
+			pic.getBody().destroyFixture(pic.getBody().getFixtureList().get(0));
+			pic.setADisparu(true);
+		}
+		
 	}
 
 }

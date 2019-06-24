@@ -95,6 +95,13 @@ public class PlayScreen implements Screen{
 	private String[] IDITEM;
 	private String IDNbItem;
 	private String IDNbPartieItem;
+	private char modeTir;
+	private ArrayList<Character> TirsDispos;
+	private int IndexModeTir;
+	private String[] IDDecors;
+	private String IDNbPartieDecors;
+	private String IDNbDecors;
+	private String IDDecorsGenre;
 	
 
 	
@@ -223,11 +230,28 @@ public class PlayScreen implements Screen{
         }
 		processMov(x, y, 25f);
 		processAtk();
+		processChangeTir();
 		processDegats();
 		processPicsEtProj();
 		EnnemiMov();
 		//System.out.println(joueur.getState());
    }
+
+	private void processChangeTir() {
+		if(Gdx.input.isKeyJustPressed(KEY_CHANGETIR)){
+			//SndSword1.play();
+			modeTir = joueur.getModeTir();
+			TirsDispos = joueur.getTirsDispos();
+			IndexModeTir = TirsDispos.indexOf(modeTir);
+			
+			if(IndexModeTir < TirsDispos.size()-1) IndexModeTir++;
+			else IndexModeTir = 0;
+			joueur.setModeTir(TirsDispos.get(IndexModeTir));
+			
+			System.out.println(modeTir);
+		}
+		
+	}
 
 	public void processPicsEtProj(){
 		//////////// PICS ///////////////
@@ -253,11 +277,19 @@ public class PlayScreen implements Screen{
 				}
 			}
 		}
-		//////////////// PROJ ////////////////
+		//////////////// PROJECTILES ////////////////
 		if(contList.isTirGunMur()){
 			IDTir = contList.getIDTir().split(":");
 			IDNbTir = IDTir[1];
 			projectiles.get(Integer.parseInt(IDNbTir)).suppr();
+			if(IDTir[0].contains("TirGunB")){
+				IDDecors = contList.getIDDecors().split(":");
+				IDDecorsGenre = IDDecors[0];
+				IDNbDecors = IDDecors[1];
+				IDNbPartieDecors = IDDecors[2];
+				
+				niveau1.DestructionDecors(IDDecorsGenre,IDNbPartieDecors, IDNbDecors);
+			}
 			
 			contList.setTirGunMur(false);
 		}
@@ -444,7 +476,12 @@ public class PlayScreen implements Screen{
 				if (Rand==1) SndGun1.play();
 				if (Rand==2) SndGun2.play();
 				if (Rand==3) SndGun3.play();
-				projectiles.add(new TirGun(this, Monde, joueur.getBody().getPosition().x*PPM, joueur.getBody().getPosition().y*PPM, joueur.isDroite(), "TirGun:" + nbTir + ":Projectile"));
+				if(joueur.getModeTir() == 'n'){
+					projectiles.add(new TirGun(this, Monde, joueur.getBody().getPosition().x*PPM, joueur.getBody().getPosition().y*PPM, joueur.isDroite(), "TirGunN:" + nbTir + ":Projectile"));
+				}
+				if(joueur.getModeTir() == 'b'){
+					projectiles.add(new TirGun(this, Monde, joueur.getBody().getPosition().x*PPM, joueur.getBody().getPosition().y*PPM, joueur.isDroite(), "TirGunB:" + nbTir + ":Projectile"));
+				}
 				joueur.setTire(false);
 				joueur.setPeutTirer(false);
 				nbTir++;
