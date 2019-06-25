@@ -11,11 +11,10 @@ import dynamiques.Gunner;
 import dynamiques.Jumper;
 import states.PlayScreen;
 import statiques.BonusVie;
-import statiques.Decors;
 import statiques.Pic;
 import statiques.Sol;
 
-public class lvl1part3 extends Partie{
+public class lvl1Vide extends Partie{
 
 	private char[][] design = {
 			{'s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'},
@@ -36,13 +35,13 @@ public class lvl1part3 extends Partie{
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
 			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
-			{'s', '0', '0', '0', 'j', '0', '0', '0', '0', '0', '0', '0', 'e', 'j', 's'},
-			{'s', 'p', 'p', 'p', 's', 'p', 'p', 'p', 's', 'p', 'p', 'p', 's', 's', 's'}};
+			{'s', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 's'},
+			{'s', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's', 's'}};
 	private int Difficulte = 1;
 	private String Gauche = "hbm";
 	private String Droite = "m";
 
-	public lvl1part3(int i, int j, Jeu jeu, PlayScreen screen, World monde, int nbPartie){
+	public lvl1Vide(int i, int j, Jeu jeu, PlayScreen screen, World monde, int nbPartie){
 		nbEnnemi = 0;
 		nbPic = 0;
 		nbSol = 0;
