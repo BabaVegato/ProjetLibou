@@ -106,8 +106,8 @@ public class Niveau1 {
 		if(iDDecorsGenre.contains("Sol")){
 			System.out.println("Destrudec");
 			sol = getParties().get(Integer.parseInt(iDNbPartieDecors)).getSols().get(Integer.parseInt(iDNbDecors));
-			sol.getBody().destroyFixture(sol.getBody().getFixtureList().get(0));
-			sol.setADisparu(true);
+			sol.setaDetruire(true);
+			//sol.setADisparu(true);
 		}
 		if(iDDecorsGenre.contains("Pic")){
 			pic = getParties().get(Integer.parseInt(iDNbPartieDecors)).getPics().get(Integer.parseInt(iDNbDecors));

@@ -1,6 +1,8 @@
 package statiques;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -24,11 +26,16 @@ public abstract class Decors {
 	protected int PosX, PosY;
 	protected boolean aDisparu = false;
 	
+	protected TextureRegion[][] TextReg; 
+	protected TextureRegion[] trDisp;
+	protected Texture Disp;
+	
 	public Decors(PlayScreen screen, World monde, int PosX, int PosY){
 		this.monde = monde;
 		this.screen = screen;
 		this.PosX = PosX;
 		this.PosY = PosY;
+		
 	}
 
 	public Body getBody() {

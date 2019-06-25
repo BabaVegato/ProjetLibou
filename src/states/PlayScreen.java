@@ -374,7 +374,6 @@ public class PlayScreen implements Screen{
 		}
 	}
 	
-	
 	public void EnnemiMov(){
 		for(int i=0; i<niveau1.getParties().size(); i++){
 			for(int j=0; j<niveau1.getParties().get(i).getEnnemis().size(); j++){
