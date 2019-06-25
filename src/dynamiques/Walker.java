@@ -10,39 +10,36 @@ import core.Jeu;
 import handlers.Animations;
 import states.PlayScreen;
 
-public class Gunner extends Ennemi{
-	
-	private Texture sentinel = jeu.assets.get("Assets/tourelleTab.png");
-	private TextureRegion[] trSentinel = new TextureRegion[15];
+public class Walker extends Ennemi {
+
+	private Texture walk = jeu.assets.get("Assets/spinnerTab.png");
+	private TextureRegion[] trWalk = new TextureRegion[3];
 	
 	private float time = 0;
-	private boolean doitTirer = false;
 	
-	public Gunner(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom) {
+	public Walker(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom) {
 		super(jeu, screen, monde, PosX, PosY, nom);
 		
 		Vie = 3;
-		VitX = 0;
+		VitX = 5;
 		VitY = 0;
 		
 		setAnimation();
 	}
 
 	public void setAnimation() {
-			tr = TextureRegion.split(sentinel, 17, 20);
-			for(int i=0; i<15; i++){
-				trSentinel[i] = tr[0][i];
+			tr = TextureRegion.split(walk, 20, 20);
+			for(int i=0; i<3; i++){
+				trWalk[i] = tr[0][i];
 			}
-		animation = new Animations(trSentinel, true, 15);
+		animation = new Animations(trWalk, false, 15);
 	}
 
 	public void render(SpriteBatch sb) {
 		time++;
+	
 		sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX, getBody().getPosition().y*PPM-TailleY, TailleX*2, TailleY*2);
-		
-		if(doitTirer){
-			animation.update(1);
-		}
+		animation.update(1);
 		
 		if(animation.isFini()){
 			setAnimation();
@@ -59,14 +56,14 @@ public class Gunner extends Ennemi{
 			aDisparu = true;
 	}
 	public void mov(boolean VersLaDroite){
-	}
-
-	public boolean isDoitTirer() {
-		return doitTirer;
-	}
-
-	public void setDoitTirer(boolean doitTirer) {
-		this.doitTirer = doitTirer;
+		//float x = getBody().getLinearVelocity().x;
+		float y = getBody().getLinearVelocity().y;
+		if(VersLaDroite){
+			body.setLinearVelocity(new Vector2(VitX, y));
+		}
+		if(!VersLaDroite){
+			body.setLinearVelocity(new Vector2(-VitX, y));
+		}
 	}
 
 }

@@ -65,7 +65,6 @@ public class Sol extends Decors{
 			}
 			sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX - 10, getBody().getPosition().y*PPM-TailleY - 10, TailleX*3, TailleY*3);
 			animation.update(2f);
-			System.out.println("update");
 			if(animation.isFini()){
 				body.destroyFixture(body.getFixtureList().get(0));
 				aDisparu = true;

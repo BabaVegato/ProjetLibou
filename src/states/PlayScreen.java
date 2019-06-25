@@ -233,7 +233,6 @@ public class PlayScreen implements Screen{
 		processDegats();
 		processPicsEtProj();
 		EnnemiMov();
-		//System.out.println(joueur.getState());
    }
 
 	private void processChangeTir() {
@@ -247,7 +246,6 @@ public class PlayScreen implements Screen{
 			else IndexModeTir = 0;
 			joueur.setModeTir(TirsDispos.get(IndexModeTir));
 			
-			System.out.println(modeTir);
 		}
 		
 	}
@@ -291,6 +289,11 @@ public class PlayScreen implements Screen{
 			}
 			
 			contList.setTirGunMur(false);
+		}
+		if(contList.isGunEnnemi()){
+			IDTir = contList.getIDTir().split(":");
+			IDNbTir = IDTir[1];
+			getProjectiles().get(Integer.parseInt(IDNbTir)).suppr();
 		}
 		
 	}
@@ -449,10 +452,6 @@ public class PlayScreen implements Screen{
 	
 	public void processAtk(){
 		if(Gdx.input.isKeyJustPressed(KEY_SWORD)){
-			Rand = randInt(1, 3);
-			if (Rand==1) SndSword1.play();
-			if (Rand==2) SndSword2.play();
-			if (Rand==3) SndSword3.play();
 			if(joueur.getState() != 's'){
 				joueur.setState('s');
 				joueur.setAnimation();
@@ -535,28 +534,31 @@ public class PlayScreen implements Screen{
 	public Joueur getJoueur(){
 		return joueur;
 	}
-
 	public Sound getSndGun1() {
 		return SndGun1;
 	}
-
 	public Sound getSndGun2() {
 		return SndGun2;
 	}
-
 	public Sound getSndGun3() {
 		return SndGun3;
 	}
-
 	public ArrayList<Projectile> getProjectiles() {
 		return projectiles;
 	}
-
 	public int getNbTir() {
 		return nbTir;
 	}
-
 	public void setNbTir(int nbTir) {
 		this.nbTir = nbTir;
+	}
+	public Sound getSndSword1() {
+		return SndSword1;
+	}
+	public Sound getSndSword2() {
+		return SndSword2;
+	}
+	public Sound getSndSword3() {
+		return SndSword3;
 	}
 }

@@ -35,6 +35,7 @@ public class Joueur extends Personnage{
 	private float time = 10000;
 	private int Rand;
 	private boolean aTire = false;
+	private boolean sonEpee = true;
 	
 	public Joueur(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY){
 		super(screen, monde, PosX, PosY, true, "Joueur");
@@ -163,6 +164,14 @@ public class Joueur extends Personnage{
 			if(!isDroite()){
 				sb.draw(animation.getFrame(), getBody().getPosition().x*PPM-TailleX - 16, getBody().getPosition().y*PPM-TailleY - 2, TailleX*4 - 2, TailleY*2 + 4);
 			}
+			if(animation.getCurrentFrame() == 2 && sonEpee){
+				sonEpee = false;
+				Rand = screen.randInt(1, 3);
+				if (Rand==1) screen.getSndSword1().play();
+				if (Rand==2) screen.getSndSword2().play();
+				if (Rand==3) screen.getSndSword3().play();
+			}
+			if(animation.getCurrentFrame() == 3) sonEpee = true;
 		}
 		if(state == 'g'){
 			if(isDroite()){

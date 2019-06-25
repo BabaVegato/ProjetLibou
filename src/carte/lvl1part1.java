@@ -9,6 +9,7 @@ import core.Jeu;
 import dynamiques.Ennemi;
 import dynamiques.Gunner;
 import dynamiques.Jumper;
+import dynamiques.Walker;
 import states.PlayScreen;
 import statiques.BonusVie;
 import statiques.Decors;
@@ -80,6 +81,10 @@ public class lvl1part1 extends Partie{
 				}
 				if(design[j][i] == 'j'){
 					getEnnemis().add(new Jumper(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Jumper"));
+					nbEnnemi++;
+				}
+				if(design[j][i] == 'w'){
+					getEnnemis().add(new Walker(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Walker"));
 					nbEnnemi++;
 				}
 			}
