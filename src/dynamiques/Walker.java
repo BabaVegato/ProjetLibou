@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-
 import core.Jeu;
 import handlers.Animations;
 import states.PlayScreen;
@@ -17,11 +16,11 @@ public class Walker extends Ennemi {
 	
 	private float time = 0;
 	
-	public Walker(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom) {
-		super(jeu, screen, monde, PosX, PosY, nom);
+	public Walker(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, int TailleX, int TailleY, String nom) {
+		super(jeu, screen, monde, PosX, PosY, TailleX, TailleY, nom);
 		
 		Vie = 3;
-		VitX = 5;
+		VitX = 25;
 		VitY = 0;
 		
 		setAnimation();
@@ -65,5 +64,4 @@ public class Walker extends Ennemi {
 			body.setLinearVelocity(new Vector2(-VitX, y));
 		}
 	}
-
 }

@@ -17,8 +17,8 @@ public class Jumper extends Ennemi{
 	
 	private float time = 0;
 
-	public Jumper(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom) {
-		super(jeu, screen, monde, PosX, PosY, nom);
+	public Jumper(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, int TailleX, int TailleY, String nom) {
+		super(jeu, screen, monde, PosX, PosY, TailleX, TailleY, nom);
 		
 		Vie = 3;
 		VitX = 100000;

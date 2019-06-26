@@ -37,8 +37,8 @@ public class Joueur extends Personnage{
 	private boolean aTire = false;
 	private boolean sonEpee = true;
 	
-	public Joueur(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY){
-		super(screen, monde, PosX, PosY, true, "Joueur");
+	public Joueur(Jeu jeu, PlayScreen screen, World monde, int TailleX, int TailleY, int PosX, int PosY){
+		super(screen, monde, PosX, PosY, TailleX, TailleY, true, "Joueur");
 		
 		
 		this.jeu = jeu;

@@ -76,15 +76,15 @@ public class lvl1part1 extends Partie{
 				posy = jeu.V_height + Y - j*screen.getTailleBloc()*2;
 				
 				if(design[j][i] == 'g'){
-					getEnnemis().add(new Gunner(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Gunner"));
+					getEnnemis().add(new Gunner(jeu, screen, monde, posx, posy, 10, 20, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Gunner"));
 					nbEnnemi++;
 				}
 				if(design[j][i] == 'j'){
-					getEnnemis().add(new Jumper(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Jumper"));
+					getEnnemis().add(new Jumper(jeu, screen, monde, posx, posy, 10, 20, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Jumper"));
 					nbEnnemi++;
 				}
 				if(design[j][i] == 'w'){
-					getEnnemis().add(new Walker(jeu, screen, monde, posx, posy, "Ennemi:" + nbEnnemi + ":" + nbPartie + ":Walker"));
+					getEnnemis().add(new Walker(jeu, screen, monde, posx, posy, 20, 20,"Ennemi:" + nbEnnemi + ":" + nbPartie + ":Walker"));
 					nbEnnemi++;
 				}
 			}

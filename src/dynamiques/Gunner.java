@@ -3,7 +3,6 @@ package dynamiques;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import core.Jeu;
@@ -18,8 +17,8 @@ public class Gunner extends Ennemi{
 	private float time = 0;
 	private boolean doitTirer = false;
 	
-	public Gunner(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom) {
-		super(jeu, screen, monde, PosX, PosY, nom);
+	public Gunner(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, int TailleX, int TailleY,String nom) {
+		super(jeu, screen, monde, PosX, PosY, TailleX, TailleY, nom);
 		
 		Vie = 3;
 		VitX = 0;

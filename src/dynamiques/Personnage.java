@@ -29,12 +29,14 @@ public abstract class Personnage{
 	protected TextureRegion[][] tr;
 	protected World monde;
 	
-	public Personnage(PlayScreen screen, World monde, int PosX, int PosY, boolean Gentil, String nom){
+	public Personnage(PlayScreen screen, World monde, int PosX, int PosY, int TailleX, int TailleY, boolean Gentil, String nom){
 		
 		
 		this.screen = screen;
 		this.PPM = screen.getPPM();
 		this.monde = monde;
+		this.TailleX = TailleX;
+		this.TailleY = TailleY;
 		
 		bdef = new BodyDef();
 		bdef.position.set(PosX/PPM, PosY/PPM);

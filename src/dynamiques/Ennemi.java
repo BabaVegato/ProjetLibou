@@ -9,35 +9,18 @@ import states.PlayScreen;
 public abstract class Ennemi extends Personnage{
 	
 	protected char state = 'i';
-	/*private TextureRegion[] trIdle;
-	private TextureRegion[] trWalk;
-	private TextureRegion[] trSword;
-	private TextureRegion[] trGun;
-	private Texture idle;
-	private Texture walk;
-	private Texture sword;
-	private Texture gun;*/
 	protected PlayScreen screen;
 	protected int Vie;
 	protected float VitX;
 	protected float VitY;
 	protected boolean aDisparu = false;
 	
-	public Ennemi(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, String nom){
-		super(screen, monde, PosX, PosY, false, nom);
+	public Ennemi(Jeu jeu, PlayScreen screen, World monde, int PosX, int PosY, int TailleX, int TailleY, String nom){
+		super(screen, monde, PosX, PosY, TailleX, TailleY, false, nom);
 		
 		this.jeu = jeu;
 		this.screen = screen;
 		setDroite(true);
-		
-		/*idle = jeu.assets.get("Assets/idleTab.png");
-		walk = jeu.assets.get("Assets/walkTab.png");
-		sword = jeu.assets.get("Assets/swordTab.png");
-		trIdle = new TextureRegion[4];
-		trWalk = new TextureRegion[6];
-		trSword = new TextureRegion[8];*/
-		
-		//setAnimation();
 	}
 	
 	public abstract void setAnimation();

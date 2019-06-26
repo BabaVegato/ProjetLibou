@@ -139,7 +139,7 @@ public class PlayScreen implements Screen{
 		niveau1 = new Niveau1(game, Monde, this);
 		
 		//Personnages
-		joueur = new Joueur(game, this, Monde, game.V_width/2, game.V_height/2);
+		joueur = new Joueur(game, this, Monde, 10, 17, game.V_width/2, game.V_height/2);
 		
 		//Objets
 		//objets = new ArrayList<Objet>();
